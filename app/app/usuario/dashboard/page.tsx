@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,13 +9,17 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Clock, CheckCircle, AlertCircle, Plus, Star, Settings } from "lucide-react";
-import { mockTareas, mockUsuarios } from "@/lib/mock-data";
-import type { Tarea } from "@/types";
+import { Clock, CheckCircle, AlertCircle, Plus, Star, Settings, Loader2 } from "lucide-react";
+import { useAuth } from "@/lib/auth-context";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase-client";
 
 export default function UsuarioDashboardPage() {
-  const usuario = mockUsuarios[0];
-  const [tareas, setTareas] = useState<Tarea[]>(mockTareas.filter(t => t.usuarioId === usuario.id));
+  const { user, loading: authLoading } = useAuth();
+  const { toast } = useToast();
+  const [userData, setUserData] = useState<any>(null);
+  const [tareas, setTareas] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [showNewTask, setShowNewTask] = useState(false);
   const [newTask, setNewTask] = useState({
     categoria: "",
@@ -25,36 +29,160 @@ export default function UsuarioDashboardPage() {
     horario: "",
   });
 
-  const handleCreateTask = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (user) {
+      loadUserData();
+      loadTasks();
+    }
+  }, [user]);
+
+  const loadUserData = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("id", user?.id)
+        .maybeSingle();
+
+      if (error) throw error;
+      setUserData(data);
+    } catch (error: any) {
+      console.error("Error loading user data:", error);
+    }
+  };
+
+  const loadTasks = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("services")
+        .select("*")
+        .eq("user_id", user?.id)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      setTareas(data || []);
+    } catch (error: any) {
+      console.error("Error loading tasks:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCreateTask = async (e: React.FormEvent) => {
     e.preventDefault();
-    const nuevaTarea: Tarea = {
-      id: String(Date.now()),
-      usuarioId: usuario.id,
-      usuario,
-      categoria: newTask.categoria as any,
-      titulo: newTask.titulo,
-      descripcion: newTask.descripcion,
-      direccion: newTask.direccion,
-      zona: "Eixample",
-      horarioPreferido: newTask.horario,
-      estado: "pendiente",
-      createdAt: new Date(),
-    };
-    setTareas([nuevaTarea, ...tareas]);
-    setShowNewTask(false);
-    setNewTask({ categoria: "", titulo: "", descripcion: "", direccion: "", horario: "" });
+
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (!user) {
+        toast({
+          title: "Error",
+          description: "Debes iniciar sesión",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("services")
+        .insert({
+          user_id: user.id,
+          title: newTask.titulo,
+          description: newTask.descripcion,
+          category: newTask.categoria,
+          location: newTask.direccion,
+          city: "Barcelona",
+          scheduled_date: newTask.horario,
+          status: "open",
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      toast({
+        title: "Solicitud creada",
+        description: "Tu solicitud ha sido publicada",
+      });
+
+      setShowNewTask(false);
+      setNewTask({ categoria: "", titulo: "", descripcion: "", direccion: "", horario: "" });
+
+      loadTasks();
+    } catch (error: any) {
+      toast({
+        title: "Error al crear solicitud",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleCancelTask = async (taskId: string) => {
+    try {
+      const { error } = await supabase
+        .from("services")
+        .update({ status: "cancelled" })
+        .eq("id", taskId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Tarea cancelada",
+        description: "La solicitud ha sido cancelada",
+      });
+
+      loadTasks();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
   };
 
   const getEstadoBadge = (estado: string) => {
     const styles = {
-      pendiente: "bg-yellow-100 text-yellow-800",
-      aceptada: "bg-blue-100 text-blue-800",
-      en_curso: "bg-purple-100 text-purple-800",
-      completada: "bg-green-100 text-green-800",
-      cancelada: "bg-red-100 text-red-800",
+      open: "bg-yellow-100 text-yellow-800",
+      assigned: "bg-blue-100 text-blue-800",
+      in_progress: "bg-purple-100 text-purple-800",
+      completed: "bg-green-100 text-green-800",
+      cancelled: "bg-red-100 text-red-800",
     };
-    return <Badge className={styles[estado as keyof typeof styles]}>{estado.replace("_", " ")}</Badge>;
+    const labels = {
+      open: "Abierta",
+      assigned: "Asignada",
+      in_progress: "En curso",
+      completed: "Completada",
+      cancelled: "Cancelada",
+    };
+    return <Badge className={styles[estado as keyof typeof styles]}>{labels[estado as keyof typeof labels]}</Badge>;
   };
+
+  if (authLoading || loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Card>
+          <CardContent className="pt-6">
+            <p className="mb-4">Debes iniciar sesión</p>
+            <Button asChild>
+              <Link href="/app/login">Ir al login</Link>
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -80,7 +208,7 @@ export default function UsuarioDashboardPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Hola, {usuario.nombre} 👋</h1>
+          <h1 className="text-3xl font-bold mb-2">Hola, {userData?.full_name || "Usuario"}</h1>
           <p className="text-muted-foreground">Bienvenido a tu panel de control</p>
         </div>
 
@@ -90,16 +218,16 @@ export default function UsuarioDashboardPage() {
               <CardTitle className="text-sm text-muted-foreground">Tareas completadas</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{usuario.tareasCompletadas}</div>
+              <div className="text-3xl font-bold">{tareas.filter(t => t.status === "completed").length}</div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm text-muted-foreground">Horas ahorradas</CardTitle>
+              <CardTitle className="text-sm text-muted-foreground">Tareas abiertas</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{usuario.horasAhorradas}h</div>
+              <div className="text-3xl font-bold">{tareas.filter(t => t.status === "open").length}</div>
             </CardContent>
           </Card>
 
@@ -109,7 +237,7 @@ export default function UsuarioDashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">
-                {tareas.filter(t => t.estado !== "completada" && t.estado !== "cancelada").length}
+                {tareas.filter(t => t.status !== "completed" && t.status !== "cancelled").length}
               </div>
             </CardContent>
           </Card>
@@ -201,72 +329,48 @@ export default function UsuarioDashboardPage() {
 
         <div>
           <h2 className="text-2xl font-bold mb-4">Mis solicitudes</h2>
-          <div className="space-y-4">
-            {tareas.map((tarea) => (
-              <Card key={tarea.id}>
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <CardTitle>{tarea.titulo}</CardTitle>
-                      <p className="text-sm text-muted-foreground mt-1">{tarea.descripcion}</p>
-                    </div>
-                    {getEstadoBadge(tarea.estado)}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid md:grid-cols-2 gap-4 mb-4">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Clock className="w-4 h-4" />
-                      {tarea.horarioPreferido}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      📍 {tarea.direccion}
-                    </div>
-                  </div>
-
-                  {tarea.proveedor && (
-                    <div className="bg-secondary p-3 rounded-lg mb-4">
-                      <p className="text-sm font-semibold">Proveedor asignado:</p>
-                      <p className="text-sm">{tarea.proveedor.nombre} - Nivel {tarea.proveedor.nivel}</p>
-                      <p className="text-sm flex items-center gap-1">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        {tarea.proveedor.puntuacion}
-                      </p>
-                    </div>
-                  )}
-
-                  {tarea.estado === "completada" && tarea.valoracion && (
-                    <div className="bg-green-50 p-3 rounded-lg">
-                      <p className="text-sm font-semibold mb-1">Tu valoración:</p>
-                      <div className="flex gap-1">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-4 h-4 ${
-                              i < tarea.valoracion! ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-                            }`}
-                          />
-                        ))}
+          {tareas.length === 0 ? (
+            <Card>
+              <CardContent className="pt-6 text-center text-muted-foreground">
+                <p>No tienes solicitudes aún</p>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="space-y-4">
+              {tareas.map((tarea) => (
+                <Card key={tarea.id}>
+                  <CardHeader>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <CardTitle>{tarea.title}</CardTitle>
+                        <p className="text-sm text-muted-foreground mt-1">{tarea.description}</p>
                       </div>
-                      {tarea.comentario && <p className="text-sm mt-2">{tarea.comentario}</p>}
+                      {getEstadoBadge(tarea.status)}
                     </div>
-                  )}
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid md:grid-cols-2 gap-4 mb-4">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Clock className="w-4 h-4" />
+                        {tarea.scheduled_date || "Sin horario definido"}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        📍 {tarea.location}
+                      </div>
+                    </div>
 
-                  <div className="flex gap-2 mt-4">
-                    {tarea.estado === "en_curso" && (
-                      <Button size="sm">
-                        <CheckCircle className="w-4 h-4 mr-2" />
-                        Marcar como completada
-                      </Button>
-                    )}
-                    {(tarea.estado === "pendiente" || tarea.estado === "aceptada") && (
-                      <Button size="sm" variant="outline">Ver detalles</Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                    <div className="flex gap-2 mt-4">
+                      {tarea.status === "open" && (
+                        <Button size="sm" variant="outline" onClick={() => handleCancelTask(tarea.id)}>
+                          Cancelar solicitud
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </main>

@@ -7,10 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Shield } from "lucide-react";
+import { Shield, Loader2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase-client";
 
 export default function RegistroUsuarioPage() {
   const router = useRouter();
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
@@ -18,9 +22,52 @@ export default function RegistroUsuarioPage() {
     password: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/app/usuario/dashboard");
+    setLoading(true);
+
+    try {
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            full_name: formData.nombre,
+          },
+        },
+      });
+
+      if (authError) throw authError;
+
+      if (authData.user) {
+        const { error: userError } = await supabase
+          .from("users")
+          .insert({
+            id: authData.user.id,
+            email: formData.email,
+            full_name: formData.nombre,
+            phone: formData.telefono,
+            user_type: "user",
+          });
+
+        if (userError) throw userError;
+
+        toast({
+          title: "Cuenta creada exitosamente",
+          description: "Bienvenido a Resvoa",
+        });
+
+        router.push("/app/usuario/dashboard");
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error al crear cuenta",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -100,8 +147,15 @@ export default function RegistroUsuarioPage() {
                 </label>
               </div>
 
-              <Button type="submit" className="w-full" size="lg">
-                Crear cuenta
+              <Button type="submit" className="w-full" size="lg" disabled={loading}>
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creando cuenta...
+                  </>
+                ) : (
+                  "Crear cuenta"
+                )}
               </Button>
             </form>
 

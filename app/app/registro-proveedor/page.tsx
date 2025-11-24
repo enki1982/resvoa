@@ -8,11 +8,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Shield } from "lucide-react";
+import { Shield, Loader2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase-client";
 
 export default function RegistroProveedorPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
@@ -23,12 +27,66 @@ export default function RegistroProveedorPage() {
     password: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (step < 3) {
       setStep(step + 1);
     } else {
-      router.push("/app/proveedor/dashboard");
+      setLoading(true);
+      try {
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password,
+          options: {
+            data: {
+              full_name: formData.nombre,
+            },
+          },
+        });
+
+        if (authError) throw authError;
+
+        if (authData.user) {
+          const { error: userError } = await supabase
+            .from("users")
+            .insert({
+              id: authData.user.id,
+              email: formData.email,
+              full_name: formData.nombre,
+              phone: formData.telefono,
+              user_type: "provider",
+            });
+
+          if (userError) throw userError;
+
+          const { error: providerError } = await supabase
+            .from("provider_profiles")
+            .insert({
+              user_id: authData.user.id,
+              city: formData.zona,
+              verification_status: "pending",
+              dni_verified: false,
+              phone_verified: false,
+            });
+
+          if (providerError) throw providerError;
+
+          toast({
+            title: "Cuenta creada exitosamente",
+            description: "Bienvenido a Resvoa como proveedor",
+          });
+
+          router.push("/app/proveedor/dashboard");
+        }
+      } catch (error: any) {
+        toast({
+          title: "Error al crear cuenta",
+          description: error.message,
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -113,8 +171,15 @@ export default function RegistroProveedorPage() {
                 </>
               )}
 
-              <Button type="submit" className="w-full" size="lg">
-                {step < 3 ? "Continuar" : "Finalizar registro"}
+              <Button type="submit" className="w-full" size="lg" disabled={loading}>
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creando cuenta...
+                  </>
+                ) : (
+                  step < 3 ? "Continuar" : "Finalizar registro"
+                )}
               </Button>
             </form>
           </CardContent>

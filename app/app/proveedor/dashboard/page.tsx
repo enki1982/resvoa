@@ -8,26 +8,92 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Star, TrendingUp, Award, CreditCard, AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
-import { mockProveedores, mockTareas } from "@/lib/mock-data";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase-client";
 
 export default function ProveedorDashboardPage() {
-  const proveedor = mockProveedores[0];
-  const { session } = useAuth();
+  const { user, session, loading: authLoading } = useAuth();
   const { toast } = useToast();
-  const [disponible, setDisponible] = useState(proveedor.disponible);
+  const [providerData, setProviderData] = useState<any>(null);
+  const [providerProfile, setProviderProfile] = useState<any>(null);
+  const [disponible, setDisponible] = useState(true);
   const [stripeStatus, setStripeStatus] = useState<any>(null);
   const [loadingStripe, setLoadingStripe] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [creatingLink, setCreatingLink] = useState(false);
-  const solicitudes = mockTareas.filter(t => t.estado === "pendiente").slice(0, 3);
-  const misServicios = mockTareas.filter(t => t.proveedorId === proveedor.id);
+  const [solicitudes, setSolicitudes] = useState<any[]>([]);
+  const [misServicios, setMisServicios] = useState<any[]>([]);
 
   useEffect(() => {
+    if (user) {
+      loadProviderData();
+      loadSolicitudes();
+      loadMisServicios();
+    }
     if (session) {
       fetchStripeStatus();
     }
-  }, [session]);
+  }, [user, session]);
+
+  const loadProviderData = async () => {
+    try {
+      setLoading(true);
+      const { data: userData, error: userError } = await supabase
+        .from("users")
+        .select("*")
+        .eq("id", user?.id)
+        .maybeSingle();
+
+      if (userError) throw userError;
+      setProviderData(userData);
+
+      const { data: profileData, error: profileError } = await supabase
+        .from("provider_profiles")
+        .select("*")
+        .eq("user_id", user?.id)
+        .maybeSingle();
+
+      if (profileError) throw profileError;
+      setProviderProfile(profileData);
+      setDisponible(profileData?.active || false);
+    } catch (error: any) {
+      console.error("Error loading provider data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadSolicitudes = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("services")
+        .select("*")
+        .eq("status", "open")
+        .order("created_at", { ascending: false })
+        .limit(5);
+
+      if (error) throw error;
+      setSolicitudes(data || []);
+    } catch (error: any) {
+      console.error("Error loading solicitudes:", error);
+    }
+  };
+
+  const loadMisServicios = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("service_proposals")
+        .select("*, services(*)")
+        .eq("provider_id", user?.id)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      setMisServicios(data || []);
+    } catch (error: any) {
+      console.error("Error loading my services:", error);
+    }
+  };
 
   const fetchStripeStatus = async () => {
     try {
@@ -45,6 +111,59 @@ export default function ProveedorDashboardPage() {
       console.error('Error fetching Stripe status:', error);
     } finally {
       setLoadingStripe(false);
+    }
+  };
+
+  const handleToggleDisponibilidad = async (value: boolean) => {
+    try {
+      const { error } = await supabase
+        .from("provider_profiles")
+        .update({ active: value })
+        .eq("user_id", user?.id);
+
+      if (error) throw error;
+
+      setDisponible(value);
+      toast({
+        title: value ? "Ahora estás disponible" : "Ahora no estás disponible",
+        description: value ? "Recibirás solicitudes cercanas" : "No recibirás nuevas solicitudes",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleAceptarTarea = async (serviceId: string) => {
+    try {
+      const { error } = await supabase
+        .from("service_proposals")
+        .insert({
+          service_id: serviceId,
+          provider_id: user?.id,
+          price: 0,
+          message: "Estoy interesado en realizar este servicio",
+          status: "pending",
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Propuesta enviada",
+        description: "El usuario recibirá tu propuesta",
+      });
+
+      loadSolicitudes();
+      loadMisServicios();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     }
   };
 
@@ -87,6 +206,29 @@ export default function ProveedorDashboardPage() {
     oro: "bg-yellow-100 text-yellow-800",
   };
 
+  if (authLoading || loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Card>
+          <CardContent className="pt-6">
+            <p className="mb-4">Debes iniciar sesión</p>
+            <Button asChild>
+              <Link href="/app/login">Ir al login</Link>
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="bg-white border-b">
@@ -104,20 +246,20 @@ export default function ProveedorDashboardPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8 flex justify-between items-start">
           <div>
-            <h1 className="text-3xl font-bold mb-2">{proveedor.nombre}</h1>
+            <h1 className="text-3xl font-bold mb-2">{providerData?.full_name || "Proveedor"}</h1>
             <div className="flex items-center gap-3">
-              <Badge className={nivelBadge[proveedor.nivel]}>
-                Nivel {proveedor.nivel.charAt(0).toUpperCase() + proveedor.nivel.slice(1)}
+              <Badge className={nivelBadge[providerProfile?.level as keyof typeof nivelBadge] || nivelBadge.aspirante}>
+                Nivel {providerProfile?.level || "aspirante"}
               </Badge>
               <div className="flex items-center gap-1">
                 <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <span className="font-semibold">{proveedor.puntuacion}</span>
+                <span className="font-semibold">{providerProfile?.rating?.toFixed(1) || "0.0"}</span>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <span className="text-sm font-medium">Estado:</span>
-            <Switch checked={disponible} onCheckedChange={setDisponible} />
+            <Switch checked={disponible} onCheckedChange={handleToggleDisponibilidad} />
             <span className={`text-sm font-semibold ${disponible ? "text-green-600" : "text-gray-500"}`}>
               {disponible ? "Disponible" : "No disponible"}
             </span>
@@ -168,34 +310,34 @@ export default function ProveedorDashboardPage() {
               <CardTitle className="text-sm text-muted-foreground">Servicios completados</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{proveedor.serviciosCompletados}</div>
+              <div className="text-3xl font-bold">{providerProfile?.total_services || 0}</div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm text-muted-foreground">Tasa de aceptación</CardTitle>
+              <CardTitle className="text-sm text-muted-foreground">Propuestas enviadas</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{proveedor.tasaAceptacion}%</div>
+              <div className="text-3xl font-bold">{misServicios.length}</div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm text-muted-foreground">Ingresos este mes</CardTitle>
+              <CardTitle className="text-sm text-muted-foreground">Puntuación</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{proveedor.ingresos}€</div>
+              <div className="text-3xl font-bold">{providerProfile?.rating?.toFixed(1) || "0.0"}</div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm text-muted-foreground">Tiempo respuesta</CardTitle>
+              <CardTitle className="text-sm text-muted-foreground">Estado</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{proveedor.tiempoRespuesta}m</div>
+              <div className="text-3xl font-bold">{providerProfile?.verification_status === "verified" ? "✓" : "⏳"}</div>
             </CardContent>
           </Card>
         </div>
@@ -206,28 +348,33 @@ export default function ProveedorDashboardPage() {
               <CardTitle>Solicitudes cercanas</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {solicitudes.map((solicitud) => (
-                  <div key={solicitud.id} className="border rounded-lg p-4 hover:bg-gray-50">
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <h4 className="font-semibold">{solicitud.titulo}</h4>
-                        <p className="text-sm text-muted-foreground">{solicitud.descripcion}</p>
+              {solicitudes.length === 0 ? (
+                <p className="text-center text-muted-foreground py-4">No hay solicitudes disponibles</p>
+              ) : (
+                <div className="space-y-4">
+                  {solicitudes.map((solicitud) => (
+                    <div key={solicitud.id} className="border rounded-lg p-4 hover:bg-gray-50">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h4 className="font-semibold">{solicitud.title}</h4>
+                          <p className="text-sm text-muted-foreground">{solicitud.description}</p>
+                        </div>
+                        <Badge>{solicitud.category}</Badge>
                       </div>
-                      <Badge>{solicitud.categoria.replace("_", " ")}</Badge>
+                      <div className="flex justify-between items-center mt-4">
+                        <div className="text-sm text-muted-foreground">
+                          📍 {solicitud.city} • {solicitud.scheduled_date || "Sin horario"}
+                        </div>
+                        <div className="flex gap-2">
+                          <Button size="sm" onClick={() => handleAceptarTarea(solicitud.id)}>
+                            Enviar propuesta
+                          </Button>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex justify-between items-center mt-4">
-                      <div className="text-sm text-muted-foreground">
-                        📍 {solicitud.zona} • {solicitud.horarioPreferido}
-                      </div>
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline">Rechazar</Button>
-                        <Button size="sm">Aceptar</Button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         )}
@@ -235,22 +382,26 @@ export default function ProveedorDashboardPage() {
         <div className="grid lg:grid-cols-2 gap-8">
           <Card>
             <CardHeader>
-              <CardTitle>Mis servicios asignados</CardTitle>
+              <CardTitle>Mis propuestas</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                {misServicios.map((servicio) => (
-                  <div key={servicio.id} className="border rounded-lg p-3">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="font-semibold text-sm">{servicio.titulo}</p>
-                        <p className="text-xs text-muted-foreground">{servicio.usuario.nombre}</p>
+              {misServicios.length === 0 ? (
+                <p className="text-center text-muted-foreground py-4">No has enviado propuestas aún</p>
+              ) : (
+                <div className="space-y-3">
+                  {misServicios.map((servicio) => (
+                    <div key={servicio.id} className="border rounded-lg p-3">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <p className="font-semibold text-sm">{servicio.services?.title || "Sin título"}</p>
+                          <p className="text-xs text-muted-foreground">Estado: {servicio.status}</p>
+                        </div>
+                        <Badge className="text-xs">{servicio.status}</Badge>
                       </div>
-                      <Badge className="text-xs">{servicio.estado}</Badge>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
 
@@ -262,31 +413,33 @@ export default function ProveedorDashboardPage() {
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between text-sm mb-2">
-                    <span>Nivel actual: Oro</span>
-                    <span>{proveedor.serviciosCompletados} servicios</span>
+                    <span>Nivel actual: {providerProfile?.level || "aspirante"}</span>
+                    <span>{providerProfile?.total_services || 0} servicios</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-yellow-500 h-2 rounded-full" style={{ width: "90%" }}></div>
+                    <div
+                      className="bg-yellow-500 h-2 rounded-full"
+                      style={{ width: `${Math.min((providerProfile?.total_services || 0) / 90 * 100, 100)}%` }}
+                    ></div>
                   </div>
                 </div>
 
-                <div className="bg-yellow-50 p-4 rounded-lg">
+                <div className="bg-blue-50 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2 flex items-center gap-2">
-                    <Award className="w-5 h-5 text-yellow-600" />
-                    ¡Felicidades!
+                    <Award className="w-5 h-5 text-blue-600" />
+                    Tu progreso
                   </h4>
                   <p className="text-sm text-muted-foreground">
-                    Ya eres nivel Oro. Mantén tu excelente servicio para seguir con beneficios premium.
+                    Completa más servicios para subir de nivel y obtener más beneficios.
                   </p>
                 </div>
 
                 <div className="text-sm space-y-2">
                   <p className="font-semibold">Requisitos nivel Oro:</p>
                   <ul className="space-y-1 text-muted-foreground">
-                    <li>✓ ≥ 90 servicios (tienes {proveedor.serviciosCompletados})</li>
-                    <li>✓ Puntuación ≥ 4.8 (tienes {proveedor.puntuacion})</li>
-                    <li>✓ Cancelaciones &lt; 1% (tienes {proveedor.cancelaciones})</li>
-                    <li>✓ Sin disputas graves</li>
+                    <li>≥ 90 servicios (tienes {providerProfile?.total_services || 0})</li>
+                    <li>Puntuación ≥ 4.8 (tienes {providerProfile?.rating?.toFixed(1) || "0.0"})</li>
+                    <li>Sin disputas graves</li>
                   </ul>
                 </div>
               </div>
