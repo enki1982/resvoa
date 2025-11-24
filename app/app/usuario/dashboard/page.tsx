@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,10 +10,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Clock, CheckCircle, AlertCircle, Plus, Star, Settings, Loader2, Euro, ThumbsUp } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Clock, CheckCircle, AlertCircle, Plus, Star, Settings, Loader2, Euro, ThumbsUp, CalendarIcon, MapPin } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase-client";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import { cn } from "@/lib/utils";
+import { useLoadScript, Autocomplete } from "@react-google-maps/api";
 
 export default function UsuarioDashboardPage() {
   const { user, loading: authLoading } = useAuth();
@@ -29,9 +35,17 @@ export default function UsuarioDashboardPage() {
     titulo: "",
     descripcion: "",
     direccion: "",
-    horario: "",
+    fecha: undefined as Date | undefined,
+    hora: "",
     precioMin: "5",
     precioMax: "20",
+  });
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
+    libraries: ["places"] as any,
   });
 
   useEffect(() => {
@@ -110,6 +124,19 @@ export default function UsuarioDashboardPage() {
         return;
       }
 
+      if (!newTask.fecha || !newTask.hora) {
+        toast({
+          title: "Error",
+          description: "Debes seleccionar fecha y hora",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const [hours, minutes] = newTask.hora.split(":");
+      const scheduledDateTime = new Date(newTask.fecha);
+      scheduledDateTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
       const { data, error } = await supabase
         .from("services")
         .insert({
@@ -119,7 +146,7 @@ export default function UsuarioDashboardPage() {
           category: newTask.categoria,
           location: newTask.direccion,
           city: "Barcelona",
-          scheduled_date: newTask.horario,
+          scheduled_date: scheduledDateTime.toISOString(),
           price_min: parseFloat(newTask.precioMin),
           price_max: parseFloat(newTask.precioMax),
           status: "open",
@@ -135,7 +162,7 @@ export default function UsuarioDashboardPage() {
       });
 
       setShowNewTask(false);
-      setNewTask({ categoria: "", titulo: "", descripcion: "", direccion: "", horario: "", precioMin: "5", precioMax: "20" });
+      setNewTask({ categoria: "", titulo: "", descripcion: "", direccion: "", fecha: undefined, hora: "", precioMin: "5", precioMax: "20" });
 
       loadTasks();
       loadProposals();
@@ -380,23 +407,93 @@ export default function UsuarioDashboardPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Dirección aproximada</Label>
-                  <Input
-                    placeholder="Calle, número, zona"
-                    value={newTask.direccion}
-                    onChange={(e) => setNewTask({ ...newTask, direccion: e.target.value })}
-                    required
-                  />
+                  <Label>Dirección</Label>
+                  {isLoaded ? (
+                    <Autocomplete
+                      onLoad={(autocomplete) => {
+                        autocompleteRef.current = autocomplete;
+                      }}
+                      onPlaceChanged={() => {
+                        if (autocompleteRef.current) {
+                          const place = autocompleteRef.current.getPlace();
+                          if (place.formatted_address) {
+                            setNewTask({ ...newTask, direccion: place.formatted_address });
+                          }
+                        }
+                      }}
+                      options={{
+                        componentRestrictions: { country: "es" },
+                        types: ["address"],
+                      }}
+                    >
+                      <Input
+                        ref={inputRef}
+                        placeholder="Empieza a escribir tu dirección..."
+                        value={newTask.direccion}
+                        onChange={(e) => setNewTask({ ...newTask, direccion: e.target.value })}
+                        required
+                      />
+                    </Autocomplete>
+                  ) : (
+                    <Input
+                      placeholder="Cargando autocompletado..."
+                      disabled
+                    />
+                  )}
+                  <p className="text-xs text-muted-foreground flex items-center gap-1">
+                    <MapPin className="w-3 h-3" />
+                    El autocompletado te ayudará a encontrar tu dirección
+                  </p>
                 </div>
 
-                <div className="space-y-2">
-                  <Label>Horario preferido</Label>
-                  <Input
-                    placeholder="Ej: Mañana 10:00-13:00"
-                    value={newTask.horario}
-                    onChange={(e) => setNewTask({ ...newTask, horario: e.target.value })}
-                    required
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label>Fecha del servicio</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !newTask.fecha && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {newTask.fecha ? format(newTask.fecha, "PPP", { locale: es }) : "Selecciona fecha"}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={newTask.fecha}
+                          onSelect={(date) => setNewTask({ ...newTask, fecha: date })}
+                          disabled={(date) => date < new Date()}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Hora del servicio</Label>
+                    <Select value={newTask.hora} onValueChange={(v) => setNewTask({ ...newTask, hora: v })}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecciona hora" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Array.from({ length: 14 }, (_, i) => i + 8).map((hour) => (
+                          <>
+                            <SelectItem key={`${hour}:00`} value={`${hour.toString().padStart(2, "0")}:00`}>
+                              {hour.toString().padStart(2, "0")}:00
+                            </SelectItem>
+                            <SelectItem key={`${hour}:30`} value={`${hour.toString().padStart(2, "0")}:30`}>
+                              {hour.toString().padStart(2, "0")}:30
+                            </SelectItem>
+                          </>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
 
                 <div className="space-y-3">
