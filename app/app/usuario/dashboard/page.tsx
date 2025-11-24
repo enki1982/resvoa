@@ -9,7 +9,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Clock, CheckCircle, AlertCircle, Plus, Star, Settings, Loader2 } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Clock, CheckCircle, AlertCircle, Plus, Star, Settings, Loader2, Euro, ThumbsUp } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase-client";
@@ -19,7 +20,9 @@ export default function UsuarioDashboardPage() {
   const { toast } = useToast();
   const [userData, setUserData] = useState<any>(null);
   const [tareas, setTareas] = useState<any[]>([]);
+  const [propuestas, setPropuestas] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedTask, setSelectedTask] = useState<any>(null);
   const [showNewTask, setShowNewTask] = useState(false);
   const [newTask, setNewTask] = useState({
     categoria: "",
@@ -27,12 +30,15 @@ export default function UsuarioDashboardPage() {
     descripcion: "",
     direccion: "",
     horario: "",
+    precioMin: "5",
+    precioMax: "20",
   });
 
   useEffect(() => {
     if (user) {
       loadUserData();
       loadTasks();
+      loadProposals();
     }
   }, [user]);
 
@@ -69,6 +75,26 @@ export default function UsuarioDashboardPage() {
     }
   };
 
+  const loadProposals = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("service_proposals")
+        .select(`
+          *,
+          services!inner(*),
+          provider:users!service_proposals_provider_id_fkey(full_name, phone)
+        `)
+        .eq("services.user_id", user?.id)
+        .eq("status", "pending")
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      setPropuestas(data || []);
+    } catch (error: any) {
+      console.error("Error loading proposals:", error);
+    }
+  };
+
   const handleCreateTask = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -94,6 +120,8 @@ export default function UsuarioDashboardPage() {
           location: newTask.direccion,
           city: "Barcelona",
           scheduled_date: newTask.horario,
+          price_min: parseFloat(newTask.precioMin),
+          price_max: parseFloat(newTask.precioMax),
           status: "open",
         })
         .select()
@@ -107,9 +135,10 @@ export default function UsuarioDashboardPage() {
       });
 
       setShowNewTask(false);
-      setNewTask({ categoria: "", titulo: "", descripcion: "", direccion: "", horario: "" });
+      setNewTask({ categoria: "", titulo: "", descripcion: "", direccion: "", horario: "", precioMin: "5", precioMax: "20" });
 
       loadTasks();
+      loadProposals();
     } catch (error: any) {
       toast({
         title: "Error al crear solicitud",
@@ -134,6 +163,51 @@ export default function UsuarioDashboardPage() {
       });
 
       loadTasks();
+      loadProposals();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleCertifyCompleted = async (taskId: string) => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!session) {
+        toast({
+          title: "Error",
+          description: "Debes iniciar sesión",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const response = await fetch(`/api/tasks/${taskId}/cancel`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Trabajo certificado",
+          description: "El pago ha sido liberado al proveedor",
+        });
+        loadTasks();
+        loadProposals();
+      } else {
+        const error = await response.json();
+        toast({
+          title: "Error",
+          description: error.error,
+          variant: "destructive",
+        });
+      }
     } catch (error: any) {
       toast({
         title: "Error",
@@ -212,7 +286,7 @@ export default function UsuarioDashboardPage() {
           <p className="text-muted-foreground">Bienvenido a tu panel de control</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid md:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader>
               <CardTitle className="text-sm text-muted-foreground">Tareas completadas</CardTitle>
@@ -228,6 +302,15 @@ export default function UsuarioDashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">{tareas.filter(t => t.status === "open").length}</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-sm text-muted-foreground">Propuestas recibidas</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">{propuestas.length}</div>
             </CardContent>
           </Card>
 
@@ -316,6 +399,39 @@ export default function UsuarioDashboardPage() {
                   />
                 </div>
 
+                <div className="space-y-3">
+                  <Label>Presupuesto que estás dispuesto a pagar</Label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label className="text-sm text-muted-foreground">Precio mínimo</Label>
+                      <Select value={newTask.precioMin} onValueChange={(v) => setNewTask({ ...newTask, precioMin: v })}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {[5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100].map(p => (
+                            <SelectItem key={p} value={String(p)}>{p}€</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-sm text-muted-foreground">Precio máximo</Label>
+                      <Select value={newTask.precioMax} onValueChange={(v) => setNewTask({ ...newTask, precioMax: v })}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {[10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 120, 150, 200].map(p => (
+                            <SelectItem key={p} value={String(p)}>{p}€</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground">El proveedor podrá proponer un precio dentro de este rango</p>
+                </div>
+
                 <div className="flex gap-2">
                   <Button type="submit" className="flex-1">Publicar solicitud</Button>
                   <Button type="button" variant="outline" onClick={() => setShowNewTask(false)}>
@@ -323,6 +439,43 @@ export default function UsuarioDashboardPage() {
                   </Button>
                 </div>
               </form>
+            </CardContent>
+          </Card>
+        )
+}
+
+        {propuestas.length > 0 && (
+          <Card className="mb-8 border-2 border-green-200 bg-green-50/30">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Euro className="w-5 h-5 text-green-600" />
+                Propuestas recibidas
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {propuestas.map((propuesta) => (
+                  <div key={propuesta.id} className="bg-white border-2 rounded-lg p-4">
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1">
+                        <h4 className="font-semibold">{propuesta.services.title}</h4>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          Proveedor: {propuesta.provider?.full_name || "Anónimo"}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-green-700">{propuesta.price}€</div>
+                        <p className="text-xs text-muted-foreground">precio propuesto</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 mt-4">
+                      <Button size="sm" onClick={() => setSelectedTask(propuesta)}>
+                        Ver detalles y aceptar
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         )}
@@ -365,6 +518,12 @@ export default function UsuarioDashboardPage() {
                           Cancelar solicitud
                         </Button>
                       )}
+                      {tarea.status === "completed" && (
+                        <Button size="sm" onClick={() => handleCertifyCompleted(tarea.id)} className="bg-green-600 hover:bg-green-700">
+                          <ThumbsUp className="w-4 h-4 mr-2" />
+                          Certificar trabajo completado
+                        </Button>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -373,6 +532,66 @@ export default function UsuarioDashboardPage() {
           )}
         </div>
       </div>
+
+      <Dialog open={!!selectedTask} onOpenChange={(open) => !open && setSelectedTask(null)}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Aceptar propuesta y realizar pago</DialogTitle>
+            <DialogDescription>
+              Revisa los detalles antes de continuar
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="bg-gray-50 p-4 rounded-lg space-y-3">
+              <div>
+                <p className="text-sm text-muted-foreground">Servicio</p>
+                <p className="font-semibold">{selectedTask?.services?.title}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Proveedor</p>
+                <p className="font-semibold">{selectedTask?.provider?.full_name || "Anónimo"}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Teléfono del proveedor</p>
+                <p className="font-semibold">{selectedTask?.provider?.phone || "No disponible"}</p>
+              </div>
+            </div>
+
+            <div className="bg-green-50 border-2 border-green-200 p-4 rounded-lg">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-semibold">Precio acordado:</span>
+                <span className="text-2xl font-bold text-green-700">{selectedTask?.price}€</span>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                El dinero quedará retenido de forma segura hasta que confirmes que el trabajo está completado
+              </p>
+            </div>
+
+            <div className="bg-blue-50 p-4 rounded-lg space-y-2">
+              <p className="font-semibold text-sm">¿Cómo funciona?</p>
+              <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
+                <li>Pagas ahora de forma segura</li>
+                <li>El proveedor realiza el servicio</li>
+                <li>Cuando termine, lo marcará como completado</li>
+                <li>Tú certificas que está bien hecho</li>
+                <li>El pago se libera automáticamente al proveedor</li>
+              </ol>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setSelectedTask(null)}>Cancelar</Button>
+            <Button onClick={() => {
+              toast({
+                title: "Funcionalidad en desarrollo",
+                description: "La integración de pagos se activará próximamente",
+              });
+              setSelectedTask(null);
+            }}>
+              Pagar {selectedTask?.price}€ y aceptar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }

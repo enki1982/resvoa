@@ -6,8 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Star, TrendingUp, Award, CreditCard, AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Star, TrendingUp, Award, CreditCard, AlertCircle, CheckCircle2, Loader2, MapPin } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase-client";
@@ -24,6 +27,8 @@ export default function ProveedorDashboardPage() {
   const [creatingLink, setCreatingLink] = useState(false);
   const [solicitudes, setSolicitudes] = useState<any[]>([]);
   const [misServicios, setMisServicios] = useState<any[]>([]);
+  const [selectedService, setSelectedService] = useState<any>(null);
+  const [proposedPrice, setProposedPrice] = useState<string>("");
 
   useEffect(() => {
     if (user) {
@@ -95,6 +100,38 @@ export default function ProveedorDashboardPage() {
     }
   };
 
+  const handleMarkAsCompleted = async (serviceId: string) => {
+    try {
+      const response = await fetch(`/api/tasks/${serviceId}/complete`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session?.access_token}`,
+        },
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Servicio marcado como completado",
+          description: "El usuario deberá certificar el trabajo para liberar el pago",
+        });
+        loadMisServicios();
+      } else {
+        const error = await response.json();
+        toast({
+          title: "Error",
+          description: error.error,
+          variant: "destructive",
+        });
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   const fetchStripeStatus = async () => {
     try {
       const response = await fetch('/api/provider/status', {
@@ -137,15 +174,23 @@ export default function ProveedorDashboardPage() {
     }
   };
 
-  const handleAceptarTarea = async (serviceId: string) => {
+  const handleOpenProposal = (service: any) => {
+    setSelectedService(service);
+    const avgPrice = ((service.price_min + service.price_max) / 2).toFixed(0);
+    setProposedPrice(avgPrice);
+  };
+
+  const handleSubmitProposal = async () => {
     try {
+      if (!proposedPrice || !selectedService) return;
+
       const { error } = await supabase
         .from("service_proposals")
         .insert({
-          service_id: serviceId,
+          service_id: selectedService.id,
           provider_id: user?.id,
-          price: 0,
-          message: "Estoy interesado en realizar este servicio",
+          price: parseFloat(proposedPrice),
+          message: "",
           status: "pending",
         });
 
@@ -153,9 +198,11 @@ export default function ProveedorDashboardPage() {
 
       toast({
         title: "Propuesta enviada",
-        description: "El usuario recibirá tu propuesta",
+        description: `Has propuesto ${proposedPrice}€ por este servicio`,
       });
 
+      setSelectedService(null);
+      setProposedPrice("");
       loadSolicitudes();
       loadMisServicios();
     } catch (error: any) {
@@ -355,21 +402,31 @@ export default function ProveedorDashboardPage() {
                   {solicitudes.map((solicitud) => (
                     <div key={solicitud.id} className="border rounded-lg p-4 hover:bg-gray-50">
                       <div className="flex justify-between items-start mb-2">
-                        <div>
+                        <div className="flex-1">
                           <h4 className="font-semibold">{solicitud.title}</h4>
-                          <p className="text-sm text-muted-foreground">{solicitud.description}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{solicitud.description}</p>
                         </div>
                         <Badge>{solicitud.category}</Badge>
                       </div>
-                      <div className="flex justify-between items-center mt-4">
-                        <div className="text-sm text-muted-foreground">
-                          📍 {solicitud.city} • {solicitud.scheduled_date || "Sin horario"}
+                      <div className="grid grid-cols-2 gap-3 mt-3 text-sm">
+                        <div className="flex items-center gap-1 text-muted-foreground">
+                          <MapPin className="w-4 h-4" />
+                          {solicitud.city}
                         </div>
-                        <div className="flex gap-2">
-                          <Button size="sm" onClick={() => handleAceptarTarea(solicitud.id)}>
-                            Enviar propuesta
-                          </Button>
+                        <div className="text-muted-foreground">
+                          {solicitud.scheduled_date || "Sin horario"}
                         </div>
+                        <div className="font-semibold text-green-700">
+                          Presupuesto: {solicitud.price_min}€ - {solicitud.price_max}€
+                        </div>
+                        <div className="text-right text-muted-foreground text-xs">
+                          📍 ~250m de tu ubicación
+                        </div>
+                      </div>
+                      <div className="flex justify-end mt-4">
+                        <Button size="sm" onClick={() => handleOpenProposal(solicitud)}>
+                          Enviar propuesta
+                        </Button>
                       </div>
                     </div>
                   ))}
@@ -391,13 +448,34 @@ export default function ProveedorDashboardPage() {
                 <div className="space-y-3">
                   {misServicios.map((servicio) => (
                     <div key={servicio.id} className="border rounded-lg p-3">
-                      <div className="flex justify-between items-start">
-                        <div>
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="flex-1">
                           <p className="font-semibold text-sm">{servicio.services?.title || "Sin título"}</p>
-                          <p className="text-xs text-muted-foreground">Estado: {servicio.status}</p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Propuesta: {servicio.status === 'pending' ? 'Pendiente' : servicio.status === 'accepted' ? 'Aceptada' : 'Rechazada'}
+                          </p>
+                          {servicio.price > 0 && (
+                            <p className="text-sm font-semibold text-green-700 mt-1">{servicio.price}€</p>
+                          )}
                         </div>
-                        <Badge className="text-xs">{servicio.status}</Badge>
+                        <Badge className="text-xs" variant={servicio.status === 'accepted' ? 'default' : 'secondary'}>
+                          {servicio.status === 'pending' ? 'Pendiente' : servicio.status === 'accepted' ? 'Aceptada' : 'Rechazada'}
+                        </Badge>
                       </div>
+                      {servicio.status === 'accepted' && servicio.services?.status === 'in_progress' && (
+                        <Button
+                          size="sm"
+                          className="w-full mt-2"
+                          onClick={() => handleMarkAsCompleted(servicio.services.id)}
+                        >
+                          Marcar como completado
+                        </Button>
+                      )}
+                      {servicio.services?.status === 'completed' && (
+                        <p className="text-xs text-center text-green-600 mt-2 font-semibold">
+                          ✅ Esperando certificación del usuario
+                        </p>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -447,6 +525,60 @@ export default function ProveedorDashboardPage() {
           </Card>
         </div>
       </div>
+
+      <Dialog open={!!selectedService} onOpenChange={(open) => !open && setSelectedService(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Proponer precio</DialogTitle>
+            <DialogDescription>
+              {selectedService?.title}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="bg-blue-50 p-3 rounded-lg space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Presupuesto del usuario:</span>
+                <span className="font-semibold">{selectedService?.price_min}€ - {selectedService?.price_max}€</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Distancia aproximada:</span>
+                <span className="font-semibold">~250 metros</span>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label>Selecciona tu precio</Label>
+              <Select value={proposedPrice} onValueChange={setProposedPrice}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Elige un precio" />
+                </SelectTrigger>
+                <SelectContent>
+                  {selectedService && [
+                    ...Array.from(
+                      { length: Math.floor((selectedService.price_max - selectedService.price_min) / 5) + 1 },
+                      (_, i) => selectedService.price_min + i * 5
+                    ).filter(p => p <= selectedService.price_max),
+                    selectedService.price_max
+                  ].map((price: number) => (
+                    <SelectItem key={price} value={String(price)}>
+                      {price}€
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">
+                Solo puedes proponer precios dentro del presupuesto indicado
+              </p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setSelectedService(null)}>Cancelar</Button>
+            <Button onClick={handleSubmitProposal} disabled={!proposedPrice}>
+              Enviar propuesta de {proposedPrice}€
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }
