@@ -95,8 +95,8 @@ export async function POST(request: NextRequest) {
     }
 
     const amountTotal = parseFloat(proposal.price || task.price_max);
-    const platformFeeEuros = calculatePlatformFee(amountTotal);
-    const providerAmountEuros = calculateProviderAmount(amountTotal);
+    const platformFeeEuros = await calculatePlatformFee(amountTotal);
+    const providerAmountEuros = await calculateProviderAmount(amountTotal);
 
     const amountCents = toStripeAmount(amountTotal);
     const platformFeeCents = toStripeAmount(platformFeeEuros);

@@ -18,8 +18,14 @@ import {
   Shield,
   Activity,
   BarChart3,
+  Settings,
+  Percent,
 } from "lucide-react";
 import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase-client";
 
 export default function AdminPage() {
   const [stats, setStats] = useState({
@@ -35,8 +41,13 @@ export default function AdminPage() {
 
   const [recentActivity, setRecentActivity] = useState<any[]>([]);
   const [pendingVerifications, setPendingVerifications] = useState<any[]>([]);
+  const [platformFee, setPlatformFee] = useState<number>(15);
+  const [isLoadingFee, setIsLoadingFee] = useState(false);
+  const [isSavingFee, setIsSavingFee] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
+    loadPlatformFee();
     setStats({
       totalUsers: 1247,
       totalProviders: 342,
@@ -61,6 +72,87 @@ export default function AdminPage() {
       { id: 3, name: "Javier Torres", type: "DNI + Facial", submitted: "2025-11-19", city: "Valencia" },
     ]);
   }, []);
+
+  const loadPlatformFee = async () => {
+    try {
+      setIsLoadingFee(true);
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!session) return;
+
+      const response = await fetch('/api/admin/platform-settings', {
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setPlatformFee(data.platform_fee_percent);
+      }
+    } catch (error) {
+      console.error('Error loading platform fee:', error);
+    } finally {
+      setIsLoadingFee(false);
+    }
+  };
+
+  const handleSaveFee = async () => {
+    try {
+      if (platformFee < 0 || platformFee > 50) {
+        toast({
+          title: "Error",
+          description: "La comisión debe estar entre 0% y 50%",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      setIsSavingFee(true);
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!session) {
+        toast({
+          title: "Error",
+          description: "Debes iniciar sesión",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const response = await fetch('/api/admin/platform-settings/fee', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ platform_fee_percent: platformFee }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Éxito",
+          description: "Comisión actualizada correctamente",
+        });
+      } else {
+        const error = await response.json();
+        toast({
+          title: "Error",
+          description: error.error || "No se pudo actualizar la comisión",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Error saving platform fee:', error);
+      toast({
+        title: "Error",
+        description: "Error al guardar los cambios",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSavingFee(false);
+    }
+  };
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -146,11 +238,92 @@ export default function AdminPage() {
         <Tabs defaultValue="overview" className="space-y-6">
           <TabsList>
             <TabsTrigger value="overview">Vista General</TabsTrigger>
+            <TabsTrigger value="settings">Configuración</TabsTrigger>
             <TabsTrigger value="verifications">Verificaciones</TabsTrigger>
             <TabsTrigger value="services">Servicios</TabsTrigger>
             <TabsTrigger value="users">Usuarios</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="settings" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Settings className="w-5 h-5" />
+                  Configuración de Comisiones
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="max-w-md space-y-6">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div className="flex items-start gap-3">
+                      <Percent className="w-5 h-5 text-blue-600 mt-0.5" />
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-sm mb-1">Comisión de Plataforma</h4>
+                        <p className="text-xs text-muted-foreground">
+                          Este porcentaje se aplica a cada servicio completado. El resto del importe se destina al proveedor.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="platformFee">Porcentaje de comisión (%)</Label>
+                    <div className="flex gap-3">
+                      <Input
+                        id="platformFee"
+                        type="number"
+                        min="0"
+                        max="50"
+                        step="0.5"
+                        value={platformFee}
+                        onChange={(e) => setPlatformFee(parseFloat(e.target.value) || 0)}
+                        disabled={isLoadingFee || isSavingFee}
+                        className="max-w-[150px]"
+                      />
+                      <Button
+                        onClick={handleSaveFee}
+                        disabled={isLoadingFee || isSavingFee}
+                      >
+                        {isSavingFee ? "Guardando..." : "Guardar cambios"}
+                      </Button>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Valor permitido: entre 0% y 50%
+                    </p>
+                  </div>
+
+                  <div className="bg-gray-50 rounded-lg p-4 space-y-3">
+                    <h4 className="font-semibold text-sm">Vista previa del cálculo</h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Precio servicio ejemplo:</span>
+                        <span className="font-semibold">100€</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Comisión plataforma ({platformFee}%):</span>
+                        <span className="font-semibold text-blue-600">
+                          {(100 * platformFee / 100).toFixed(2)}€
+                        </span>
+                      </div>
+                      <div className="flex justify-between pt-2 border-t">
+                        <span className="text-muted-foreground">Para el proveedor:</span>
+                        <span className="font-semibold text-green-600">
+                          {(100 - (100 * platformFee / 100)).toFixed(2)}€
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <p className="text-xs text-yellow-800">
+                      <strong>⚠️ Importante:</strong> Los cambios en la comisión se aplicarán a partir del próximo servicio creado. Los servicios existentes mantendrán la comisión con la que fueron creados.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
           <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

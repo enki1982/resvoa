@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Star, TrendingUp, Award, CreditCard, AlertCircle, CheckCircle2, Loader2, MapPin } from "lucide-react";
+import { Star, TrendingUp, Award, CreditCard, AlertCircle, CheckCircle2, Loader2, MapPin, Info } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase-client";
@@ -29,6 +29,7 @@ export default function ProveedorDashboardPage() {
   const [misServicios, setMisServicios] = useState<any[]>([]);
   const [selectedService, setSelectedService] = useState<any>(null);
   const [proposedPrice, setProposedPrice] = useState<string>("");
+  const [platformFee, setPlatformFee] = useState<number>(15);
 
   useEffect(() => {
     if (user) {
@@ -39,7 +40,20 @@ export default function ProveedorDashboardPage() {
     if (session) {
       fetchStripeStatus();
     }
+    loadPlatformFee();
   }, [user, session]);
+
+  const loadPlatformFee = async () => {
+    try {
+      const response = await fetch('/api/platform-settings/public');
+      if (response.ok) {
+        const data = await response.json();
+        setPlatformFee(data.platform_fee_percent);
+      }
+    } catch (error) {
+      console.error('Error loading platform fee:', error);
+    }
+  };
 
   const loadProviderData = async () => {
     try {
@@ -312,6 +326,15 @@ export default function ProveedorDashboardPage() {
             </span>
           </div>
         </div>
+
+        <Alert className="mb-8 border-blue-200 bg-blue-50">
+          <Info className="h-4 w-4 text-blue-600" />
+          <AlertTitle className="text-blue-900">Información de comisiones</AlertTitle>
+          <AlertDescription className="text-blue-800">
+            RESVOA cobra una comisión del <strong>{platformFee}%</strong> sobre cada servicio completado.
+            El resto del importe se destina íntegramente a ti como proveedor.
+          </AlertDescription>
+        </Alert>
 
         {!loadingStripe && stripeStatus && !stripeStatus.onboardingCompleted && (
           <Alert className="mb-8 border-orange-200 bg-orange-50">
