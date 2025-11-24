@@ -11,10 +11,17 @@
 -- FIX 1: Agregar política INSERT a users
 -- ========================================
 -- Esta política permite que nuevos usuarios se registren
-CREATE POLICY "Users can create own account"
+-- IMPORTANTE: Se debe permitir tanto a 'authenticated' como a 'anon'
+-- porque durante el registro el usuario está inicialmente como 'anon'
+
+-- Primero eliminar la política si ya existe
+DROP POLICY IF EXISTS "Users can create own account" ON users;
+
+-- Crear la política correcta que permite registro
+CREATE POLICY "Users can create account during registration"
   ON users FOR INSERT
-  TO authenticated
-  WITH CHECK (id = (SELECT auth.uid()));
+  TO authenticated, anon
+  WITH CHECK (id = auth.uid());
 
 -- ========================================
 -- FIX 2: Eliminar tabla de mensajes

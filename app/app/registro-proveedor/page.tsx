@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Shield, Loader2 } from "lucide-react";
+import { Shield, Loader2, Upload, FileText, Camera, CheckCircle2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase-client";
 
@@ -26,12 +26,67 @@ export default function RegistroProveedorPage() {
     zona: "",
     password: "",
   });
+  const [dniFile, setDniFile] = useState<File | null>(null);
+  const [selfieFile, setSelfieFile] = useState<File | null>(null);
+  const [uploadingDocs, setUploadingDocs] = useState(false);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'dni' | 'selfie') => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: "Archivo muy grande",
+          description: "El archivo no debe superar 5MB",
+          variant: "destructive",
+        });
+        return;
+      }
+      if (type === 'dni') {
+        setDniFile(file);
+      } else {
+        setSelfieFile(file);
+      }
+    }
+  };
+
+  const uploadDocuments = async (userId: string) => {
+    try {
+      setUploadingDocs(true);
+
+      if (dniFile) {
+        const dniPath = `${userId}/dni-${Date.now()}.${dniFile.name.split('.').pop()}`;
+        const { error: dniError } = await supabase.storage
+          .from('provider-documents')
+          .upload(dniPath, dniFile);
+        if (dniError) throw dniError;
+      }
+
+      if (selfieFile) {
+        const selfiePath = `${userId}/selfie-${Date.now()}.${selfieFile.name.split('.').pop()}`;
+        const { error: selfieError } = await supabase.storage
+          .from('provider-documents')
+          .upload(selfiePath, selfieFile);
+        if (selfieError) throw selfieError;
+      }
+    } finally {
+      setUploadingDocs(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (step < 3) {
       setStep(step + 1);
     } else {
+      if (!dniFile || !selfieFile) {
+        toast({
+          title: "Documentos requeridos",
+          description: "Debes subir tu DNI y selfie para continuar",
+          variant: "destructive",
+        });
+        return;
+      }
+
       setLoading(true);
       try {
         const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -71,9 +126,11 @@ export default function RegistroProveedorPage() {
 
           if (providerError) throw providerError;
 
+          await uploadDocuments(authData.user.id);
+
           toast({
             title: "Cuenta creada exitosamente",
-            description: "Bienvenido a Resvoa como proveedor",
+            description: "Tus documentos están en revisión",
           });
 
           router.push("/app/proveedor/dashboard");
@@ -157,11 +214,66 @@ export default function RegistroProveedorPage() {
 
               {step === 3 && (
                 <>
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <p className="text-sm font-semibold mb-2">Verificación de identidad</p>
-                    <p className="text-sm text-muted-foreground mb-4">Sube una foto de tu DNI/NIE y una selfie</p>
-                    <Button type="button" variant="outline" className="w-full">Subir documentos</Button>
+                  <div className="space-y-4">
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                      <p className="text-sm font-semibold mb-2 flex items-center gap-2">
+                        <Shield className="w-4 h-4" />
+                        Verificación de identidad
+                      </p>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Sube una foto de tu DNI/NIE y una selfie para verificar tu identidad
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label className="flex items-center gap-2">
+                        <FileText className="w-4 h-4" />
+                        Foto de DNI/NIE (frontal)
+                      </Label>
+                      <div className="relative">
+                        <Input
+                          type="file"
+                          accept="image/*,.pdf"
+                          onChange={(e) => handleFileChange(e, 'dni')}
+                          className="cursor-pointer"
+                        />
+                        {dniFile && (
+                          <div className="mt-2 flex items-center gap-2 text-sm text-green-600">
+                            <CheckCircle2 className="w-4 h-4" />
+                            {dniFile.name}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label className="flex items-center gap-2">
+                        <Camera className="w-4 h-4" />
+                        Selfie sosteniendo tu DNI
+                      </Label>
+                      <div className="relative">
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleFileChange(e, 'selfie')}
+                          className="cursor-pointer"
+                        />
+                        {selfieFile && (
+                          <div className="mt-2 flex items-center gap-2 text-sm text-green-600">
+                            <CheckCircle2 className="w-4 h-4" />
+                            {selfieFile.name}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
+                      <p className="text-xs text-yellow-800">
+                        <strong>Importante:</strong> Asegúrate de que la foto sea clara y que tu rostro y el DNI sean legibles. Los archivos no deben superar 5MB.
+                      </p>
+                    </div>
                   </div>
+
                   <div className="flex items-start space-x-2">
                     <Checkbox id="codigoEtico" required />
                     <label htmlFor="codigoEtico" className="text-sm">
