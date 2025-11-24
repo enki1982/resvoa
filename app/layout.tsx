@@ -9,8 +9,8 @@ import { Toaster } from '@/components/ui/toaster';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Resvoa - Tu ayudante de confianza',
-  description: 'Plataforma de microservicios cotidianos respaldada por 2M€ de inversión. 20 profesionales trabajando para conectarte con ayuda confiable.',
+  title: 'RESVOA – Pide ayuda para tus microtareas y conecta con personas cercanas',
+  description: 'RESVOA es la plataforma que conecta a personas que necesitan ayuda con quienes pueden resolver microtareas del día a día: recados, compras, ayuda ligera en casa, cuidado de mascotas y más, con pagos seguros y reputación verificada.',
 };
 
 export default function RootLayout({
