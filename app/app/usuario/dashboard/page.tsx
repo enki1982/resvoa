@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Clock, CheckCircle, AlertCircle, Plus, Star } from "lucide-react";
+import { Clock, CheckCircle, AlertCircle, Plus, Star, Settings } from "lucide-react";
 import { mockTareas, mockUsuarios } from "@/lib/mock-data";
 import type { Tarea } from "@/types";
 
@@ -64,9 +64,17 @@ export default function UsuarioDashboardPage() {
             <Link href="/" className="text-2xl font-bold text-primary">Resvoa</Link>
             <span className="text-muted-foreground">Panel de Usuario</span>
           </div>
-          <Button variant="outline" asChild>
-            <Link href="/app/login">Cerrar sesión</Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" asChild>
+              <Link href="/app/usuario/configuracion">
+                <Settings className="mr-2 h-4 w-4" />
+                Configuración
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href="/app/login">Cerrar sesión</Link>
+            </Button>
+          </div>
         </div>
       </div>
 
