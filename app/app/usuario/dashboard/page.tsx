@@ -100,12 +100,14 @@ export default function UsuarioDashboardPage() {
         `)
         .eq("services.user_id", user?.id)
         .eq("status", "pending")
+        .in("services.status", ["open"])
         .order("created_at", { ascending: false });
 
       if (error) throw error;
       setPropuestas(data || []);
     } catch (error: any) {
       console.error("Error loading proposals:", error);
+      setPropuestas([]);
     }
   };
 

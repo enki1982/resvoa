@@ -85,17 +85,32 @@ export default function ProveedorDashboardPage() {
 
   const loadSolicitudes = async () => {
     try {
-      const { data, error } = await supabase
+      const { data: servicesData, error: servicesError } = await supabase
         .from("services")
         .select("*")
         .eq("status", "open")
         .order("created_at", { ascending: false })
-        .limit(5);
+        .limit(10);
 
-      if (error) throw error;
-      setSolicitudes(data || []);
+      if (servicesError) throw servicesError;
+
+      const { data: myProposals, error: proposalsError } = await supabase
+        .from("service_proposals")
+        .select("service_id")
+        .eq("provider_id", user?.id);
+
+      if (proposalsError) throw proposalsError;
+
+      const proposedServiceIds = new Set(myProposals?.map(p => p.service_id) || []);
+
+      const availableServices = (servicesData || []).filter(
+        service => !proposedServiceIds.has(service.id)
+      ).slice(0, 5);
+
+      setSolicitudes(availableServices);
     } catch (error: any) {
       console.error("Error loading solicitudes:", error);
+      setSolicitudes([]);
     }
   };
 
@@ -105,12 +120,19 @@ export default function ProveedorDashboardPage() {
         .from("service_proposals")
         .select("*, services(*)")
         .eq("provider_id", user?.id)
+        .not("services", "is", null)
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setMisServicios(data || []);
+
+      const validProposals = (data || []).filter(proposal => {
+        return proposal.services && proposal.services.id;
+      });
+
+      setMisServicios(validProposals);
     } catch (error: any) {
       console.error("Error loading my services:", error);
+      setMisServicios([]);
     }
   };
 
@@ -230,6 +252,23 @@ export default function ProveedorDashboardPage() {
           description: "Solo los proveedores pueden enviar propuestas",
           variant: "destructive",
         });
+        return;
+      }
+
+      const { data: existingProposal } = await supabase
+        .from("service_proposals")
+        .select("id")
+        .eq("service_id", selectedService.id)
+        .eq("provider_id", authUser.id)
+        .maybeSingle();
+
+      if (existingProposal) {
+        toast({
+          title: "Propuesta ya enviada",
+          description: "Ya has enviado una propuesta para este servicio",
+          variant: "destructive",
+        });
+        setSelectedService(null);
         return;
       }
 
