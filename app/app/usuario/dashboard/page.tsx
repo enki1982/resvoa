@@ -113,15 +113,43 @@ export default function UsuarioDashboardPage() {
     e.preventDefault();
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user: authUser } } = await supabase.auth.getUser();
 
-      if (!user) {
+      if (!authUser) {
         toast({
           title: "Error",
           description: "Debes iniciar sesión",
           variant: "destructive",
         });
         return;
+      }
+
+      const { data: existingUser } = await supabase
+        .from("users")
+        .select("id")
+        .eq("id", authUser.id)
+        .maybeSingle();
+
+      if (!existingUser) {
+        const { error: insertUserError } = await supabase
+          .from("users")
+          .insert({
+            id: authUser.id,
+            email: authUser.email || "",
+            full_name: authUser.user_metadata?.full_name || "Usuario",
+            phone: authUser.user_metadata?.phone || "",
+            user_type: "user",
+          });
+
+        if (insertUserError) {
+          console.error("Error creating user record:", insertUserError);
+          toast({
+            title: "Error",
+            description: "No se pudo crear tu perfil de usuario. Por favor, contacta con soporte.",
+            variant: "destructive",
+          });
+          return;
+        }
       }
 
       if (!newTask.fecha || !newTask.hora) {
@@ -140,7 +168,7 @@ export default function UsuarioDashboardPage() {
       const { data, error } = await supabase
         .from("services")
         .insert({
-          user_id: user.id,
+          user_id: authUser.id,
           title: newTask.titulo,
           description: newTask.descripcion,
           category: newTask.categoria,
