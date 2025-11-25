@@ -37,42 +37,35 @@ export default function HomePage() {
     <main className="min-h-screen">
       <section className="relative bg-gradient-to-br from-primary via-[#1a4d6d] to-[#0d2d45] text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4">
-                RESVOA — Ayuda que resuelve tu día a día.
-              </h1>
-              <p className="text-xl mb-6 text-white/90">
-                Pide ayuda en segundos y conecta con personas cercanas dispuestas a resolver tus microtareas, de forma rápida y segura.
-              </p>
+          <div className="text-center mb-12">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+              RESVOA — Ayuda que resuelve tu día a día.
+            </h1>
+            <p className="text-xl mb-8 text-white/90 max-w-3xl mx-auto">
+              Pide ayuda en segundos y conecta con personas cercanas dispuestas a resolver tus microtareas, de forma rápida y segura.
+            </p>
 
-              <div className="flex items-center gap-4 mb-8 text-sm text-white/90">
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4" />
-                  <span>Pagos protegidos</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4" />
-                  <span>Identidad verificada</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Star className="w-4 h-4" />
-                  <span>Valoraciones reales</span>
-                </div>
+            <div className="flex items-center justify-center gap-6 mb-8 text-sm text-white/90">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4" />
+                <span>Pagos protegidos</span>
               </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <Button size="lg" variant="secondary" className="text-lg px-8 py-4" asChild>
-                  <Link href="/app/registro-usuario">Pedir ayuda ahora</Link>
-                </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 hover:bg-white/20 text-white border-white" asChild>
-                  <Link href="/app/registro-proveedor">Quiero ganar ayudando</Link>
-                </Button>
+              <div className="flex items-center gap-2">
+                <Users className="w-4 h-4" />
+                <span>Identidad verificada</span>
               </div>
+              <div className="flex items-center gap-2">
+                <Star className="w-4 h-4" />
+                <span>Valoraciones reales</span>
+              </div>
+            </div>
+          </div>
 
-              <div className="space-y-6 max-w-xl">
-                <h2 className="text-2xl font-bold mb-4">Cómo funciona en 4 pasos</h2>
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold mb-6">Pedir ayuda ahora</h2>
 
+              <div className="space-y-4">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
                     <FileText className="w-5 h-5 text-white" />
@@ -121,10 +114,72 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
+
+              <Button size="lg" variant="secondary" className="text-lg px-8 py-4 w-full" asChild>
+                <Link href="/app/registro-usuario">Pedir ayuda ahora</Link>
+              </Button>
             </div>
 
-            <div className="flex justify-center lg:justify-end">
+            <div className="flex justify-center items-center">
               <HeroSteps />
+            </div>
+
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold mb-6">Quiero ganar dinero</h2>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
+                    <UserPlus className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg mb-1">1. Regístrate gratis</h3>
+                    <p className="text-white/80 text-sm">
+                      Crea tu perfil y verifica tu identidad.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
+                    <MapPin className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg mb-1">2. Elige tareas cerca</h3>
+                    <p className="text-white/80 text-sm">
+                      Ve solicitudes en tu zona y propón tu precio.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
+                    <CheckCircle className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg mb-1">3. Completa y cobra</h3>
+                    <p className="text-white/80 text-sm">
+                      Realiza la tarea y recibe tu pago de forma segura.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
+                    <Star className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg mb-1">4. Mejora tu reputación</h3>
+                    <p className="text-white/80 text-sm">
+                      Recibe valoraciones y accede a mejores oportunidades.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <Button size="lg" variant="outline" className="text-lg px-8 py-4 w-full bg-white/10 hover:bg-white/20 text-white border-white" asChild>
+                <Link href="/app/registro-proveedor">Quiero ganar ayudando</Link>
+              </Button>
             </div>
           </div>
         </div>
