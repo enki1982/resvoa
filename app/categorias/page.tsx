@@ -12,7 +12,8 @@ import {
   Car,
   BookOpen,
   XCircle,
-  CheckCircle
+  CheckCircle,
+  KeyRound
 } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -226,6 +227,37 @@ export default function CategoriasPage() {
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
                     <span>Ayuda con eventos</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <KeyRound className="w-12 h-12 text-primary mb-4" />
+                <CardTitle>Recogida/Entrega de llaves</CardTitle>
+                <Badge className="w-fit">Nuevo</Badge>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  Servicios de gestión de llaves para Airbnb, alquileres y propiedades
+                </p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                    <span>Recepción de huéspedes Airbnb</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                    <span>Entrega de llaves a inquilinos</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                    <span>Recogida de llaves en mudanzas</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                    <span>Gestión de propiedades vacacionales</span>
                   </li>
                 </ul>
               </CardContent>
