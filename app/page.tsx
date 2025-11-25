@@ -21,6 +21,7 @@ import {
   TruckIcon,
   HelpCircle,
   Star,
+  KeyRound,
 } from "lucide-react";
 import { HeroSteps } from "@/components/hero-steps";
 import { Chatbot } from "@/components/chatbot";
@@ -445,6 +446,18 @@ export default function HomePage() {
               <CardContent>
                 <p className="text-sm text-muted-foreground">
                   Configuración sencilla de móvil, apps, TV, wifi u otros dispositivos sin necesidad de un técnico profesional.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <KeyRound className="w-10 h-10 text-primary mb-3" />
+                <CardTitle className="text-lg">Recogida/Entrega de llaves</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Servicios de recogida y entrega de llaves para Airbnb, alquileres, mudanzas o gestión de propiedades.
                 </p>
               </CardContent>
             </Card>

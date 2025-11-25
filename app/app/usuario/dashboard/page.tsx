@@ -40,6 +40,9 @@ export default function UsuarioDashboardPage() {
     hora: "",
     precioMin: "5",
     precioMax: "20",
+    isRecurring: false,
+    recurrenceFrequency: "weekly" as "daily" | "weekly" | "biweekly" | "monthly",
+    endDate: undefined as Date | undefined,
   });
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -192,6 +195,8 @@ export default function UsuarioDashboardPage() {
           price_min: parseFloat(newTask.precioMin),
           price_max: parseFloat(newTask.precioMax),
           status: "open",
+          is_recurring: newTask.isRecurring,
+          recurrence_frequency: newTask.isRecurring ? newTask.recurrenceFrequency : null,
         })
         .select()
         .single();
@@ -204,7 +209,7 @@ export default function UsuarioDashboardPage() {
       });
 
       setShowNewTask(false);
-      setNewTask({ categoria: "", titulo: "", descripcion: "", direccion: "", fecha: undefined, hora: "", precioMin: "5", precioMax: "20" });
+      setNewTask({ categoria: "", titulo: "", descripcion: "", direccion: "", fecha: undefined, hora: "", precioMin: "5", precioMax: "20", isRecurring: false, recurrenceFrequency: "weekly", endDate: undefined });
 
       loadTasks();
       loadProposals();
@@ -423,6 +428,7 @@ export default function UsuarioDashboardPage() {
                       <SelectItem value="ayuda_domestica">Ayuda doméstica</SelectItem>
                       <SelectItem value="vehiculos">Limpieza de vehículos</SelectItem>
                       <SelectItem value="soporte_hogar">Soporte hogar</SelectItem>
+                      <SelectItem value="llaves">Recogida/Entrega de llaves</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -571,8 +577,91 @@ export default function UsuarioDashboardPage() {
                   <p className="text-xs text-muted-foreground">El proveedor podrá proponer un precio dentro de este rango</p>
                 </div>
 
+                <div className="space-y-4 p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      id="recurring"
+                      checked={newTask.isRecurring}
+                      onChange={(e) => setNewTask({ ...newTask, isRecurring: e.target.checked })}
+                      className="w-4 h-4 rounded border-gray-300"
+                    />
+                    <Label htmlFor="recurring" className="font-semibold cursor-pointer">
+                      Hacer este servicio recurrente (suscripción)
+                    </Label>
+                  </div>
+
+                  {newTask.isRecurring && (
+                    <>
+                      <div className="space-y-2">
+                        <Label>Frecuencia</Label>
+                        <Select
+                          value={newTask.recurrenceFrequency}
+                          onValueChange={(v: any) => setNewTask({ ...newTask, recurrenceFrequency: v })}
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="daily">Diario</SelectItem>
+                            <SelectItem value="weekly">Semanal</SelectItem>
+                            <SelectItem value="biweekly">Quincenal</SelectItem>
+                            <SelectItem value="monthly">Mensual</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>Fecha de finalización (opcional)</Label>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-full justify-start text-left font-normal",
+                                !newTask.endDate && "text-muted-foreground"
+                              )}
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4" />
+                              {newTask.endDate ? format(newTask.endDate, "PPP", { locale: es }) : "Sin fecha límite"}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0">
+                            <Calendar
+                              mode="single"
+                              selected={newTask.endDate}
+                              onSelect={(date) => setNewTask({ ...newTask, endDate: date })}
+                              disabled={(date) => date < new Date()}
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        <p className="text-xs text-muted-foreground">
+                          Si no especificas fecha, la suscripción continuará indefinidamente hasta que la canceles
+                        </p>
+                      </div>
+
+                      <div className="bg-white p-3 rounded border">
+                        <p className="text-sm font-semibold mb-1">Vista previa de tu suscripción:</p>
+                        <p className="text-sm text-muted-foreground">
+                          Este servicio se repetirá{" "}
+                          {newTask.recurrenceFrequency === "daily" && "cada día"}
+                          {newTask.recurrenceFrequency === "weekly" && "cada semana"}
+                          {newTask.recurrenceFrequency === "biweekly" && "cada 2 semanas"}
+                          {newTask.recurrenceFrequency === "monthly" && "cada mes"}
+                          {newTask.endDate
+                            ? ` hasta el ${format(newTask.endDate, "PPP", { locale: es })}`
+                            : " de forma indefinida"}
+                        </p>
+                      </div>
+                    </>
+                  )}
+                </div>
+
                 <div className="flex gap-2">
-                  <Button type="submit" className="flex-1">Publicar solicitud</Button>
+                  <Button type="submit" className="flex-1">
+                    {newTask.isRecurring ? "Crear suscripción" : "Publicar solicitud"}
+                  </Button>
                   <Button type="button" variant="outline" onClick={() => setShowNewTask(false)}>
                     Cancelar
                   </Button>
