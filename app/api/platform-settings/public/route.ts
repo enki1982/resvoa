@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPlatformFeePercent } from '@/lib/platform-settings';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     const platformFeePercent = await getPlatformFeePercent();

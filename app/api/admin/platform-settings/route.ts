@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServiceRoleClient, getUser } from '@/lib/supabase-client';
 import { getPlatformFeePercent } from '@/lib/platform-settings';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     const authHeader = request.headers.get('authorization');
