@@ -24,7 +24,7 @@ export default function AvisoLegalPage() {
             </h1>
           </div>
           <p className="text-blue-100">
-            Última actualización: 20 de noviembre de 2025
+            Última actualización: 25 de noviembre de 2025
           </p>
         </div>
       </section>
@@ -234,7 +234,7 @@ export default function AvisoLegalPage() {
 
               <div className="mt-8 p-4 bg-gray-100 rounded-lg">
                 <p className="text-sm text-gray-600 mb-0">
-                  <strong>Última revisión:</strong> Este Aviso Legal ha sido revisado y actualizado el 20 de noviembre de 2025. Recomendamos a los usuarios revisar periódicamente este documento para estar al corriente de cualquier modificación.
+                  <strong>Última revisión:</strong> Este Aviso Legal ha sido revisado y actualizado el 25 de noviembre de 2025. Recomendamos a los usuarios revisar periódicamente este documento para estar al corriente de cualquier modificación.
                 </p>
               </div>
 
@@ -244,8 +244,11 @@ export default function AvisoLegalPage() {
                 </p>
                 <ul className="text-sm text-gray-700 mb-0">
                   <li>• <Link href="/legal/terminos" className="text-primary hover:underline">Términos y Condiciones</Link></li>
+                  <li>• <Link href="/legal/condiciones-proveedores" className="text-primary hover:underline">Condiciones para Proveedores</Link></li>
                   <li>• <Link href="/legal/privacidad" className="text-primary hover:underline">Política de Privacidad</Link></li>
                   <li>• <Link href="/legal/cookies" className="text-primary hover:underline">Política de Cookies</Link></li>
+                  <li>• <Link href="/legal/cancelaciones-reembolsos" className="text-primary hover:underline">Política de Cancelaciones y Reembolsos</Link></li>
+                  <li>• <Link href="/legal/uso-aceptable" className="text-primary hover:underline">Política de Uso Aceptable</Link></li>
                 </ul>
               </div>
             </CardContent>

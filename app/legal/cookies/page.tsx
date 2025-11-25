@@ -25,7 +25,7 @@ export default function CookiesPage() {
             </h1>
           </div>
           <p className="text-blue-100">
-            Última actualización: 20 de noviembre de 2025
+            Última actualización: 25 de noviembre de 2025
           </p>
         </div>
       </section>
@@ -274,9 +274,10 @@ export default function CookiesPage() {
                 Si tiene preguntas sobre nuestra Política de Cookies, puede contactarnos en:
               </p>
               <ul>
-                <li>Email: <a href="mailto:privacidad@resvoa.com" className="text-primary hover:underline">privacidad@resvoa.com</a></li>
-                <li>Teléfono: +34 900 123 456</li>
-                <li>Dirección: Carrer de Balmes, 123, 08008 Barcelona, España</li>
+                <li><strong>Resvoa S.L.</strong> (CIF: B-12345678)</li>
+                <li><strong>Email:</strong> <a href="mailto:privacidad@resvoa.com" className="text-primary hover:underline">privacidad@resvoa.com</a></li>
+                <li><strong>Teléfono:</strong> +34 900 123 456</li>
+                <li><strong>Dirección:</strong> Carrer de Balmes, 123, 08008 Barcelona, España</li>
               </ul>
 
               <div className="mt-8 p-4 bg-green-50 rounded-lg">

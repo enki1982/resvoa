@@ -24,7 +24,7 @@ export default function TerminosPage() {
             </h1>
           </div>
           <p className="text-blue-100">
-            Última actualización: 20 de noviembre de 2025
+            Última actualización: 25 de noviembre de 2025
           </p>
         </div>
       </section>
@@ -35,7 +35,7 @@ export default function TerminosPage() {
             <CardContent className="p-8 prose prose-sm max-w-none">
               <h2>1. Aceptación de los términos</h2>
               <p>
-                Al acceder y utilizar Resvoa (en adelante, "la Plataforma"), usted acepta estos Términos y Condiciones en su totalidad. Si no está de acuerdo con estos términos, no debe utilizar la Plataforma.
+                Al acceder y utilizar Resvoa (en adelante, "la Plataforma"), operada por <strong>Resvoa S.L.</strong> (CIF: B-12345678, domicilio: Carrer de Balmes, 123, 08008 Barcelona, España), usted acepta estos Términos y Condiciones en su totalidad. Si no está de acuerdo con estos términos, no debe utilizar la Plataforma.
               </p>
 
               <h2>2. Descripción del servicio</h2>
@@ -137,15 +137,25 @@ export default function TerminosPage() {
                 <li>Mantener actualizada su disponibilidad en la Plataforma</li>
               </ul>
 
-              <h3>5.2 Estatus independiente</h3>
+              <h3>5.2 Estatus independiente y economía colaborativa</h3>
               <p>
-                Los Proveedores son trabajadores independientes. La relación entre Resvoa y los Proveedores no constituye una relación laboral, sociedad, joint venture o franquicia. Los Proveedores son responsables de:
+                <strong>IMPORTANTE:</strong> Resvoa opera bajo el modelo de economía colaborativa. Los Proveedores son trabajadores autónomos e independientes. La relación entre Resvoa y los Proveedores NO constituye:
               </p>
               <ul>
-                <li>Sus propias obligaciones fiscales y de seguridad social</li>
-                <li>Obtener los permisos y licencias necesarios para operar</li>
-                <li>Contratar seguros adecuados si lo consideran necesario</li>
-                <li>Cumplir con todas las leyes y regulaciones aplicables</li>
+                <li>Una relación laboral o de empleo (Resvoa NO es empleador)</li>
+                <li>Una sociedad, joint venture o franquicia</li>
+                <li>Una relación de agencia o representación</li>
+              </ul>
+              <p>
+                <strong>Resvoa actúa únicamente como intermediario tecnológico</strong> facilitando la conexión entre particulares. Los Proveedores:
+              </p>
+              <ul>
+                <li>NO son empleados de Resvoa</li>
+                <li>Tienen total autonomía para aceptar o rechazar servicios</li>
+                <li>Establecen sus propios horarios y disponibilidad</li>
+                <li>Son responsables de sus obligaciones fiscales según corresponda</li>
+                <li>NO están obligados a ser autónomos para usar la plataforma (pero deben cumplir la legislación fiscal vigente)</li>
+                <li>Deben contratar seguros si lo consideran apropiado</li>
               </ul>
 
               <h3>5.3 Prohibiciones para proveedores</h3>
@@ -167,7 +177,7 @@ export default function TerminosPage() {
                 Todos los pagos deben realizarse a través de la Plataforma. Resvoa retiene el pago hasta que el Usuario confirme la finalización satisfactoria del servicio o transcurran 48 horas desde la finalización declarada por el Proveedor.
               </p>
 
-              <h3>6.2 Comisiones</h3>
+              <h3>6.2 Comisiones y facturación</h3>
               <p>
                 Resvoa cobra una comisión del 12% al 15% sobre el valor de cada transacción completada, dependiendo del nivel del Proveedor:
               </p>
@@ -177,6 +187,9 @@ export default function TerminosPage() {
                 <li>Nivel Plata: 13%</li>
                 <li>Nivel Oro: 12%</li>
               </ul>
+              <p>
+                <strong>Facturación:</strong> Resvoa emite factura electrónica al Proveedor por cada comisión cobrada, cumpliendo con la normativa fiscal vigente.
+              </p>
 
               <h3>6.3 Reembolsos</h3>
               <p>
@@ -260,14 +273,26 @@ export default function TerminosPage() {
                 Estos Términos se rigen por la legislación española. Para la resolución de controversias, las partes se someten a los juzgados y tribunales de Barcelona, España, renunciando expresamente a cualquier otro fuero que pudiera corresponderles.
               </p>
 
-              <h2>15. Contacto</h2>
+              <h2>15. Resolución de disputas</h2>
               <p>
-                Para cualquier consulta sobre estos Términos y Condiciones:
+                En caso de disputa entre Usuario y Proveedor:
               </p>
               <ul>
-                <li>Email: <a href="mailto:legal@resvoa.com" className="text-primary hover:underline">legal@resvoa.com</a></li>
-                <li>Dirección: Carrer de Balmes, 123, 08008 Barcelona, España</li>
-                <li>Teléfono: +34 900 123 456</li>
+                <li>Ambas partes deben contactar con el equipo de mediación de Resvoa</li>
+                <li>Resvoa actuará como mediador neutral revisando evidencias de ambas partes</li>
+                <li>La decisión de Resvoa será vinculante para la resolución del caso en la Plataforma</li>
+                <li>Sin perjuicio del derecho de las partes a acudir a la jurisdicción ordinaria</li>
+              </ul>
+
+              <h2>16. Contacto</h2>
+              <p>
+                <strong>Resvoa S.L.</strong>
+              </p>
+              <ul>
+                <li><strong>CIF:</strong> B-12345678</li>
+                <li><strong>Email:</strong> <a href="mailto:legal@resvoa.com" className="text-primary hover:underline">legal@resvoa.com</a></li>
+                <li><strong>Dirección:</strong> Carrer de Balmes, 123, 08008 Barcelona, España</li>
+                <li><strong>Teléfono:</strong> +34 900 123 456</li>
               </ul>
 
               <div className="mt-8 p-4 bg-gray-100 rounded-lg">

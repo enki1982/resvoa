@@ -24,7 +24,7 @@ export default function PrivacidadPage() {
             </h1>
           </div>
           <p className="text-blue-100">
-            Última actualización: 20 de noviembre de 2025
+            Última actualización: 25 de noviembre de 2025
           </p>
         </div>
       </section>
@@ -303,9 +303,10 @@ export default function PrivacidadPage() {
                 Para cualquier pregunta sobre esta Política de Privacidad o el tratamiento de sus datos personales:
               </p>
               <ul>
-                <li>Email: <a href="mailto:privacidad@resvoa.com" className="text-primary hover:underline">privacidad@resvoa.com</a></li>
-                <li>Teléfono: +34 900 123 456</li>
-                <li>Dirección: Carrer de Balmes, 123, 08008 Barcelona, España</li>
+                <li><strong>Email:</strong> <a href="mailto:privacidad@resvoa.com" className="text-primary hover:underline">privacidad@resvoa.com</a></li>
+                <li><strong>Teléfono:</strong> +34 900 123 456</li>
+                <li><strong>Dirección:</strong> Carrer de Balmes, 123, 08008 Barcelona, España</li>
+                <li><strong>CIF:</strong> B-12345678</li>
               </ul>
 
               <div className="mt-8 p-4 bg-blue-50 rounded-lg">
