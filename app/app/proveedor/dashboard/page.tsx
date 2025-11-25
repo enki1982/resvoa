@@ -198,11 +198,46 @@ export default function ProveedorDashboardPage() {
     try {
       if (!proposedPrice || !selectedService) return;
 
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+
+      if (!authUser) {
+        toast({
+          title: "Error",
+          description: "Debes iniciar sesión",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const { data: existingUser } = await supabase
+        .from("users")
+        .select("id, user_type")
+        .eq("id", authUser.id)
+        .maybeSingle();
+
+      if (!existingUser) {
+        toast({
+          title: "Error",
+          description: "Tu perfil de usuario no está configurado correctamente. Por favor, contacta con soporte.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (existingUser.user_type !== 'provider') {
+        toast({
+          title: "Error",
+          description: "Solo los proveedores pueden enviar propuestas",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const { error } = await supabase
         .from("service_proposals")
         .insert({
           service_id: selectedService.id,
-          provider_id: user?.id,
+          provider_id: authUser.id,
           price: parseFloat(proposedPrice),
           message: "",
           status: "pending",
