@@ -27,6 +27,7 @@ export default function UsuarioDashboardPage() {
   const [userData, setUserData] = useState<any>(null);
   const [tareas, setTareas] = useState<any[]>([]);
   const [propuestas, setPropuestas] = useState<any[]>([]);
+  const [propuestasPorServicio, setPropuestasPorServicio] = useState<{[key: string]: any[]}>({});
   const [loading, setLoading] = useState(true);
   const [selectedTask, setSelectedTask] = useState<any>(null);
   const [showNewTask, setShowNewTask] = useState(false);
@@ -105,9 +106,20 @@ export default function UsuarioDashboardPage() {
 
       if (error) throw error;
       setPropuestas(data || []);
+
+      const groupedByService: {[key: string]: any[]} = {};
+      (data || []).forEach((proposal: any) => {
+        const serviceId = proposal.service_id;
+        if (!groupedByService[serviceId]) {
+          groupedByService[serviceId] = [];
+        }
+        groupedByService[serviceId].push(proposal);
+      });
+      setPropuestasPorServicio(groupedByService);
     } catch (error: any) {
       console.error("Error loading proposals:", error);
       setPropuestas([]);
+      setPropuestasPorServicio({});
     }
   };
 
@@ -576,32 +588,62 @@ export default function UsuarioDashboardPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Euro className="w-5 h-5 text-green-600" />
-                Propuestas recibidas
+                Propuestas recibidas ({propuestas.length})
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                {propuestas.map((propuesta) => (
-                  <div key={propuesta.id} className="bg-white border-2 rounded-lg p-4">
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1">
-                        <h4 className="font-semibold">{propuesta.services.title}</h4>
+              <div className="space-y-6">
+                {Object.entries(propuestasPorServicio).map(([serviceId, proposals]) => {
+                  const firstProposal = proposals[0];
+                  return (
+                    <div key={serviceId} className="bg-white border-2 rounded-lg p-4">
+                      <div className="mb-4">
+                        <h4 className="font-bold text-lg">{firstProposal.services.title}</h4>
                         <p className="text-sm text-muted-foreground mt-1">
-                          Proveedor: {propuesta.provider?.full_name || "Anónimo"}
+                          {firstProposal.services.description}
                         </p>
+                        <div className="flex gap-3 mt-2 text-xs text-muted-foreground">
+                          <span>📍 {firstProposal.services.location}</span>
+                          <span>📅 {firstProposal.services.scheduled_date ? new Date(firstProposal.services.scheduled_date).toLocaleDateString('es-ES') : 'Sin fecha'}</span>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-green-700">{propuesta.price}€</div>
-                        <p className="text-xs text-muted-foreground">precio propuesto</p>
+
+                      <div className="border-t pt-3">
+                        <p className="text-sm font-semibold mb-3">
+                          {proposals.length} {proposals.length === 1 ? 'propuesta recibida' : 'propuestas recibidas'}
+                        </p>
+                        <div className="space-y-3">
+                          {proposals.map((propuesta: any) => (
+                            <div key={propuesta.id} className="bg-gray-50 rounded-lg p-3 border">
+                              <div className="flex justify-between items-start mb-2">
+                                <div className="flex-1">
+                                  <p className="font-semibold text-sm">{propuesta.provider?.full_name || "Proveedor"}</p>
+                                  <p className="text-xs text-muted-foreground mt-1">
+                                    📞 {propuesta.provider?.phone || "No disponible"}
+                                  </p>
+                                  {propuesta.message && (
+                                    <p className="text-xs text-muted-foreground mt-2 italic">"{propuesta.message}"</p>
+                                  )}
+                                </div>
+                                <div className="text-right ml-3">
+                                  <div className="text-2xl font-bold text-green-700">{propuesta.price}€</div>
+                                  <p className="text-xs text-muted-foreground">propuesta</p>
+                                </div>
+                              </div>
+                              <Button
+                                size="sm"
+                                className="w-full mt-2"
+                                onClick={() => setSelectedTask(propuesta)}
+                              >
+                                Aceptar esta propuesta
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                    <div className="flex gap-2 mt-4">
-                      <Button size="sm" onClick={() => setSelectedTask(propuesta)}>
-                        Ver detalles y aceptar
-                      </Button>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
