@@ -109,7 +109,7 @@ export function Chatbot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 w-16 h-16 bg-primary hover:bg-primary/90 text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 z-50"
+          className="fixed bottom-6 right-6 w-16 h-16 bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 z-50"
           aria-label="Abrir chat"
         >
           <MessageCircle className="w-7 h-7" />
@@ -118,7 +118,7 @@ export function Chatbot() {
 
       {isOpen && (
         <Card className="fixed bottom-6 right-6 w-96 h-[600px] shadow-2xl flex flex-col z-50 border-2">
-          <div className="bg-primary text-white p-4 flex items-center justify-between rounded-t-lg">
+          <div className="bg-[#25D366] text-white p-4 flex items-center justify-between rounded-t-lg">
             <div className="flex items-center gap-3">
               {viewMode !== 'welcome' && (
                 <button
@@ -152,7 +152,7 @@ export function Chatbot() {
                 <div
                   className={`max-w-[80%] p-3 rounded-lg ${
                     message.type === 'user'
-                      ? 'bg-primary text-white'
+                      ? 'bg-[#DCF8C6] text-gray-900'
                       : 'bg-white border border-gray-200'
                   }`}
                 >
@@ -172,7 +172,7 @@ export function Chatbot() {
                     ]);
                     setViewMode('user');
                   }}
-                  className="w-full justify-center text-center h-auto py-4 text-base font-semibold hover:bg-primary hover:text-white transition-colors"
+                  className="w-full justify-center text-center h-auto py-4 text-base font-semibold hover:bg-[#25D366] hover:text-white transition-colors"
                   variant="outline"
                 >
                   🙋 Soy usuario
@@ -185,7 +185,7 @@ export function Chatbot() {
                     ]);
                     setViewMode('provider');
                   }}
-                  className="w-full justify-center text-center h-auto py-4 text-base font-semibold hover:bg-primary hover:text-white transition-colors"
+                  className="w-full justify-center text-center h-auto py-4 text-base font-semibold hover:bg-[#25D366] hover:text-white transition-colors"
                   variant="outline"
                 >
                   💼 Soy proveedor
@@ -200,7 +200,7 @@ export function Chatbot() {
                   <Button
                     key={index}
                     onClick={() => handleResponse(item.question, item.answer)}
-                    className="w-full justify-start text-left h-auto py-3 px-4 whitespace-normal hover:bg-primary hover:text-white transition-colors"
+                    className="w-full justify-start text-left h-auto py-3 px-4 whitespace-normal hover:bg-[#25D366] hover:text-white transition-colors"
                     variant="outline"
                     size="sm"
                   >
@@ -217,7 +217,7 @@ export function Chatbot() {
                   <Button
                     key={index}
                     onClick={() => handleResponse(item.question, item.answer)}
-                    className="w-full justify-start text-left h-auto py-3 px-4 whitespace-normal hover:bg-primary hover:text-white transition-colors"
+                    className="w-full justify-start text-left h-auto py-3 px-4 whitespace-normal hover:bg-[#25D366] hover:text-white transition-colors"
                     variant="outline"
                     size="sm"
                   >
