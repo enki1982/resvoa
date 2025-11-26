@@ -16,6 +16,9 @@ export default function Footer() {
             <p className="text-sm mb-4">
               Tu ayudante de confianza. Conectamos personas que necesitan ayuda con proveedores verificados.
             </p>
+            <p className="text-xs text-gray-400 italic mb-4">
+              RESVOA — Resolver y sorprender. RES + VOA.
+            </p>
             <div className="flex space-x-4">
               <Link href="#" className="hover:text-white transition-colors">
                 <Facebook className="h-5 w-5" />

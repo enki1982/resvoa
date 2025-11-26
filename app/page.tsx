@@ -39,15 +39,21 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 relative">
           <div className="text-center space-y-8">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-              Encuentra ayuda cerca de ti en segundos
+              RESVOA — Resuelve tu día. Sorpréndete con el resultado.
             </h1>
-            <p className="text-2xl text-white/90 max-w-2xl mx-auto">
-              Publica tu microtarea y conecta con personas verificadas listas para ayudarte hoy
+            <p className="text-2xl text-white/90 max-w-3xl mx-auto">
+              'RES' de resolver. 'VOA' de ese momento de alivio cuando descubres que ya no tienes que hacerlo tú.
+            </p>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto pt-2">
+              Resolver + reaccionar = Resvoa.
             </p>
 
-            <div className="pt-4">
+            <div className="pt-6 flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" className="text-xl px-12 py-6 h-auto font-semibold" asChild>
-                <Link href="/app/registro-usuario">Publicar una tarea</Link>
+                <Link href="/app/registro-usuario">Quiero resolver algo</Link>
+              </Button>
+              <Button size="lg" variant="outline" className="text-xl px-12 py-6 h-auto font-semibold bg-white/10 hover:bg-white/20 border-white text-white" asChild>
+                <Link href="/app/registro-proveedor">Quiero crear momentos voa</Link>
               </Button>
             </div>
 
@@ -70,53 +76,16 @@ export default function HomePage() {
       </section>
 
       <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              ¿Cómo funciona?
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 pb-8 border-b-2 border-gray-100">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              ¿Por qué se llama RESVOA?
             </h2>
-            <p className="text-xl text-muted-foreground">
-              Publica, elige y recibe ayuda en minutos
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Le pusimos Resvoa porque combina dos ideas poderosas. <strong>'RES'</strong> viene de resolver, de hacer tu vida más fácil. <strong>'VOA'</strong> es esa reacción espontánea que sientes cuando ves que tu tarea, recado o microproblema ya está resuelto. <br/><br/>
+              <span className="text-primary font-semibold text-xl">RES es lo que hacemos. VOA es lo que sientes.</span>
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-12 mb-16">
-            <div className="text-center space-y-4">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                <FileText className="w-10 h-10 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold">1. Publica tu tarea</h3>
-              <p className="text-lg text-muted-foreground">
-                Describe en menos de 1 minuto qué necesitas
-              </p>
-            </div>
-
-            <div className="text-center space-y-4">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                <Users className="w-10 h-10 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold">2. Recibe ofertas y elige</h3>
-              <p className="text-lg text-muted-foreground">
-                Personas cercanas, verificadas y con reputación
-              </p>
-            </div>
-
-            <div className="text-center space-y-4">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-10 h-10 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold">3. Se hace la tarea y pagas al finalizar</h3>
-              <p className="text-lg text-muted-foreground">
-                Pago seguro liberado solo cuando confirmas
-              </p>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <Button size="lg" className="text-lg px-10 py-6 h-auto" asChild>
-              <Link href="/app/registro-usuario">Publicar una tarea</Link>
-            </Button>
-          </div>
-
         </div>
       </section>
 
@@ -124,10 +93,96 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              Gana dinero ayudando a personas de tu zona
+              ¿Cómo funciona?
             </h2>
-            <p className="text-xl text-muted-foreground mb-8">
-              Ofrece microtareas cerca de ti y cobra al terminar. Tú eliges qué tareas hacer
+            <p className="text-xl text-muted-foreground">
+              De RES a VOA en 4 pasos
+            </p>
+          </div>
+          <div className="grid md:grid-cols-4 gap-8 mb-16">
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <FileText className="w-10 h-10 text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold">1. Pide ayuda — RES</h3>
+              <p className="text-lg text-muted-foreground">
+                Describe lo que necesitas resolver en menos de un minuto.
+              </p>
+            </div>
+
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <Users className="w-10 h-10 text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold">2. Elige quién te ayuda — RES</h3>
+              <p className="text-lg text-muted-foreground">
+                Perfiles verificados cerca de ti, listos para responder.
+              </p>
+            </div>
+
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-10 h-10 text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold">3. Se hace la tarea — RES</h3>
+              <p className="text-lg text-muted-foreground">
+                Tu ayudante la resuelve exactamente como lo acordaste.
+              </p>
+            </div>
+
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6">
+                <Star className="w-10 h-10 text-accent" />
+              </div>
+              <h3 className="text-2xl font-bold">4. Pagas y valoras — VOA</h3>
+              <p className="text-lg text-muted-foreground">
+                Y aquí llega tu momento voa: cuando ves que ya está hecho.
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Button size="lg" className="text-lg px-10 py-6 h-auto" asChild>
+              <Link href="/app/registro-usuario">Quiero mi momento voa</Link>
+            </Button>
+          </div>
+
+        </div>
+      </section>
+
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+              Tu tiempo vale demasiado para gastarlo en microtareas.
+            </h2>
+            <p className="text-xl text-muted-foreground mb-4">
+              Publicas lo que necesitas y Resvoa lo resuelve por ti. Fácil, rápido y sin complicaciones.
+            </p>
+            <p className="text-lg text-primary font-semibold">
+              RES es lo que hacemos. VOA es lo que sientes.
+            </p>
+          </div>
+
+          <div className="text-center">
+            <Button size="lg" className="text-lg px-10 py-6 h-auto" asChild>
+              <Link href="/app/registro-usuario">Hazlo fácil. Hazlo voa.</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-secondary">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+              Conviértete en creador de momentos voa.
+            </h2>
+            <p className="text-xl text-muted-foreground mb-4">
+              Gana dinero ayudando a personas de tu zona. Cada tarea que completes genera un voa: la satisfacción de alguien que ya no tiene que hacerlo.
+            </p>
+            <p className="text-lg text-primary font-semibold">
+              Tu trabajo tiene impacto real. Cada voa cuenta.
             </p>
           </div>
 
@@ -165,7 +220,7 @@ export default function HomePage() {
 
           <div className="text-center">
             <Button size="lg" variant="outline" className="text-lg px-10 py-6 h-auto border-2" asChild>
-              <Link href="/app/registro-proveedor">Registrarme como proveedor</Link>
+              <Link href="/app/registro-proveedor">Crea tu primer voa hoy</Link>
             </Button>
           </div>
         </div>
@@ -194,7 +249,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground italic">
-                  "Trabajo muchas horas y no siempre llego a todo. Con RESVOA he podido delegar recados y pequeñas tareas del día a día sin complicarme la vida."
+                  "Pensé que tardarían horas. Abrí Resvoa y… voa, resuelto en minutos."
                 </p>
               </CardContent>
             </Card>
@@ -213,7 +268,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground italic">
-                  "Uso RESVOA para ganar un extra los fines de semana. Elijo las tareas que me encajan y cobro de forma segura, sin tener que buscar clientes por mi cuenta."
+                  "Me encanta crear el momento voa: ayudar a alguien y ver su reacción cuando todo queda hecho."
                 </p>
               </CardContent>
             </Card>
@@ -232,7 +287,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground italic">
-                  "Acabábamos de mudarnos y estábamos saturados. Gracias a RESVOA conseguimos ayuda para montajes simples, compras y pequeños recados mientras nos organizábamos."
+                  "Tenía mil cosas y cero tiempo. Con Resvoa fue: lo pido, alguien viene, voa. Tarea tachada."
                 </p>
               </CardContent>
             </Card>
@@ -485,6 +540,15 @@ export default function HomePage() {
                 Depende de tu disponibilidad y del número de tareas que aceptes. Puedes usar RESVOA como un extra flexible de ingresos.
               </AccordionContent>
             </AccordionItem>
+
+            <AccordionItem value="item-8" className="bg-white border-2 rounded-lg px-6">
+              <AccordionTrigger className="text-left font-semibold">
+                ¿Qué significa 'voa' en Resvoa?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Es la reacción que tienes cuando tu tarea ya está resuelta. Esa mezcla de sorpresa, alivio y satisfacción. <strong>RES es el proceso; VOA es lo que sientes.</strong>
+              </AccordionContent>
+            </AccordionItem>
           </Accordion>
         </div>
       </section>
@@ -499,10 +563,10 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" asChild>
-              <Link href="/app/registro-usuario">Necesito ayuda</Link>
+              <Link href="/app/registro-usuario">Ahorra tiempo. Vive tu voa.</Link>
             </Button>
             <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-white" asChild>
-              <Link href="/app/registro-proveedor">Quiero ser proveedor</Link>
+              <Link href="/app/registro-proveedor">Quiero un momento voa</Link>
             </Button>
           </div>
         </div>
