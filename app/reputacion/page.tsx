@@ -13,14 +13,14 @@ export const metadata: Metadata = {
 export default function ReputacionPage() {
   return (
     <main>
-      <section className="bg-gradient-to-br from-accent via-green-600 to-green-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="bg-gradient-to-br from-primary via-[#1a4d6d] to-[#0d2d45] text-white py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Star className="w-20 h-20 mx-auto mb-6" />
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+          <h1 className="text-5xl sm:text-6xl font-bold mb-6">
             Sistema de reputación
           </h1>
-          <p className="text-xl text-green-50 max-w-3xl mx-auto">
-            Un sistema transparente y justo que premia la excelencia y protege a toda la comunidad
+          <p className="text-2xl text-white/90 max-w-2xl mx-auto">
+            Transparente, justo y diseñado para premiar la excelencia
           </p>
         </div>
       </section>

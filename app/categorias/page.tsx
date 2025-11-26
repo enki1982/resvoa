@@ -25,13 +25,13 @@ export const metadata: Metadata = {
 export default function CategoriasPage() {
   return (
     <main>
-      <section className="bg-gradient-to-br from-primary via-blue-700 to-blue-900 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+      <section className="bg-gradient-to-br from-primary via-[#1a4d6d] to-[#0d2d45] text-white py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl sm:text-6xl font-bold mb-6">
             Categorías de servicios
           </h1>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-            Desde pequeños recados hasta tareas domésticas, encuentra la ayuda que necesitas
+          <p className="text-2xl text-white/90 max-w-2xl mx-auto">
+            Encuentra ayuda para cualquier microtarea del día a día
           </p>
         </div>
       </section>
