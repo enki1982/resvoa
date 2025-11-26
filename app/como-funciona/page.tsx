@@ -12,76 +12,69 @@ export const metadata: Metadata = {
 export default function ComoFuncionaPage() {
   return (
     <main>
-      <section className="bg-gradient-to-br from-primary via-blue-700 to-blue-900 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-            Ultra simple. Ultra rápido.
+      <section className="bg-gradient-to-br from-primary via-[#1a4d6d] to-[#0d2d45] text-white py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl sm:text-6xl font-bold mb-6">
+            Cómo funciona Resvoa
           </h1>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-            De la necesidad a la solución en minutos. Así de directo funciona Resvoa.
+          <p className="text-2xl text-white/90">
+            Publica, elige y recibe ayuda en minutos
           </p>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
-            Para usuarios: ayuda inmediata en 3 pasos
-          </h2>
-          <p className="text-center text-muted-foreground mb-12 text-lg">
-            Sin complicaciones. Sin esperas eternas. Lo que necesitas hoy, resuelto hoy.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="text-3xl font-bold text-primary">1</span>
-                </div>
-                <Search className="w-10 h-10 text-primary mb-4 mx-auto" />
-                <CardTitle className="text-center">Pide en 1 minuto</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-muted-foreground">
-                  Describe tu microtarea en segundos. Sin formularios eternos. Proveedores cercanos reciben tu solicitud al instante.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="text-3xl font-bold text-primary">2</span>
-                </div>
-                <UserCheck className="w-10 h-10 text-primary mb-4 mx-auto" />
-                <CardTitle className="text-center">Elige al mejor</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-muted-foreground">
-                  Respuestas en minutos. Perfiles verificados, niveles transparentes y valoraciones reales. Tú decides.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="text-3xl font-bold text-primary">3</span>
-                </div>
-                <CheckCircle className="w-10 h-10 text-primary mb-4 mx-auto" />
-                <CardTitle className="text-center">Listo y protegido</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-muted-foreground">
-                  Servicio completado, pago protegido. Solo se libera cuando tú confirmas. Cero riesgos, máxima tranquilidad.
-                </p>
-              </CardContent>
-            </Card>
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl font-bold mb-6">
+              Solo 3 pasos
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              De la necesidad a la solución en minutos
+            </p>
           </div>
 
-          <div className="text-center">
-            <Button size="lg" asChild>
-              <Link href="/app/registro-usuario">Empezar ahora</Link>
+          <div className="space-y-16">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span className="text-5xl font-bold text-primary">1</span>
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-3xl font-bold mb-4">Publica tu tarea</h3>
+                <p className="text-xl text-muted-foreground">
+                  Describe en menos de 1 minuto qué necesitas
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span className="text-5xl font-bold text-primary">2</span>
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-3xl font-bold mb-4">Recibe ofertas y elige</h3>
+                <p className="text-xl text-muted-foreground">
+                  Personas cercanas, verificadas y con reputación
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span className="text-5xl font-bold text-primary">3</span>
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-3xl font-bold mb-4">Se hace la tarea y pagas al finalizar</h3>
+                <p className="text-xl text-muted-foreground">
+                  Pago seguro liberado solo cuando confirmas
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-16">
+            <Button size="lg" className="text-lg px-10 py-6 h-auto" asChild>
+              <Link href="/app/registro-usuario">Publicar una tarea</Link>
             </Button>
           </div>
         </div>

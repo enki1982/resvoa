@@ -36,39 +36,71 @@ export function Chatbot() {
 
   const userQuestions = [
     {
-      question: '¿Qué puedo hacer con RESVOA?',
-      answer: 'Con RESVOA puedes pedir ayuda para microtareas del día a día: recados, compras, ayuda ligera en casa, cuidado de mascotas y más.'
+      question: '¿Cómo publicar una tarea?',
+      answer: 'Puedo ayudarte. Publicar una tarea es rápido: escribes qué necesitas, eliges hora y dirección, y listo. ¿Quieres que te guíe ahora mismo?'
     },
     {
-      question: '¿Cómo pido ayuda?',
-      answer: 'Solo tienes que registrarte, describir qué necesitas, indicar tu zona y publicar tu solicitud. Después eliges quién te ayuda.'
+      question: '¿Cómo elegir proveedor?',
+      answer: 'Verás ofertas de personas cercanas. Puedes ver su reputación. Eliges tú a quién contratar.'
     },
     {
-      question: '¿Es seguro pagar por aquí?',
-      answer: 'Sí. Los pagos se procesan de forma segura y solo se completan cuando la tarea está terminada. Si hay algún problema, puedes contactar con soporte.'
+      question: '¿Cómo funciona el pago seguro?',
+      answer: 'Pagas desde la app. El dinero queda retenido. Solo se libera cuando confirmas que la tarea está hecha. Si algo sale mal, te ayudamos.'
     },
     {
-      question: '¿Qué pasa si nadie acepta mi tarea?',
-      answer: 'Si nadie acepta tu tarea en un tiempo razonable, puedes modificarla (precio, horario, detalles) o cancelarla sin coste.'
+      question: '¿Qué pasa si algo no sale bien?',
+      answer: 'Puedes cancelar. Puedes abrir una incidencia. Resvoa interviene para ayudarte.'
+    },
+    {
+      question: '¿Qué tareas se pueden publicar?',
+      answer: 'Casi cualquier microtarea del día a día: mudanzas pequeñas, recados, montajes, limpieza, bricolaje, informática básica, pasear perros, etc.'
+    },
+    {
+      question: '¿Cómo me registro?',
+      answer: 'Ve a la página de registro, completa tus datos básicos y verifica tu correo. Es muy rápido.'
+    },
+    {
+      question: '¿Puedo publicar varias tareas?',
+      answer: 'Sí, puedes publicar todas las tareas que necesites.'
+    },
+    {
+      question: '¿Puedo editar mi tarea?',
+      answer: 'Sí, mientras no haya sido aceptada puedes editarla.'
     }
   ];
 
   const providerQuestions = [
     {
-      question: '¿Cómo gano dinero con RESVOA?',
-      answer: 'Registras tu perfil, verificas tu identidad y activas tu cuenta. Luego ves tareas disponibles cerca y aceptas las que te interesen.'
+      question: '¿Cómo ganar dinero?',
+      answer: 'Perfecto. Puedes empezar a ganar dinero registrándote y verificando tu identidad. Luego verás tareas cerca de ti. ¿Quieres que te explique cómo funciona el panel?'
     },
     {
-      question: '¿Cuándo cobro por las tareas?',
-      answer: 'El cobro se confirma cuando la tarea se marca como completada. Después, el dinero se transfiere a tu cuenta según el método configurado.'
+      question: '¿Cómo funciona la comisión?',
+      answer: 'La plataforma aplica una comisión del 15% por defecto. El administrador puede cambiarla. La comisión se resta automáticamente al procesar el pago.'
     },
     {
-      question: '¿Qué tipo de tareas puedo aceptar?',
-      answer: 'Tareas sencillas: recados, compras, ayuda ligera en casa, acompañamiento, tareas de confianza que no requieren herramientas profesionales.'
+      question: '¿Cómo retirar el dinero?',
+      answer: 'Desde tu panel. Puedes retirar cuando quieras. Transferencia bancaria.'
     },
     {
-      question: '¿Necesito ser autónomo?',
-      answer: 'Depende del uso que hagas de la plataforma y de tu situación fiscal. Si vas a usar RESVOA de forma puntual, suele considerarse un ingreso extra. Si se convierte en una actividad habitual, lo recomendable es que consultes con un asesor para ver si debes darte de alta como autónomo.'
+      question: '¿Cómo mejorar la reputación?',
+      answer: 'Cumple los horarios. Mantén buena comunicación. Entrega trabajos de calidad. Pide al cliente que valore la experiencia.'
+    },
+    {
+      question: '¿Cuánto puedo ganar?',
+      answer: 'Depende de la zona y de cuántas tareas aceptes. ¿Quieres que te muestre ejemplos de ingresos típicos?'
+    },
+    {
+      question: '¿Cómo verifico mi identidad?',
+      answer: 'Durante el registro se te pedirá verificar tu identidad con un documento oficial.'
+    },
+    {
+      question: '¿Puedo elegir qué tareas hacer?',
+      answer: 'Sí, tú eliges qué tareas aceptar y cuáles no.'
+    },
+    {
+      question: '¿Cómo recibo tareas cerca?',
+      answer: 'La plataforma usa tu ubicación GPS para mostrarte tareas cercanas en tu zona.'
     }
   ];
 

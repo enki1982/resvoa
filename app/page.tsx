@@ -36,319 +36,137 @@ export default function HomePage() {
   return (
     <main className="min-h-screen">
       <section className="relative bg-gradient-to-br from-primary via-[#1a4d6d] to-[#0d2d45] text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4">
-              RESVOA — Ayuda que resuelve tu día a día.
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 relative">
+          <div className="text-center space-y-8">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
+              Encuentra ayuda cerca de ti en segundos
             </h1>
-            <p className="text-xl mb-8 text-white/90 max-w-3xl mx-auto">
-              Pide ayuda en segundos y conecta con personas cercanas dispuestas a resolver tus microtareas, de forma rápida y segura.
+            <p className="text-2xl text-white/90 max-w-2xl mx-auto">
+              Publica tu microtarea y conecta con personas verificadas listas para ayudarte hoy
             </p>
 
-            <div className="flex items-center justify-center gap-6 mb-8 text-sm text-white/90">
+            <div className="pt-4">
+              <Button size="lg" variant="secondary" className="text-xl px-12 py-6 h-auto font-semibold" asChild>
+                <Link href="/app/registro-usuario">Publicar una tarea</Link>
+              </Button>
+            </div>
+
+            <div className="flex items-center justify-center gap-8 pt-6 text-base text-white/90">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4" />
-                <span>Pagos protegidos</span>
+                <ShieldCheck className="w-5 h-5" />
+                <span>Pagos seguros</span>
               </div>
               <div className="flex items-center gap-2">
-                <Users className="w-4 h-4" />
+                <Users className="w-5 h-5" />
                 <span>Identidad verificada</span>
               </div>
               <div className="flex items-center gap-2">
-                <Star className="w-4 h-4" />
-                <span>Valoraciones reales</span>
+                <MapPin className="w-5 h-5" />
+                <span>Personas cercanas</span>
               </div>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold mb-6">Pedir ayuda ahora</h2>
-
-              <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <FileText className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">1. Pide ayuda</h3>
-                    <p className="text-white/80 text-sm">
-                      Describe qué necesitas en menos de 1 minuto.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <Users className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">2. Elige quién te ayuda</h3>
-                    <p className="text-white/80 text-sm">
-                      Personas cercanas, verificadas y con reputación.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">3. Se hace la tarea</h3>
-                    <p className="text-white/80 text-sm">
-                      Tu ayudante realiza la tarea según lo acordado.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <CreditCard className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">4. Pagas y valoras</h3>
-                    <p className="text-white/80 text-sm">
-                      Pagas de forma segura solo al finalizar.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <Button size="lg" variant="secondary" className="text-lg px-8 py-4 w-full" asChild>
-                <Link href="/app/registro-usuario">Pedir ayuda ahora</Link>
-              </Button>
-            </div>
-
-            <div className="flex justify-center items-center">
-              <HeroSteps />
-            </div>
-
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold mb-6">Quiero ganar dinero</h2>
-
-              <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <UserPlus className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">1. Regístrate gratis</h3>
-                    <p className="text-white/80 text-sm">
-                      Crea tu perfil y verifica tu identidad.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">2. Elige tareas cerca</h3>
-                    <p className="text-white/80 text-sm">
-                      Ve solicitudes en tu zona y propón tu precio.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">3. Completa y cobra</h3>
-                    <p className="text-white/80 text-sm">
-                      Realiza la tarea y recibe tu pago de forma segura.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <Star className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">4. Mejora tu reputación</h3>
-                    <p className="text-white/80 text-sm">
-                      Recibe valoraciones y accede a mejores oportunidades.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <Button size="lg" variant="outline" className="text-lg px-8 py-4 w-full bg-white/10 hover:bg-white/20 text-white border-white" asChild>
-                <Link href="/app/registro-proveedor">Quiero ganar ayudando</Link>
-              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Cómo funciona RESVOA
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+              ¿Cómo funciona?
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Solo 4 pasos para resolver tus microtareas.
+            <p className="text-xl text-muted-foreground">
+              Publica, elige y recibe ayuda en minutos
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <FileText className="w-6 h-6 text-primary" />
-                </div>
-                <CardTitle className="text-xl">Paso 1 – Pide ayuda</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Publica lo que necesitas: un recado, una compra urgente, ayuda en casa, cuidado de mascotas… en menos de un minuto.
-                </p>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-3 gap-12 mb-16">
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <FileText className="w-10 h-10 text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold">1. Publica tu tarea</h3>
+              <p className="text-lg text-muted-foreground">
+                Describe en menos de 1 minuto qué necesitas
+              </p>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <Users className="w-6 h-6 text-primary" />
-                </div>
-                <CardTitle className="text-xl">Paso 2 – Elige quién te ayuda</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Revisa perfiles cercanos, su reputación, valoraciones y precio, y elige a la persona que mejor encaje contigo.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <Users className="w-10 h-10 text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold">2. Recibe ofertas y elige</h3>
+              <p className="text-lg text-muted-foreground">
+                Personas cercanas, verificadas y con reputación
+              </p>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <CheckCircle className="w-6 h-6 text-primary" />
-                </div>
-                <CardTitle className="text-xl">Paso 3 – Se hace la tarea</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Tu ayudante realiza la tarea según lo acordado. Puedes chatear y seguir el progreso desde la plataforma.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <CreditCard className="w-6 h-6 text-primary" />
-                </div>
-                <CardTitle className="text-xl">Paso 4 – Pagas y valoras</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Solo pagas cuando la tarea esté completada. Después, dejas una valoración para ayudar a otros usuarios.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-10 h-10 text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold">3. Se hace la tarea y pagas al finalizar</h3>
+              <p className="text-lg text-muted-foreground">
+                Pago seguro liberado solo cuando confirmas
+              </p>
+            </div>
           </div>
 
-          <div className="text-center mb-8">
-            <Badge className="mb-4 bg-primary text-white px-4 py-2">Para quien necesita ayuda</Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Tu tiempo vale más que hacer colas
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
-              Delega lo sencillo, recupera tu día. Rapidez real para microtareas cotidianas.
-            </p>
+          <div className="text-center">
+            <Button size="lg" className="text-lg px-10 py-6 h-auto" asChild>
+              <Link href="/app/registro-usuario">Publicar una tarea</Link>
+            </Button>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Clock className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Soluciones inmediatas</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Encuentra ayuda en minutos, no en días. Diseñado para lo que necesitas resolver HOY.
-                </p>
-              </CardContent>
-            </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <ShieldCheck className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Confianza máxima</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Identidad verificada, evaluaciones transparentes y niveles profesionales. Personas reales, fiables y cercanas.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CreditCard className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Ultra simple</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Pide en 1 minuto. Sin formularios eternos. Pago protegido hasta confirmar que todo está perfecto.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </section>
 
-      <section className="py-16 bg-secondary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-4">
-            <Badge className="mb-4 bg-accent text-primary px-4 py-2">Para quien quiere ganar</Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Convierte tu tiempo libre en ingresos reales
+      <section className="py-20 bg-secondary">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+              Gana dinero ayudando a personas de tu zona
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
-              Horarios flexibles, cercanía garantizada y una comunidad que valora tu esfuerzo.
+            <p className="text-xl text-muted-foreground mb-8">
+              Ofrece microtareas cerca de ti y cobra al terminar. Tú eliges qué tareas hacer
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <DollarSign className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Ingresos flexibles</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  300-2500€ al mes según tu dedicación. Tú decides cuándo, dónde y cuánto cobrar.
-                </p>
-              </CardContent>
-            </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Calendar className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Total flexibilidad</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Sin jefes ni horarios fijos. Actívate cuando quieras, acepta solo lo que te convenga.
-                </p>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-3 gap-12 mb-16">
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <MapPin className="w-10 h-10 text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold">Recibe tareas cerca</h3>
+              <p className="text-lg text-muted-foreground">
+                Ve solicitudes en tu zona por GPS
+              </p>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <MapPin className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Local y humano</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Ayuda a tu comunidad. Servicios cerca de casa, trato directo, personas ayudando a personas.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-10 h-10 text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold">Elige cuáles hacer</h3>
+              <p className="text-lg text-muted-foreground">
+                Tú decides qué tareas aceptar
+              </p>
+            </div>
+
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <DollarSign className="w-10 h-10 text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold">Cobra al terminar</h3>
+              <p className="text-lg text-muted-foreground">
+                Pago seguro al completar la tarea
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Button size="lg" variant="outline" className="text-lg px-10 py-6 h-auto border-2" asChild>
+              <Link href="/app/registro-proveedor">Registrarme como proveedor</Link>
+            </Button>
           </div>
         </div>
       </section>
