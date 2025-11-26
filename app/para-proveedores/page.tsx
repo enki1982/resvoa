@@ -13,101 +13,100 @@ export const metadata: Metadata = {
 export default function ParaProveedoresPage() {
   return (
     <main>
-      <section className="bg-gradient-to-br from-accent via-green-600 to-green-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-            Tu tiempo, tus reglas, tus ingresos
+      <section className="bg-gradient-to-br from-primary via-[#1a4d6d] to-[#0d2d45] text-white py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl sm:text-6xl font-bold mb-6">
+            Gana dinero ayudando a personas de tu zona
           </h1>
-          <p className="text-xl text-green-50 max-w-3xl mx-auto mb-8">
-            Convierte horas libres en ingresos reales. Construye tu reputación ayudando a tu comunidad. Total flexibilidad, total control.
+          <p className="text-2xl text-white/90 mb-8">
+            Regístrate gratis y empieza a recibir tareas cerca de ti
           </p>
-          <Button size="lg" variant="secondary" asChild>
-            <Link href="/app/registro-proveedor">Empezar a ganar</Link>
+          <Button size="lg" variant="secondary" className="text-lg px-10 py-6 h-auto" asChild>
+            <Link href="/app/registro-proveedor">Registrarme como proveedor</Link>
           </Button>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
-            Un modelo sostenible que funciona
-          </h2>
-          <p className="text-center text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
-            Ingresos flexibles, reputación transparente y una comunidad que valora tu esfuerzo.
-          </p>
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6">
+              ¿Por qué ser proveedor en Resvoa?
+            </h2>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <DollarSign className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Ingresos predecibles</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  300-2500€/mes según tu dedicación. Tú fijas tus tarifas, aceptas lo que te conviene. Cobros automáticos y puntuales.
+          <div className="space-y-12">
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <DollarSign className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3">Tú eliges las tareas</h3>
+                <p className="text-lg text-muted-foreground">
+                  Tú decides qué tareas aceptar, cuándo trabajar y cuánto cobrar
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Calendar className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Libertad absoluta</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Sin jefes, sin horarios, sin mínimos. Actívate cuando quieras, rechaza lo que no te interese. Tu vida, tus decisiones.
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Calendar className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3">Tú pones tu precio</h3>
+                <p className="text-lg text-muted-foreground">
+                  Propones el precio que consideres justo para cada tarea
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <MapPin className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Servicios locales</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Ayuda a tu barrio, gana en tu zona. Microtareas cerca de casa, sin perder tiempo en desplazamientos. Eficiencia máxima.
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <CheckCircle className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3">Cobras al terminar</h3>
+                <p className="text-lg text-muted-foreground">
+                  Pago seguro al completar la tarea, sin esperas
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Shield className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Comisiones justas</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  12-15% según tu nivel. Pago garantizado al completar. Sin letra pequeña ni sorpresas. Transparencia total.
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Shield className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3">Control total desde tu panel</h3>
+                <p className="text-lg text-muted-foreground">
+                  Gestiona todas tus tareas desde un solo lugar
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <TrendingUp className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Reputación que cuenta</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Sistema de niveles claro (Bronce, Plata, Oro). Cada servicio suma. Mejores niveles = más visibilidad + menos comisión.
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <TrendingUp className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3">Comisión visible y editable</h3>
+                <p className="text-lg text-muted-foreground">
+                  La comisión es del 15% por defecto, el administrador puede modificarla
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CheckCircle className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Sin compromisos</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Elige los trabajos que quieras aceptar. Sin cuotas mensuales ni obligaciones. Libertad total para decidir.
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Star className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3">Reputación para desbloquear oportunidades</h3>
+                <p className="text-lg text-muted-foreground">
+                  Mejora tu reputación y accede a más tareas
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>

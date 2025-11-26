@@ -13,101 +13,106 @@ export const metadata: Metadata = {
 export default function ParaUsuariosPage() {
   return (
     <main>
-      <section className="bg-gradient-to-br from-primary via-blue-700 to-blue-900 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-            Recupera tu tiempo. Vive más.
+      <section className="bg-gradient-to-br from-primary via-[#1a4d6d] to-[#0d2d45] text-white py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl sm:text-6xl font-bold mb-6">
+            Recibe ayuda para tus microtareas, fácil y seguro
           </h1>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-8">
-            Microtareas resueltas HOY. Sin esperas. Sin complicaciones. Personas reales cerca de ti.
+          <p className="text-2xl text-white/90 mb-8">
+            Personas verificadas cerca de ti listas para ayudarte hoy
           </p>
-          <Button size="lg" variant="secondary" asChild>
-            <Link href="/app/registro-usuario">Empezar ahora</Link>
+          <Button size="lg" variant="secondary" className="text-lg px-10 py-6 h-auto" asChild>
+            <Link href="/app/registro-usuario">Publicar una tarea</Link>
           </Button>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
-            Lo que nos hace diferentes
-          </h2>
-          <p className="text-center text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
-            Velocidad real, simplicidad radical y confianza máxima para tu día a día.
-          </p>
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6">
+              ¿Por qué elegir Resvoa?
+            </h2>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Clock className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Respuesta en minutos</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Olvida esperar días para resolver lo simple. Diseñado para microtareas cotidianas que necesitas HOY. Rapidez real, no promesas.
+          <div className="space-y-12">
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <ShieldCheck className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3">Personas verificadas</h3>
+                <p className="text-lg text-muted-foreground">
+                  Todos los proveedores verifican su identidad antes de poder aceptar tareas
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <ShieldCheck className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Confianza sin fisuras</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Identidad verificada, niveles profesionales y evaluaciones transparentes. Cada proveedor construye su reputación servicio a servicio.
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Clock className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3">Tareas desde 5 minutos</h3>
+                <p className="text-lg text-muted-foreground">
+                  Publica tu tarea en menos de 1 minuto y recibe ofertas rápidamente
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CreditCard className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Ultra simple de usar</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Publica en 60 segundos. Sin formularios complejos. Pago protegido hasta confirmar. Diseñado para que cualquiera lo use.
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <CreditCard className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3">Pagos protegidos</h3>
+                <p className="text-lg text-muted-foreground">
+                  El pago se libera solo cuando confirmas que la tarea está completada
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <MapPin className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Local y humano</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Personas de tu comunidad ayudándote. Trato directo, cercanía garantizada. Ayuda humana, no automatizada.
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Star className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3">Reputación pública</h3>
+                <p className="text-lg text-muted-foreground">
+                  Antes de elegir ves valoraciones reales de otros usuarios
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Euro className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Precios transparentes</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Recibe presupuestos claros antes de aceptar. Sin sorpresas ni costes ocultos. Tú decides cuál es la mejor propuesta.
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <MapPin className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3">Cercanía geográfica</h3>
+                <p className="text-lg text-muted-foreground">
+                  Encuentra personas cerca de ti dispuestas a ayudarte
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Bell className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Disponibilidad inmediata</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Necesitas ayuda hoy? Muchos proveedores están disponibles al momento. Respuesta en minutos, no en días.
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Bell className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-3">Soporte si algo no va bien</h3>
+                <p className="text-lg text-muted-foreground">
+                  Si hay algún problema, nuestro equipo interviene para ayudarte
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-16">
+            <Button size="lg" className="text-lg px-10 py-6 h-auto" asChild>
+              <Link href="/app/registro-usuario">Publicar una tarea ahora</Link>
+            </Button>
           </div>
         </div>
       </section>
