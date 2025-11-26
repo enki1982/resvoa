@@ -161,33 +161,46 @@ export function Chatbot() {
               </div>
             ))}
 
-            {viewMode === 'welcome' && messages.length === 1 && (
-              <div className="space-y-2 mt-4">
+            {viewMode === 'welcome' && (
+              <div className="space-y-3 mt-4">
+                <p className="text-xs text-gray-600 font-semibold mb-3 text-center">Selecciona una opción:</p>
                 <Button
-                  onClick={() => setViewMode('user')}
-                  className="w-full justify-start text-left h-auto py-3"
+                  onClick={() => {
+                    setMessages(prev => [...prev,
+                      { type: 'user', text: 'Soy usuario' },
+                      { type: 'bot', text: '¡Genial! Te ayudaré con lo que necesites. Selecciona una pregunta:' }
+                    ]);
+                    setViewMode('user');
+                  }}
+                  className="w-full justify-center text-center h-auto py-4 text-base font-semibold hover:bg-primary hover:text-white transition-colors"
                   variant="outline"
                 >
-                  Quiero pedir ayuda (usuario)
+                  🙋 Soy usuario
                 </Button>
                 <Button
-                  onClick={() => setViewMode('provider')}
-                  className="w-full justify-start text-left h-auto py-3"
+                  onClick={() => {
+                    setMessages(prev => [...prev,
+                      { type: 'user', text: 'Soy proveedor' },
+                      { type: 'bot', text: 'Perfecto! Te explicaré cómo ganar dinero. Selecciona una pregunta:' }
+                    ]);
+                    setViewMode('provider');
+                  }}
+                  className="w-full justify-center text-center h-auto py-4 text-base font-semibold hover:bg-primary hover:text-white transition-colors"
                   variant="outline"
                 >
-                  Quiero ganar ayudando (proveedor)
+                  💼 Soy proveedor
                 </Button>
               </div>
             )}
 
             {viewMode === 'user' && (
               <div className="space-y-2 mt-4">
-                <p className="text-xs text-gray-500 font-medium mb-2">Preguntas frecuentes:</p>
+                <p className="text-xs text-gray-600 font-semibold mb-3">Selecciona tu pregunta:</p>
                 {userQuestions.map((item, index) => (
                   <Button
                     key={index}
                     onClick={() => handleResponse(item.question, item.answer)}
-                    className="w-full justify-start text-left h-auto py-3 whitespace-normal"
+                    className="w-full justify-start text-left h-auto py-3 px-4 whitespace-normal hover:bg-primary hover:text-white transition-colors"
                     variant="outline"
                     size="sm"
                   >
@@ -199,12 +212,12 @@ export function Chatbot() {
 
             {viewMode === 'provider' && (
               <div className="space-y-2 mt-4">
-                <p className="text-xs text-gray-500 font-medium mb-2">Preguntas frecuentes:</p>
+                <p className="text-xs text-gray-600 font-semibold mb-3">Selecciona tu pregunta:</p>
                 {providerQuestions.map((item, index) => (
                   <Button
                     key={index}
                     onClick={() => handleResponse(item.question, item.answer)}
-                    className="w-full justify-start text-left h-auto py-3 whitespace-normal"
+                    className="w-full justify-start text-left h-auto py-3 px-4 whitespace-normal hover:bg-primary hover:text-white transition-colors"
                     variant="outline"
                     size="sm"
                   >
