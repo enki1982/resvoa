@@ -143,26 +143,28 @@ export function Chatbot() {
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
+          <div className="flex-1 overflow-y-auto p-4 bg-gray-50 flex flex-col">
+            <div className="space-y-4 mb-4">
+              {messages.map((message, index) => (
                 <div
-                  className={`max-w-[80%] p-3 rounded-lg ${
-                    message.type === 'user'
-                      ? 'bg-[#DCF8C6] text-gray-900'
-                      : 'bg-white border border-gray-200'
-                  }`}
+                  key={index}
+                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <p className="text-sm">{message.text}</p>
+                  <div
+                    className={`max-w-[80%] p-3 rounded-lg ${
+                      message.type === 'user'
+                        ? 'bg-[#DCF8C6] text-gray-900'
+                        : 'bg-white border border-gray-200'
+                    }`}
+                  >
+                    <p className="text-sm">{message.text}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
 
             {viewMode === 'welcome' && (
-              <div className="space-y-3 mt-4">
+              <div className="space-y-3">
                 <p className="text-xs text-gray-600 font-semibold mb-3 text-center">Selecciona una opción:</p>
                 <Button
                   onClick={() => {
@@ -194,7 +196,7 @@ export function Chatbot() {
             )}
 
             {viewMode === 'user' && (
-              <div className="space-y-2 mt-4">
+              <div className="space-y-2 flex-shrink-0">
                 <p className="text-xs text-gray-600 font-semibold mb-3">Selecciona tu pregunta:</p>
                 {userQuestions.map((item, index) => (
                   <Button
@@ -211,7 +213,7 @@ export function Chatbot() {
             )}
 
             {viewMode === 'provider' && (
-              <div className="space-y-2 mt-4">
+              <div className="space-y-2 flex-shrink-0">
                 <p className="text-xs text-gray-600 font-semibold mb-3">Selecciona tu pregunta:</p>
                 {providerQuestions.map((item, index) => (
                   <Button
