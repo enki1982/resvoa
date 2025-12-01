@@ -1,43 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 206 56% 23%;
+    --foreground: 210 60% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 206 56% 23%;
+    --card-foreground: 210 60% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 206 56% 23%;
+    --popover-foreground: 210 60% 15%;
     --primary: 206 56% 23%;
     --primary-foreground: 0 0% 100%;
+    --primary-dark: 206 60% 18%;
     --secondary: 166 36% 88%;
     --secondary-foreground: 206 56% 23%;
-    --muted: 166 36% 95%;
-    --muted-foreground: 206 30% 45%;
-    --accent: 166 36% 70%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 210 15% 45%;
+    --accent: 166 50% 60%;
     --accent-foreground: 206 56% 23%;
-    --destructive: 0 84.2% 60.2%;
+    --accent-light: 166 50% 95%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 166 20% 88%;
-    --input: 166 20% 88%;
-    --ring: 166 36% 70%;
-    --radius: 0.5rem;
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 206 56% 23%;
+    --radius: 0.75rem;
   }
 }
 
@@ -45,10 +39,91 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    @apply text-5xl sm:text-6xl lg:text-7xl;
+    font-weight: 800;
+  }
+
+  h2 {
+    @apply text-3xl sm:text-4xl lg:text-5xl;
+    font-weight: 700;
+  }
+
+  h3 {
+    @apply text-xl sm:text-2xl;
+    font-weight: 600;
+  }
+
+  p {
+    line-height: 1.65;
+  }
+}
+
+@layer components {
+  .section {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-title {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-lg sm:text-xl text-muted-foreground text-center max-w-3xl mx-auto;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-dark text-primary-foreground font-semibold rounded-xl px-8 py-4 transition-all duration-200 shadow-lg hover:shadow-xl;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary/80 text-secondary-foreground font-semibold rounded-xl px-8 py-4 transition-all duration-200;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold rounded-xl px-8 py-4 transition-all duration-200;
+  }
+
+  .badge-custom {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .icon-wrapper {
+    @apply w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center;
+  }
+
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-dark)) 100%);
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, hsl(206 56% 23%) 0%, hsl(206 60% 30%) 50%, hsl(206 56% 23%) 100%);
   }
 }
