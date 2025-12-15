@@ -27,6 +27,7 @@ export default function RegistroUsuarioPage() {
     setLoading(true);
 
     try {
+      // Step 1: Sign up the user
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
@@ -40,17 +41,36 @@ export default function RegistroUsuarioPage() {
       if (authError) throw authError;
 
       if (authData.user) {
-        const { error: userError } = await supabase
-          .from("users")
-          .insert({
-            id: authData.user.id,
-            email: formData.email,
-            full_name: formData.nombre,
-            phone: formData.telefono,
-            user_type: "user",
-          });
+        // Wait a moment for the session to be established
+        await new Promise(resolve => setTimeout(resolve, 500));
 
-        if (userError) throw userError;
+        // Step 2: Update the user record with phone number
+        // The user record should already exist from the database trigger
+        const { error: updateError } = await supabase
+          .from("users")
+          .update({
+            phone: formData.telefono,
+            full_name: formData.nombre,
+          })
+          .eq("id", authData.user.id);
+
+        // If update fails, try to insert (fallback)
+        if (updateError) {
+          const { error: insertError } = await supabase
+            .from("users")
+            .insert({
+              id: authData.user.id,
+              email: formData.email,
+              full_name: formData.nombre,
+              phone: formData.telefono,
+              user_type: "user",
+            });
+
+          if (insertError) {
+            console.error("Insert error:", insertError);
+            // Don't throw here - the user is created in auth, just missing phone
+          }
+        }
 
         toast({
           title: "Cuenta creada exitosamente",
