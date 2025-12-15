@@ -8,6 +8,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const menuItems = [
     { label: "Inicio", href: "/" },
@@ -32,8 +33,12 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      {showOverlay && (
+        <div className="fixed inset-0 bg-green-950/10 z-40 pointer-events-none" />
+      )}
+      <nav className="bg-white sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2">
             <img src="/logo.png" alt="Resvoa" className="h-10 w-10 object-contain" />
@@ -45,6 +50,8 @@ export default function Navbar() {
               <div
                 key={item.label}
                 className="relative group"
+                onMouseEnter={() => item.dropdown && setShowOverlay(true)}
+                onMouseLeave={() => item.dropdown && setShowOverlay(false)}
               >
                 {item.dropdown ? (
                   <>
@@ -81,7 +88,11 @@ export default function Navbar() {
           </div>
 
           <div className="hidden lg:flex items-center space-x-3">
-            <div className="relative group">
+            <div
+              className="relative group"
+              onMouseEnter={() => setShowOverlay(true)}
+              onMouseLeave={() => setShowOverlay(false)}
+            >
               <Button variant="ghost" size="sm" className="font-light flex items-center gap-1">
                 Inicia sesión
                 <ChevronDown className="w-4 h-4" />
@@ -167,6 +178,7 @@ export default function Navbar() {
           </div>
         </div>
       )}
-    </nav>
+      </nav>
+    </>
   );
 }
