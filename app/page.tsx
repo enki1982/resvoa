@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ShieldCheck, FileText, Users, CircleCheck as CheckCircle, Star, Package, PawPrint, Chrome as Home, Wrench, UserPlus, Truck as TruckIcon, Zap, Heart } from "lucide-react";
 import { Chatbot } from "@/components/chatbot";
+import { HeroCarousel } from "@/components/hero-carousel";
 
 export default function HomePage() {
   return (
@@ -38,12 +39,7 @@ export default function HomePage() {
             </div>
 
             <div className="hidden lg:flex items-center justify-center">
-              <div className="w-full max-w-md aspect-square rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-center">
-                <div className="text-gray-300 text-center">
-                  <div className="text-4xl font-semibold mb-2">[ Imagen ]</div>
-                  <p className="text-sm">Ilustración de producto</p>
-                </div>
-              </div>
+              <HeroCarousel />
             </div>
           </div>
         </div>
