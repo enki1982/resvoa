@@ -20,49 +20,42 @@ import { Chatbot } from "@/components/chatbot";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen">
-      <section className="relative gradient-hero text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAxMmMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptLTE4IDBjMy4zMTQgMCA2IDIuNjg2IDYgNnMtMi42ODYgNi02IDYtNi0yLjY4Ni02LTYgMi42ODYtNiA2LTZ6bTAgMTJjMy4zMTQgMCA2IDIuNjg2IDYgNnMtMi42ODYgNi02IDYtNi0yLjY4Ni02LTYgMi42ODYtNiA2LTZ6bTE4IDBjMy4zMTQgMCA2IDIuNjg2IDYgNnMtMi42ODYgNi02IDYtNi0yLjY4Ni02LTYgMi42ODYtNiA2LTZ6IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L2c+PC9zdmc+')] opacity-50"></div>
+    <main className="min-h-screen bg-white">
+      <section className="bg-white pt-16 pb-20 lg:pt-24 lg:pb-28">
+        <div className="section-container">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="space-y-8">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
+                Haz que alguien haga tus tareas o gana dinero haciéndolas
+              </h1>
+              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+                Publica una tarea o acepta trabajos cerca de ti, de forma rápida y segura.
+              </p>
 
-        <div className="section-container relative">
-          <div className="py-20 lg:py-32">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="space-y-8">
-                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight">
-                  Haz que alguien haga tus tareas. O gana dinero haciéndolas.
-                </h1>
-                <p className="text-xl sm:text-2xl text-white/90 leading-relaxed">
-                  La forma más rápida y segura de conectar a quien necesita ayuda con quien puede ayudar.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                  <Button
-                    size="lg"
-                    variant="secondary"
-                    className="text-lg px-10 py-7 h-auto font-semibold rounded-xl shadow-2xl hover:scale-105 transition-transform"
-                    asChild
-                  >
-                    <Link href="/app/registro-usuario">Que me hagan una tarea</Link>
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="text-lg px-10 py-7 h-auto font-semibold rounded-xl bg-white/10 hover:bg-white hover:text-primary border-2 border-white text-white backdrop-blur-sm transition-all"
-                    asChild
-                  >
-                    <Link href="/app/registro-proveedor">Quiero ganar dinero</Link>
-                  </Button>
-                </div>
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Button
+                  size="lg"
+                  className="text-base px-8 py-6 h-auto font-medium rounded-lg"
+                  asChild
+                >
+                  <Link href="/app/registro-usuario">Que me hagan una tarea</Link>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-base px-8 py-6 h-auto font-medium rounded-lg border-2"
+                  asChild
+                >
+                  <Link href="/app/registro-proveedor">Quiero ganar dinero</Link>
+                </Button>
               </div>
+            </div>
 
-              <div className="hidden lg:block">
-                <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 shadow-2xl">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-white/20 text-center">
-                      <div className="text-6xl font-bold mb-4">[ Imagen ]</div>
-                      <p className="text-sm">Placeholder para ilustración minimalista</p>
-                    </div>
-                  </div>
+            <div className="hidden lg:flex items-center justify-center">
+              <div className="w-full max-w-md aspect-square rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-center">
+                <div className="text-gray-300 text-center">
+                  <div className="text-4xl font-semibold mb-2">[ Imagen ]</div>
+                  <p className="text-sm">Ilustración de producto</p>
                 </div>
               </div>
             </div>
@@ -70,232 +63,224 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section bg-white">
+      <section className="py-16 lg:py-20 bg-gray-50">
         <div className="section-container">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="section-title">
+          <div className="max-w-2xl mx-auto text-center space-y-6">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
               Por qué se llama Resvoa
             </h2>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">RES</strong> viene de resolver.<br />
-              <strong className="text-foreground">VOA</strong> es ese momento de alivio cuando descubres que ya no tienes que hacerlo tú.<br />
-              <span className="text-primary font-semibold">Resolver + alivio = Resvoa.</span>
-            </p>
+            <div className="text-base sm:text-lg text-gray-600 leading-relaxed space-y-2">
+              <p>
+                <span className="font-semibold text-gray-900">RES</span> viene de resolver.
+              </p>
+              <p>
+                <span className="font-semibold text-gray-900">VOA</span> es ese momento de alivio cuando descubres que ya no tienes que hacerlo tú.
+              </p>
+              <p className="font-semibold text-gray-900 pt-2">
+                Resolver + alivio = Resvoa.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section bg-muted">
+      <section className="py-16 lg:py-20 bg-white">
         <div className="section-container">
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-0 shadow-lg card-hover bg-white text-center">
-              <CardContent className="pt-10 pb-10 space-y-4">
-                <div className="icon-wrapper bg-accent/20 mx-auto">
-                  <Zap className="w-10 h-10 text-accent" />
-                </div>
-                <h3 className="text-2xl font-bold">Rápido</h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Soluciones inmediatas.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="text-center space-y-4">
+              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                <Zap className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900">Rápido</h3>
+              <p className="text-gray-600">
+                Soluciones inmediatas.
+              </p>
+            </div>
 
-            <Card className="border-0 shadow-lg card-hover bg-white text-center">
-              <CardContent className="pt-10 pb-10 space-y-4">
-                <div className="icon-wrapper bg-primary/10 mx-auto">
-                  <ShieldCheck className="w-10 h-10 text-primary" />
-                </div>
-                <h3 className="text-2xl font-bold">Seguro</h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Identidad verificada.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="text-center space-y-4">
+              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                <ShieldCheck className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900">Seguro</h3>
+              <p className="text-gray-600">
+                Identidad verificada.
+              </p>
+            </div>
 
-            <Card className="border-0 shadow-lg card-hover bg-white text-center">
-              <CardContent className="pt-10 pb-10 space-y-4">
-                <div className="icon-wrapper bg-primary/10 mx-auto">
-                  <Heart className="w-10 h-10 text-primary" />
-                </div>
-                <h3 className="text-2xl font-bold">Confiable</h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Valoraciones reales.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="text-center space-y-4">
+              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                <Heart className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900">Confiable</h3>
+              <p className="text-gray-600">
+                Valoraciones reales.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section bg-white">
+      <section className="py-16 lg:py-20 bg-gray-50">
         <div className="section-container">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="section-title">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
               Cómo funciona
             </h2>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-0 shadow-lg card-hover bg-white">
-              <CardContent className="pt-8 pb-8 space-y-4 text-center">
-                <div className="icon-wrapper bg-primary/10 mx-auto">
-                  <FileText className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold">Publica lo que necesitas</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Describe tu tarea en segundos.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="text-center space-y-4">
+              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                <FileText className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900">Publica lo que necesitas</h3>
+              <p className="text-sm text-gray-600">
+                Describe tu tarea en segundos.
+              </p>
+            </div>
 
-            <Card className="border-0 shadow-lg card-hover bg-white">
-              <CardContent className="pt-8 pb-8 space-y-4 text-center">
-                <div className="icon-wrapper bg-primary/10 mx-auto">
-                  <Users className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold">Elige quién te ayuda</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Personas verificadas te ofrecen su ayuda.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="text-center space-y-4">
+              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                <Users className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900">Elige quién te ayuda</h3>
+              <p className="text-sm text-gray-600">
+                Personas verificadas te ofrecen su ayuda.
+              </p>
+            </div>
 
-            <Card className="border-0 shadow-lg card-hover bg-white">
-              <CardContent className="pt-8 pb-8 space-y-4 text-center">
-                <div className="icon-wrapper bg-primary/10 mx-auto">
-                  <CheckCircle className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold">Se realiza la tarea</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Tú decides cuándo y dónde.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="text-center space-y-4">
+              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                <CheckCircle className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900">Se realiza la tarea</h3>
+              <p className="text-sm text-gray-600">
+                Tú decides cuándo y dónde.
+              </p>
+            </div>
 
-            <Card className="border-0 shadow-lg card-hover bg-white">
-              <CardContent className="pt-8 pb-8 space-y-4 text-center">
-                <div className="icon-wrapper bg-accent/20 mx-auto">
-                  <Star className="w-8 h-8 text-accent" />
-                </div>
-                <h3 className="text-xl font-bold">Pagas y valoras</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  El pago está protegido y se libera al finalizar.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="text-center space-y-4">
+              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                <Star className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900">Pagas y valoras</h3>
+              <p className="text-sm text-gray-600">
+                El pago está protegido y se libera al finalizar.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section bg-muted">
+      <section className="py-16 lg:py-20 bg-white">
         <div className="section-container">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="section-title">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
               Categorías principales
             </h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <Card className="border-0 shadow-lg card-hover bg-white group">
-              <CardContent className="pt-8 pb-8 space-y-4 text-center">
-                <div className="icon-wrapper bg-primary/10 group-hover:bg-primary/20 transition-colors mx-auto">
-                  <Package className="w-8 h-8 text-primary" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3 text-center">
+                <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                  <Package className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold">Recados y compras</h3>
+                <h3 className="text-base font-semibold text-gray-900">Recados y compras</h3>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg card-hover bg-white group">
-              <CardContent className="pt-8 pb-8 space-y-4 text-center">
-                <div className="icon-wrapper bg-primary/10 group-hover:bg-primary/20 transition-colors mx-auto">
-                  <PawPrint className="w-8 h-8 text-primary" />
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3 text-center">
+                <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                  <PawPrint className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold">Cuidado de mascotas</h3>
+                <h3 className="text-base font-semibold text-gray-900">Cuidado de mascotas</h3>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg card-hover bg-white group">
-              <CardContent className="pt-8 pb-8 space-y-4 text-center">
-                <div className="icon-wrapper bg-primary/10 group-hover:bg-primary/20 transition-colors mx-auto">
-                  <Home className="w-8 h-8 text-primary" />
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3 text-center">
+                <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                  <Home className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold">Tareas del hogar</h3>
+                <h3 className="text-base font-semibold text-gray-900">Tareas del hogar</h3>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg card-hover bg-white group">
-              <CardContent className="pt-8 pb-8 space-y-4 text-center">
-                <div className="icon-wrapper bg-primary/10 group-hover:bg-primary/20 transition-colors mx-auto">
-                  <Wrench className="w-8 h-8 text-primary" />
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3 text-center">
+                <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                  <Wrench className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold">Montaje y arreglos</h3>
+                <h3 className="text-base font-semibold text-gray-900">Montaje y arreglos</h3>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg card-hover bg-white group">
-              <CardContent className="pt-8 pb-8 space-y-4 text-center">
-                <div className="icon-wrapper bg-primary/10 group-hover:bg-primary/20 transition-colors mx-auto">
-                  <UserPlus className="w-8 h-8 text-primary" />
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3 text-center">
+                <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                  <UserPlus className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold">Acompañamiento</h3>
+                <h3 className="text-base font-semibold text-gray-900">Acompañamiento</h3>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg card-hover bg-white group">
-              <CardContent className="pt-8 pb-8 space-y-4 text-center">
-                <div className="icon-wrapper bg-primary/10 group-hover:bg-primary/20 transition-colors mx-auto">
-                  <TruckIcon className="w-8 h-8 text-primary" />
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3 text-center">
+                <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                  <TruckIcon className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold">Mudanzas pequeñas</h3>
+                <h3 className="text-base font-semibold text-gray-900">Mudanzas pequeñas</h3>
               </CardContent>
             </Card>
           </div>
 
           <div className="text-center">
-            <Button size="lg" variant="outline" className="text-lg px-10 py-6 h-auto rounded-xl border-2" asChild>
+            <Button size="lg" variant="outline" className="text-base px-8 py-3 rounded-lg border-2" asChild>
               <Link href="/categorias">Ver todas las categorías</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      <section className="section bg-white">
+      <section className="py-16 lg:py-20 bg-gray-50">
         <div className="section-container">
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-0 shadow-lg card-hover bg-white">
+            <Card className="border border-gray-200 bg-white">
               <CardContent className="pt-8 pb-8 space-y-4">
-                <div className="w-16 h-16 rounded-full bg-gray-200 mx-auto mb-4"></div>
-                <div className="text-center space-y-2">
-                  <h3 className="font-bold text-lg">Ana</h3>
-                  <p className="text-sm text-muted-foreground">Barcelona</p>
+                <div className="w-14 h-14 rounded-full bg-gray-200 mx-auto"></div>
+                <div className="text-center space-y-1">
+                  <h3 className="font-semibold text-base text-gray-900">Ana</h3>
+                  <p className="text-sm text-gray-500">Barcelona</p>
                 </div>
-                <p className="text-muted-foreground italic leading-relaxed text-center">
+                <p className="text-gray-600 text-center text-sm leading-relaxed">
                   "Apareció alguien en minutos y lo resolvió todo."
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg card-hover bg-white">
+            <Card className="border border-gray-200 bg-white">
               <CardContent className="pt-8 pb-8 space-y-4">
-                <div className="w-16 h-16 rounded-full bg-gray-200 mx-auto mb-4"></div>
-                <div className="text-center space-y-2">
-                  <h3 className="font-bold text-lg">Javier</h3>
-                  <p className="text-sm text-muted-foreground">Madrid</p>
+                <div className="w-14 h-14 rounded-full bg-gray-200 mx-auto"></div>
+                <div className="text-center space-y-1">
+                  <h3 className="font-semibold text-base text-gray-900">Javier</h3>
+                  <p className="text-sm text-gray-500">Madrid</p>
                 </div>
-                <p className="text-muted-foreground italic leading-relaxed text-center">
+                <p className="text-gray-600 text-center text-sm leading-relaxed">
                   "Perfecto para ahorrar tiempo cada día."
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg card-hover bg-white">
+            <Card className="border border-gray-200 bg-white">
               <CardContent className="pt-8 pb-8 space-y-4">
-                <div className="w-16 h-16 rounded-full bg-gray-200 mx-auto mb-4"></div>
-                <div className="text-center space-y-2">
-                  <h3 className="font-bold text-lg">Laura</h3>
-                  <p className="text-sm text-muted-foreground">Valencia</p>
+                <div className="w-14 h-14 rounded-full bg-gray-200 mx-auto"></div>
+                <div className="text-center space-y-1">
+                  <h3 className="font-semibold text-base text-gray-900">Laura</h3>
+                  <p className="text-sm text-gray-500">Valencia</p>
                 </div>
-                <p className="text-muted-foreground italic leading-relaxed text-center">
+                <p className="text-gray-600 text-center text-sm leading-relaxed">
                   "Ahora puedo delegar lo que antes me agobiaba."
                 </p>
               </CardContent>
@@ -304,15 +289,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section bg-muted">
-        <div className="section-container text-center space-y-8">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="section-container text-center space-y-6">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
             Empieza hoy mismo.
           </h2>
           <div>
             <Button
               size="lg"
-              className="text-lg px-12 py-7 h-auto rounded-xl shadow-xl hover:scale-105 transition-transform"
+              className="text-base px-10 py-6 h-auto rounded-lg"
               asChild
             >
               <Link href="/app/registro-usuario">Crear cuenta gratuita</Link>
