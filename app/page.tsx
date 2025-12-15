@@ -1,21 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  ShieldCheck,
-  FileText,
-  Users,
-  CheckCircle,
-  Star,
-  Package,
-  PawPrint,
-  Home,
-  Wrench,
-  UserPlus,
-  TruckIcon,
-  Zap,
-  Heart,
-} from "lucide-react";
+import { ShieldCheck, FileText, Users, CircleCheck as CheckCircle, Star, Package, PawPrint, Chrome as Home, Wrench, UserPlus, Truck as TruckIcon, Zap, Heart } from "lucide-react";
 import { Chatbot } from "@/components/chatbot";
 
 export default function HomePage() {
