@@ -12,203 +12,173 @@ export const metadata: Metadata = {
 export default function ComoFuncionaPage() {
   return (
     <main>
-      <section className="bg-gradient-to-br from-primary via-[#1a4d6d] to-[#0d2d45] text-white py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl sm:text-6xl font-bold mb-6">
+      <section className="bg-white pt-20 pb-16">
+        <div className="section-container text-center">
+          <h1 className="text-4xl sm:text-5xl font-semibold mb-5 text-gray-900">
             Cómo funciona Resvoa
           </h1>
-          <p className="text-2xl text-white/90">
+          <p className="text-lg sm:text-xl text-gray-600 font-light max-w-2xl mx-auto">
             Publica, elige y recibe ayuda en minutos
           </p>
         </div>
       </section>
 
-      <section className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl font-bold mb-6">
+      <section className="py-16 lg:py-20 bg-green-50">
+        <div className="section-container">
+          <div className="text-center mb-12">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">
               Solo 3 pasos
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-sm sm:text-base text-gray-600 font-light">
               De la necesidad a la solución en minutos
             </p>
           </div>
 
-          <div className="space-y-16">
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <span className="text-5xl font-bold text-primary">1</span>
+          <div className="grid sm:grid-cols-3 gap-8 lg:gap-12 max-w-4xl mx-auto">
+            <div className="text-center space-y-3">
+              <div className="w-16 h-16 mx-auto rounded-full bg-blue-100 flex items-center justify-center">
+                <span className="text-2xl font-bold text-blue-600">1</span>
               </div>
-              <div className="flex-1 text-center md:text-left">
-                <h3 className="text-3xl font-bold mb-4">Publica tu tarea</h3>
-                <p className="text-xl text-muted-foreground">
-                  Describe en menos de 1 minuto qué necesitas
-                </p>
-              </div>
+              <h3 className="text-lg font-medium text-gray-900">Publica tu tarea</h3>
+              <p className="text-sm text-gray-600 font-light">
+                Describe en menos de 1 minuto qué necesitas
+              </p>
             </div>
 
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <span className="text-5xl font-bold text-primary">2</span>
+            <div className="text-center space-y-3">
+              <div className="w-16 h-16 mx-auto rounded-full bg-orange-100 flex items-center justify-center">
+                <span className="text-2xl font-bold text-orange-600">2</span>
               </div>
-              <div className="flex-1 text-center md:text-left">
-                <h3 className="text-3xl font-bold mb-4">Recibe ofertas y elige</h3>
-                <p className="text-xl text-muted-foreground">
-                  Personas cercanas, verificadas y con reputación
-                </p>
-              </div>
+              <h3 className="text-lg font-medium text-gray-900">Recibe ofertas y elige</h3>
+              <p className="text-sm text-gray-600 font-light">
+                Personas cercanas, verificadas y con reputación
+              </p>
             </div>
 
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <span className="text-5xl font-bold text-primary">3</span>
+            <div className="text-center space-y-3">
+              <div className="w-16 h-16 mx-auto rounded-full bg-green-100 flex items-center justify-center">
+                <span className="text-2xl font-bold text-green-600">3</span>
               </div>
-              <div className="flex-1 text-center md:text-left">
-                <h3 className="text-3xl font-bold mb-4">Se hace la tarea y pagas al finalizar</h3>
-                <p className="text-xl text-muted-foreground">
-                  Pago seguro liberado solo cuando confirmas
-                </p>
-              </div>
+              <h3 className="text-lg font-medium text-gray-900">Se hace y pagas al finalizar</h3>
+              <p className="text-sm text-gray-600 font-light">
+                Pago seguro liberado solo cuando confirmas
+              </p>
             </div>
           </div>
 
-          <div className="text-center mt-16">
-            <Button size="lg" className="text-lg px-10 py-6 h-auto" asChild>
+          <div className="text-center mt-12">
+            <Button size="lg" className="text-sm px-8 py-5 h-auto rounded-lg font-medium" asChild>
               <Link href="/app/registro-usuario">Publicar una tarea</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-secondary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="section-container">
+          <h2 className="text-xl sm:text-2xl font-semibold text-center mb-3 text-gray-900">
             Para proveedores: ingresos reales, libertad total
           </h2>
-          <p className="text-center text-muted-foreground mb-12 text-lg">
+          <p className="text-center text-gray-600 mb-10 text-sm sm:text-base font-light max-w-2xl mx-auto">
             Tu tiempo, tus reglas, tu comunidad. Construye tu reputación mientras ganas.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="text-3xl font-bold text-accent">1</span>
+          <div className="grid sm:grid-cols-3 gap-6 mb-10 max-w-4xl mx-auto">
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3 text-center">
+                <div className="w-12 h-12 mx-auto rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                  <Shield className="w-6 h-6 text-blue-600" />
                 </div>
-                <Shield className="w-10 h-10 text-accent mb-4 mx-auto" />
-                <CardTitle className="text-center">Regístrate y verifica</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-muted-foreground">
-                  Crea tu perfil y verifica tu identidad. El proceso es simple y rápido. Define tus servicios y tarifas.
+                <h3 className="text-base font-medium text-gray-900">Regístrate y verifica</h3>
+                <p className="text-sm text-gray-600 font-light">
+                  Crea tu perfil y verifica tu identidad. Define tus servicios y tarifas.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="text-3xl font-bold text-accent">2</span>
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3 text-center">
+                <div className="w-12 h-12 mx-auto rounded-full bg-purple-100 flex items-center justify-center mb-2">
+                  <Calendar className="w-6 h-6 text-purple-600" />
                 </div>
-                <Calendar className="w-10 h-10 text-accent mb-4 mx-auto" />
-                <CardTitle className="text-center">Recibe solicitudes</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-muted-foreground">
-                  Actívate cuando estés disponible. Recibirás solicitudes de tu zona. Acepta las que más te convengan.
+                <h3 className="text-base font-medium text-gray-900">Recibe solicitudes</h3>
+                <p className="text-sm text-gray-600 font-light">
+                  Actívate cuando estés disponible. Acepta las que más te convengan.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="text-3xl font-bold text-accent">3</span>
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3 text-center">
+                <div className="w-12 h-12 mx-auto rounded-full bg-yellow-100 flex items-center justify-center mb-2">
+                  <Star className="w-6 h-6 text-yellow-600" />
                 </div>
-                <Star className="w-10 h-10 text-accent mb-4 mx-auto" />
-                <CardTitle className="text-center">Realiza y cobra</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-muted-foreground">
-                  Completa el servicio y recibe valoraciones positivas. El pago se libera automáticamente a tu cuenta.
+                <h3 className="text-base font-medium text-gray-900">Realiza y cobra</h3>
+                <p className="text-sm text-gray-600 font-light">
+                  Completa el servicio y recibe valoraciones. El pago se libera automáticamente.
                 </p>
               </CardContent>
             </Card>
           </div>
 
           <div className="text-center">
-            <Button size="lg" variant="default" className="bg-accent hover:bg-green-700" asChild>
+            <Button size="lg" className="text-sm px-8 py-5 h-auto rounded-lg font-medium" asChild>
               <Link href="/app/registro-proveedor">Empezar a ganar</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">
+      <section className="py-16 lg:py-20 bg-green-50">
+        <div className="section-container">
+          <h2 className="text-xl sm:text-2xl font-semibold text-center mb-10 text-gray-900">
             Garantías de seguridad
           </h2>
 
-          <div className="space-y-6">
-            <Card className="border-2">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <Shield className="w-6 h-6 text-primary" />
-                  Verificación de identidad
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Todos los proveedores pasan por un proceso de verificación de identidad antes de poder ofrecer servicios en la plataforma.
-                </p>
-              </CardContent>
-            </Card>
+          <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-blue-100 flex items-center justify-center">
+                <Shield className="w-6 h-6 text-blue-600" />
+              </div>
+              <h3 className="text-base font-medium text-gray-900">Verificación de identidad</h3>
+              <p className="text-sm text-gray-600 font-light">
+                Todos los proveedores verifican su identidad antes de ofrecer servicios
+              </p>
+            </div>
 
-            <Card className="border-2">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <CheckCircle className="w-6 h-6 text-primary" />
-                  Pago protegido
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  El dinero se retiene de forma segura hasta que confirmes que el servicio se ha realizado correctamente. Protección total para ti.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-green-100 flex items-center justify-center">
+                <CheckCircle className="w-6 h-6 text-green-600" />
+              </div>
+              <h3 className="text-base font-medium text-gray-900">Pago protegido</h3>
+              <p className="text-sm text-gray-600 font-light">
+                El dinero se retiene hasta que confirmes que el servicio está completo
+              </p>
+            </div>
 
-            <Card className="border-2">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <Star className="w-6 h-6 text-primary" />
-                  Sistema de reputación
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Las valoraciones de otros usuarios te ayudan a elegir los mejores proveedores. Transparencia y confianza garantizadas.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-yellow-100 flex items-center justify-center">
+                <Star className="w-6 h-6 text-yellow-600" />
+              </div>
+              <h3 className="text-base font-medium text-gray-900">Sistema de reputación</h3>
+              <p className="text-sm text-gray-600 font-light">
+                Las valoraciones te ayudan a elegir los mejores proveedores
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-primary text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="section-container text-center">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900 mb-6">
             ¿Listo para empezar?
           </h2>
-          <p className="text-xl mb-8 text-blue-100">
-            Únete a Resvoa hoy y descubre una nueva forma de ayudarnos
-          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild>
+            <Button size="lg" className="text-sm px-8 py-5 h-auto rounded-lg font-medium" asChild>
               <Link href="/app/registro-usuario">Necesito ayuda</Link>
             </Button>
-            <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-white" asChild>
+            <Button size="lg" variant="outline" className="text-sm px-8 py-5 h-auto rounded-lg font-medium border-2" asChild>
               <Link href="/app/registro-proveedor">Quiero ser proveedor</Link>
             </Button>
           </div>

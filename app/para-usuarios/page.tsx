@@ -1,8 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { Clock, ShieldCheck, CreditCard, MapPin, Bell, Star, Euro, Calendar } from "lucide-react";
+import { Clock, ShieldCheck, CreditCard, MapPin, Bell, Star } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,290 +12,215 @@ export const metadata: Metadata = {
 export default function ParaUsuariosPage() {
   return (
     <main>
-      <section className="bg-gradient-to-br from-primary via-[#1a4d6d] to-[#0d2d45] text-white py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl sm:text-6xl font-bold mb-6">
-            Recibe ayuda para tus microtareas, fácil y seguro
+      <section className="bg-white pt-20 pb-16">
+        <div className="section-container text-center">
+          <h1 className="text-4xl sm:text-5xl font-semibold mb-5 text-gray-900">
+            Recibe ayuda para tus tareas,<br />fácil y seguro
           </h1>
-          <p className="text-2xl text-white/90 mb-8">
+          <p className="text-lg sm:text-xl text-gray-600 font-light max-w-2xl mx-auto mb-8">
             Personas verificadas cerca de ti listas para ayudarte hoy
           </p>
-          <Button size="lg" variant="secondary" className="text-lg px-10 py-6 h-auto" asChild>
+          <Button size="lg" className="text-sm px-8 py-5 h-auto rounded-lg font-medium" asChild>
             <Link href="/app/registro-usuario">Publicar una tarea</Link>
           </Button>
         </div>
       </section>
 
-      <section className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">
+      <section className="py-16 lg:py-20 bg-green-50">
+        <div className="section-container">
+          <div className="text-center mb-12">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">
               ¿Por qué elegir Resvoa?
             </h2>
           </div>
 
-          <div className="space-y-12">
-            <div className="flex items-start gap-6">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <ShieldCheck className="w-8 h-8 text-primary" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-blue-100 flex items-center justify-center">
+                <ShieldCheck className="w-6 h-6 text-blue-600" />
               </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-3">Personas verificadas</h3>
-                <p className="text-lg text-muted-foreground">
-                  Todos los proveedores verifican su identidad antes de poder aceptar tareas
-                </p>
-              </div>
+              <h3 className="text-base font-medium text-gray-900">Personas verificadas</h3>
+              <p className="text-sm text-gray-600 font-light">
+                Todos los proveedores verifican su identidad antes de aceptar tareas
+              </p>
             </div>
 
-            <div className="flex items-start gap-6">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Clock className="w-8 h-8 text-primary" />
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-yellow-100 flex items-center justify-center">
+                <Clock className="w-6 h-6 text-yellow-600" />
               </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-3">Tareas desde 5 minutos</h3>
-                <p className="text-lg text-muted-foreground">
-                  Publica tu tarea en menos de 1 minuto y recibe ofertas rápidamente
-                </p>
-              </div>
+              <h3 className="text-base font-medium text-gray-900">Tareas desde 5 minutos</h3>
+              <p className="text-sm text-gray-600 font-light">
+                Publica tu tarea en menos de 1 minuto y recibe ofertas rápidamente
+              </p>
             </div>
 
-            <div className="flex items-start gap-6">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <CreditCard className="w-8 h-8 text-primary" />
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-green-100 flex items-center justify-center">
+                <CreditCard className="w-6 h-6 text-green-600" />
               </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-3">Pagos protegidos</h3>
-                <p className="text-lg text-muted-foreground">
-                  El pago se libera solo cuando confirmas que la tarea está completada
-                </p>
-              </div>
+              <h3 className="text-base font-medium text-gray-900">Pagos protegidos</h3>
+              <p className="text-sm text-gray-600 font-light">
+                El pago se libera solo cuando confirmas que la tarea está completada
+              </p>
             </div>
 
-            <div className="flex items-start gap-6">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Star className="w-8 h-8 text-primary" />
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-yellow-100 flex items-center justify-center">
+                <Star className="w-6 h-6 text-yellow-600" />
               </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-3">Reputación pública</h3>
-                <p className="text-lg text-muted-foreground">
-                  Antes de elegir ves valoraciones reales de otros usuarios
-                </p>
-              </div>
+              <h3 className="text-base font-medium text-gray-900">Reputación pública</h3>
+              <p className="text-sm text-gray-600 font-light">
+                Antes de elegir ves valoraciones reales de otros usuarios
+              </p>
             </div>
 
-            <div className="flex items-start gap-6">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <MapPin className="w-8 h-8 text-primary" />
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-red-100 flex items-center justify-center">
+                <MapPin className="w-6 h-6 text-red-600" />
               </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-3">Cercanía geográfica</h3>
-                <p className="text-lg text-muted-foreground">
-                  Encuentra personas cerca de ti dispuestas a ayudarte
-                </p>
-              </div>
+              <h3 className="text-base font-medium text-gray-900">Cercanía geográfica</h3>
+              <p className="text-sm text-gray-600 font-light">
+                Encuentra personas cerca de ti dispuestas a ayudarte
+              </p>
             </div>
 
-            <div className="flex items-start gap-6">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Bell className="w-8 h-8 text-primary" />
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-purple-100 flex items-center justify-center">
+                <Bell className="w-6 h-6 text-purple-600" />
               </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-3">Soporte si algo no va bien</h3>
-                <p className="text-lg text-muted-foreground">
-                  Si hay algún problema, nuestro equipo interviene para ayudarte
-                </p>
-              </div>
+              <h3 className="text-base font-medium text-gray-900">Soporte si algo no va bien</h3>
+              <p className="text-sm text-gray-600 font-light">
+                Si hay algún problema, nuestro equipo interviene para ayudarte
+              </p>
             </div>
-          </div>
-
-          <div className="text-center mt-16">
-            <Button size="lg" className="text-lg px-10 py-6 h-auto" asChild>
-              <Link href="/app/registro-usuario">Publicar una tarea ahora</Link>
-            </Button>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-secondary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="section-container">
+          <h2 className="text-xl sm:text-2xl font-semibold text-center mb-3 text-gray-900">
             Ejemplos de servicios que puedes solicitar
           </h2>
-          <p className="text-center text-muted-foreground mb-12 text-lg">
-            Desde pequeños recados hasta tareas domésticas, estamos aquí para ayudarte
+          <p className="text-center text-gray-600 mb-10 text-sm sm:text-base font-light max-w-2xl mx-auto">
+            Desde pequeños recados hasta tareas domésticas
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { category: "Recados", examples: ["Hacer la compra", "Recoger paquetes", "Llevar documentos", "Ir a la farmacia"] },
-              { category: "Mascotas", examples: ["Pasear perros", "Cuidado ocasional", "Llevar al veterinario", "Comprar comida"] },
-              { category: "Hogar", examples: ["Limpieza ligera", "Esperar técnicos", "Montaje IKEA", "Pequeñas reparaciones"] },
-              { category: "Otros", examples: ["Hacer colas", "Acompañar gestiones", "Mudanzas pequeñas", "Y mucho más"] },
-            ].map((service) => (
-              <Card key={service.category} className="border-2">
-                <CardHeader>
-                  <Badge className="w-fit mb-2">{service.category}</Badge>
-                  <CardTitle className="text-lg">{service.category}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    {service.examples.map((example) => (
-                      <li key={example} className="flex items-start gap-2">
-                        <span className="text-primary mt-1">•</span>
-                        {example}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3">
+                <h3 className="text-base font-medium text-gray-900">Recados</h3>
+                <ul className="space-y-2 text-sm text-gray-600 font-light">
+                  <li>• Hacer la compra</li>
+                  <li>• Recoger paquetes</li>
+                  <li>• Llevar documentos</li>
+                  <li>• Ir a la farmacia</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3">
+                <h3 className="text-base font-medium text-gray-900">Mascotas</h3>
+                <ul className="space-y-2 text-sm text-gray-600 font-light">
+                  <li>• Pasear perros</li>
+                  <li>• Cuidado ocasional</li>
+                  <li>• Llevar al veterinario</li>
+                  <li>• Comprar comida</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3">
+                <h3 className="text-base font-medium text-gray-900">Hogar</h3>
+                <ul className="space-y-2 text-sm text-gray-600 font-light">
+                  <li>• Limpieza ligera</li>
+                  <li>• Esperar técnicos</li>
+                  <li>• Montaje IKEA</li>
+                  <li>• Pequeñas reparaciones</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
+              <CardContent className="pt-6 pb-6 space-y-3">
+                <h3 className="text-base font-medium text-gray-900">Otros</h3>
+                <ul className="space-y-2 text-sm text-gray-600 font-light">
+                  <li>• Hacer colas</li>
+                  <li>• Acompañar gestiones</li>
+                  <li>• Mudanzas pequeñas</li>
+                  <li>• Y mucho más</li>
+                </ul>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">
+      <section className="py-16 lg:py-20 bg-green-50">
+        <div className="section-container">
+          <h2 className="text-xl sm:text-2xl font-semibold text-center mb-10 text-gray-900">
             Cómo funciona
           </h2>
 
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                <span className="text-2xl font-bold text-primary">1</span>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-blue-100 flex items-center justify-center">
+                <span className="text-xl font-bold text-blue-600">1</span>
               </div>
-              <h3 className="font-semibold mb-2">Describe tu necesidad</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className="text-base font-medium text-gray-900">Describe tu necesidad</h3>
+              <p className="text-sm text-gray-600 font-light">
                 Explica qué necesitas, cuándo y dónde
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                <span className="text-2xl font-bold text-primary">2</span>
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-orange-100 flex items-center justify-center">
+                <span className="text-xl font-bold text-orange-600">2</span>
               </div>
-              <h3 className="font-semibold mb-2">Recibe propuestas</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className="text-base font-medium text-gray-900">Recibe propuestas</h3>
+              <p className="text-sm text-gray-600 font-light">
                 Proveedores verificados te envían presupuestos
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                <span className="text-2xl font-bold text-primary">3</span>
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-green-100 flex items-center justify-center">
+                <span className="text-xl font-bold text-green-600">3</span>
               </div>
-              <h3 className="font-semibold mb-2">Elige y confirma</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className="text-base font-medium text-gray-900">Elige y confirma</h3>
+              <p className="text-sm text-gray-600 font-light">
                 Revisa perfiles y elige el mejor proveedor
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                <span className="text-2xl font-bold text-primary">4</span>
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-yellow-100 flex items-center justify-center">
+                <span className="text-xl font-bold text-yellow-600">4</span>
               </div>
-              <h3 className="font-semibold mb-2">Paga cuando confirmes</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className="text-base font-medium text-gray-900">Paga cuando confirmes</h3>
+              <p className="text-sm text-gray-600 font-light">
                 Solo pagas cuando el trabajo esté completado
               </p>
             </div>
           </div>
 
-          <div className="text-center">
-            <Button size="lg" asChild>
+          <div className="text-center mt-10">
+            <Button size="lg" variant="outline" className="text-sm px-8 py-5 h-auto rounded-lg font-medium border-2" asChild>
               <Link href="/como-funciona">Ver más detalles</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-secondary">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Lo que dicen nuestros usuarios
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="border-2">
-              <CardHeader>
-                <div className="flex items-center gap-2 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <CardTitle className="text-lg">Increíble servicio</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  "Necesitaba que alguien hiciera la compra porque estaba enfermo. En 20 minutos encontré un proveedor perfecto. Todo impecable."
-                </p>
-                <p className="text-sm font-semibold">— María, Barcelona</p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2">
-              <CardHeader>
-                <div className="flex items-center gap-2 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <CardTitle className="text-lg">Me ha salvado la vida</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  "Como madre trabajadora, no tengo tiempo para todo. Resvoa me ayuda con los recados del día a día. Totalmente recomendable."
-                </p>
-                <p className="text-sm font-semibold">— Laura, Madrid</p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2">
-              <CardHeader>
-                <div className="flex items-center gap-2 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <CardTitle className="text-lg">Rápido y seguro</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  "Me daba miedo al principio, pero el sistema de verificación y pagos me dio mucha confianza. Todo perfecto."
-                </p>
-                <p className="text-sm font-semibold">— Carlos, Valencia</p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2">
-              <CardHeader>
-                <div className="flex items-center gap-2 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <CardTitle className="text-lg">Muy conveniente</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  "Ya he usado Resvoa varias veces para diferentes cosas. Siempre encuentro ayuda rápido y los precios son justos."
-                </p>
-                <p className="text-sm font-semibold">— Ana, Sevilla</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-primary text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="section-container text-center">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900 mb-6">
             Recupera tu tiempo hoy
           </h2>
-          <p className="text-xl mb-8 text-blue-100">
-            Únete a miles de usuarios que ya confían en Resvoa para sus tareas diarias
-          </p>
-          <Button size="lg" variant="secondary" asChild>
+          <Button size="lg" className="text-sm px-8 py-5 h-auto rounded-lg font-medium" asChild>
             <Link href="/app/registro-usuario">Crear cuenta gratis</Link>
           </Button>
         </div>

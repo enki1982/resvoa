@@ -25,300 +25,206 @@ export const metadata: Metadata = {
 export default function CategoriasPage() {
   return (
     <main>
-      <section className="bg-gradient-to-br from-primary via-[#1a4d6d] to-[#0d2d45] text-white py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl sm:text-6xl font-bold mb-6">
+      <section className="bg-white pt-20 pb-16">
+        <div className="section-container text-center">
+          <h1 className="text-4xl sm:text-5xl font-semibold mb-5 text-gray-900">
             Categorías de servicios
           </h1>
-          <p className="text-2xl text-white/90 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 font-light max-w-2xl mx-auto">
             Encuentra ayuda para cualquier microtarea del día a día
           </p>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="section-container">
+          <h2 className="text-xl sm:text-2xl font-semibold text-center mb-3 text-gray-900">
             Servicios disponibles
           </h2>
-          <p className="text-center text-muted-foreground mb-12 text-lg">
+          <p className="text-center text-gray-600 mb-10 text-sm sm:text-base font-light max-w-2xl mx-auto">
             Todas las tareas cotidianas que puedes delegar de forma segura
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardHeader>
-                <ShoppingCart className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Recados y compras</CardTitle>
-                <Badge className="w-fit">Muy popular</Badge>
+                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-3">
+                  <ShoppingCart className="w-6 h-6 text-purple-600" />
+                </div>
+                <CardTitle className="text-base">Recados y compras</CardTitle>
+                <Badge className="w-fit bg-green-100 text-green-800 text-xs">Muy popular</Badge>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-sm text-gray-600 font-light mb-3">
                   Delega las compras del supermercado, recoge paquetes o lleva documentos
                 </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Hacer la compra</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Recoger paquetes</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Ir a la farmacia</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Llevar/recoger documentos</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Hacer colas o gestiones</span>
-                  </li>
+                <ul className="space-y-1.5 text-xs text-gray-600 font-light">
+                  <li>• Hacer la compra</li>
+                  <li>• Recoger paquetes</li>
+                  <li>• Ir a la farmacia</li>
+                  <li>• Llevar documentos</li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardHeader>
-                <Dog className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Cuidado de mascotas</CardTitle>
-                <Badge className="w-fit">Muy popular</Badge>
+                <div className="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center mb-3">
+                  <Dog className="w-6 h-6 text-pink-600" />
+                </div>
+                <CardTitle className="text-base">Cuidado de mascotas</CardTitle>
+                <Badge className="w-fit bg-green-100 text-green-800 text-xs">Muy popular</Badge>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-sm text-gray-600 font-light mb-3">
                   Paseos, cuidado ocasional y transporte para tus mascotas
                 </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Pasear perros</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Cuidado ocasional</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Llevar al veterinario</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Comprar comida para mascotas</span>
-                  </li>
+                <ul className="space-y-1.5 text-xs text-gray-600 font-light">
+                  <li>• Pasear perros</li>
+                  <li>• Cuidado ocasional</li>
+                  <li>• Llevar al veterinario</li>
+                  <li>• Comprar comida</li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardHeader>
-                <Home className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Tareas del hogar</CardTitle>
+                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-3">
+                  <Home className="w-6 h-6 text-blue-600" />
+                </div>
+                <CardTitle className="text-base">Tareas del hogar</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-sm text-gray-600 font-light mb-3">
                   Limpieza ligera, organización y esperar entregas o técnicos
                 </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Limpieza ligera</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Esperar técnicos o entregas</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Organización de espacios</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Sacar basura/reciclaje</span>
-                  </li>
+                <ul className="space-y-1.5 text-xs text-gray-600 font-light">
+                  <li>• Limpieza ligera</li>
+                  <li>• Esperar técnicos</li>
+                  <li>• Organización de espacios</li>
+                  <li>• Sacar basura</li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardHeader>
-                <Wrench className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Montaje y reparaciones</CardTitle>
+                <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mb-3">
+                  <Wrench className="w-6 h-6 text-orange-600" />
+                </div>
+                <CardTitle className="text-base">Montaje y reparaciones</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-sm text-gray-600 font-light mb-3">
                   Montaje de muebles y pequeñas reparaciones domésticas
                 </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Montaje de muebles IKEA</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Colgar cuadros y estanterías</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Reparaciones menores</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Instalación de electrodomésticos</span>
-                  </li>
+                <ul className="space-y-1.5 text-xs text-gray-600 font-light">
+                  <li>• Montaje de muebles IKEA</li>
+                  <li>• Colgar cuadros y estanterías</li>
+                  <li>• Reparaciones menores</li>
+                  <li>• Instalación electrodomésticos</li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardHeader>
-                <Package className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Mudanzas pequeñas</CardTitle>
+                <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mb-3">
+                  <Package className="w-6 h-6 text-red-600" />
+                </div>
+                <CardTitle className="text-base">Mudanzas pequeñas</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-sm text-gray-600 font-light mb-3">
                   Transporte de objetos, mudanzas de habitación y ayuda con cajas
                 </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Mudanzas de habitación/estudio</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Transporte de muebles</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Empaquetado y desempaquetado</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Llevar cosas a trastero</span>
-                  </li>
+                <ul className="space-y-1.5 text-xs text-gray-600 font-light">
+                  <li>• Mudanzas habitación/estudio</li>
+                  <li>• Transporte de muebles</li>
+                  <li>• Empaquetado</li>
+                  <li>• Llevar a trastero</li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardHeader>
-                <Users className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Acompañamiento</CardTitle>
+                <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center mb-3">
+                  <Users className="w-6 h-6 text-teal-600" />
+                </div>
+                <CardTitle className="text-base">Acompañamiento</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-sm text-gray-600 font-light mb-3">
                   Acompañar a citas, gestiones o eventos
                 </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Acompañar a citas médicas</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Ayuda con gestiones administrativas</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Acompañar personas mayores</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Ayuda con eventos</span>
-                  </li>
+                <ul className="space-y-1.5 text-xs text-gray-600 font-light">
+                  <li>• Acompañar a citas médicas</li>
+                  <li>• Gestiones administrativas</li>
+                  <li>• Acompañar mayores</li>
+                  <li>• Ayuda con eventos</li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardHeader>
-                <KeyRound className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Recogida/Entrega de llaves</CardTitle>
-                <Badge className="w-fit">Nuevo</Badge>
+                <div className="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mb-3">
+                  <KeyRound className="w-6 h-6 text-yellow-600" />
+                </div>
+                <CardTitle className="text-base">Gestión de llaves</CardTitle>
+                <Badge className="w-fit bg-blue-100 text-blue-800 text-xs">Nuevo</Badge>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Servicios de gestión de llaves para Airbnb, alquileres y propiedades
+                <p className="text-sm text-gray-600 font-light mb-3">
+                  Gestión de llaves para Airbnb, alquileres y propiedades
                 </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Recepción de huéspedes Airbnb</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Entrega de llaves a inquilinos</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Recogida de llaves en mudanzas</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Gestión de propiedades vacacionales</span>
-                  </li>
+                <ul className="space-y-1.5 text-xs text-gray-600 font-light">
+                  <li>• Recepción Airbnb</li>
+                  <li>• Entrega a inquilinos</li>
+                  <li>• Recogida en mudanzas</li>
+                  <li>• Gestión propiedades</li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardHeader>
-                <Car className="w-12 h-12 text-primary mb-4" />
-                <CardTitle>Transporte de objetos</CardTitle>
+                <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-3">
+                  <Car className="w-6 h-6 text-green-600" />
+                </div>
+                <CardTitle className="text-base">Transporte de objetos</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-sm text-gray-600 font-light mb-3">
                   Llevar o recoger objetos de un lugar a otro
                 </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Transporte urbano de objetos</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Recoger compras grandes</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Llevar cosas a punto limpio</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Transporte de bicicletas</span>
-                  </li>
+                <ul className="space-y-1.5 text-xs text-gray-600 font-light">
+                  <li>• Transporte urbano</li>
+                  <li>• Recoger compras grandes</li>
+                  <li>• Llevar a punto limpio</li>
+                  <li>• Transporte bicicletas</li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardHeader>
-                <BookOpen className="w-12 h-12 text-accent mb-4" />
-                <CardTitle>Apoyo administrativo</CardTitle>
+                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-3">
+                  <BookOpen className="w-6 h-6 text-blue-600" />
+                </div>
+                <CardTitle className="text-base">Apoyo administrativo</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-sm text-gray-600 font-light mb-3">
                   Ayuda con tareas administrativas y digitales sencillas
                 </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Escaneo de documentos</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Organización de papeles</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Ayuda con trámites online</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Imprimir documentos</span>
-                  </li>
+                <ul className="space-y-1.5 text-xs text-gray-600 font-light">
+                  <li>• Escaneo de documentos</li>
+                  <li>• Organización de papeles</li>
+                  <li>• Ayuda trámites online</li>
+                  <li>• Imprimir documentos</li>
                 </ul>
               </CardContent>
             </Card>
@@ -326,7 +232,7 @@ export default function CategoriasPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-secondary">
+      <section className="py-16 lg:py-20 bg-green-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 flex items-center justify-center gap-3">
             <XCircle className="w-10 h-10 text-destructive" />
@@ -412,39 +318,20 @@ export default function CategoriasPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-6">
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="section-container text-center">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-5 text-gray-900">
             ¿No encuentras lo que buscas?
           </h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            Siempre estamos ampliando nuestras categorías. Si tienes una necesidad específica que no aparece aquí, contáctanos y estudiaremos añadirla.
+          <p className="text-sm sm:text-base text-gray-600 font-light mb-8 max-w-2xl mx-auto">
+            Siempre estamos ampliando categorías. Si tienes una necesidad específica, contáctanos
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
-              <Link href="/contacto">Sugerir categoría</Link>
+            <Button size="lg" className="text-sm px-8 py-5 h-auto rounded-lg font-medium" asChild>
+              <Link href="/app/registro-usuario">Publicar una tarea</Link>
             </Button>
-            <Button size="lg" variant="outline" asChild>
+            <Button size="lg" variant="outline" className="text-sm px-8 py-5 h-auto rounded-lg font-medium border-2" asChild>
               <Link href="/como-funciona">Ver cómo funciona</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-primary text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-            ¿Listo para empezar?
-          </h2>
-          <p className="text-xl mb-8 text-blue-100">
-            Publica tu primera solicitud o empieza a ganar como proveedor
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild>
-              <Link href="/app/registro-usuario">Necesito ayuda</Link>
-            </Button>
-            <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-white" asChild>
-              <Link href="/app/registro-proveedor">Quiero ser proveedor</Link>
             </Button>
           </div>
         </div>
