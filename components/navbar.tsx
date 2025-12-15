@@ -44,9 +44,7 @@ export default function Navbar() {
             {menuItems.map((item) => (
               <div
                 key={item.label}
-                className="relative"
-                onMouseEnter={() => item.dropdown && setOpenDropdown(item.label)}
-                onMouseLeave={() => setOpenDropdown(null)}
+                className="relative group"
               >
                 {item.dropdown ? (
                   <>
@@ -56,19 +54,19 @@ export default function Navbar() {
                       {item.label}
                       <ChevronDown className="w-4 h-4" />
                     </button>
-                    {openDropdown === item.label && (
-                      <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
+                    <div className="absolute left-1/2 transform -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                      <div className="w-48 bg-white rounded-lg shadow-lg py-2 border border-gray-100">
                         {item.dropdown.map((subItem) => (
                           <Link
                             key={subItem.href}
                             href={subItem.href}
-                            className="block px-4 py-2 text-sm font-light text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
+                            className="block px-4 py-2 text-sm font-light text-gray-700 hover:bg-green-50 hover:text-primary transition-colors"
                           >
                             {subItem.label}
                           </Link>
                         ))}
                       </div>
-                    )}
+                    </div>
                   </>
                 ) : (
                   <Link

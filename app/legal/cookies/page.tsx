@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function CookiesPage() {
   return (
-    <main className="bg-green-50/30">
+    <main className="bg-green-50">
       <section className="bg-gradient-to-br from-primary via-blue-700 to-blue-900 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link href="/" className="inline-flex items-center gap-2 text-blue-100 hover:text-white mb-6">
