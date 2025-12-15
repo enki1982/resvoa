@@ -81,11 +81,30 @@ export default function Navbar() {
           </div>
 
           <div className="hidden lg:flex items-center space-x-3">
-            <Button variant="ghost" size="sm" className="font-light" asChild>
-              <Link href="/app/login">Acceder</Link>
-            </Button>
+            <div className="relative group">
+              <Button variant="ghost" size="sm" className="font-light flex items-center gap-1">
+                Inicia sesión
+                <ChevronDown className="w-4 h-4" />
+              </Button>
+              <div className="absolute right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="w-64 bg-white rounded-lg shadow-lg py-2 border border-gray-100">
+                  <Link
+                    href="/app/login"
+                    className="block px-4 py-2 text-sm font-light text-gray-700 hover:bg-green-50 hover:text-primary transition-colors"
+                  >
+                    Inicia sesión como cliente
+                  </Link>
+                  <Link
+                    href="/app/login"
+                    className="block px-4 py-2 text-sm font-light text-gray-700 hover:bg-green-50 hover:text-primary transition-colors"
+                  >
+                    Inicia sesión como proveedor
+                  </Link>
+                </div>
+              </div>
+            </div>
             <Button size="sm" className="font-medium" asChild>
-              <Link href="/app/registro-usuario">Empezar</Link>
+              <Link href="/app/registro-usuario">Regístrate</Link>
             </Button>
           </div>
 
@@ -132,11 +151,17 @@ export default function Navbar() {
               </div>
             ))}
             <div className="pt-4 space-y-2">
-              <Button variant="outline" className="w-full font-light" asChild>
-                <Link href="/app/login">Acceder</Link>
-              </Button>
+              <div className="space-y-1">
+                <p className="text-xs text-gray-500 px-3 font-semibold">Inicia sesión</p>
+                <Button variant="outline" className="w-full font-light justify-start" asChild>
+                  <Link href="/app/login">Como cliente</Link>
+                </Button>
+                <Button variant="outline" className="w-full font-light justify-start" asChild>
+                  <Link href="/app/login">Como proveedor</Link>
+                </Button>
+              </div>
               <Button className="w-full font-medium" asChild>
-                <Link href="/app/registro-usuario">Empezar</Link>
+                <Link href="/app/registro-usuario">Regístrate</Link>
               </Button>
             </div>
           </div>
