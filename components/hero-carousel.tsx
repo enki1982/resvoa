@@ -31,13 +31,13 @@ export function HeroCarousel() {
           key={image.src}
           className={`absolute inset-0 transition-opacity duration-700 ${
             index === currentIndex ? 'opacity-100' : 'opacity-0'
-          }`}
+          } ${index === 0 ? 'bg-white flex items-center justify-center p-8' : ''}`}
         >
           <Image
             src={image.src}
             alt={image.alt}
             fill
-            className="object-cover"
+            className={index === 0 ? 'object-contain p-8' : 'object-cover'}
             priority={index === 0}
             onLoad={() => index === 0 && setIsLoaded(true)}
             onError={(e) => {
