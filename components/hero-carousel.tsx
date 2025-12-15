@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 const images = [
-  { src: '/resvoa_home.png', alt: 'Resvoa - Servicios del hogar' },
+  { src: '/logo.png', alt: 'Resvoa - Servicios del hogar' },
   { src: '/revoa_colgando_cuadro.png', alt: 'Montaje y decoración' },
   { src: '/resvoa_tirando_basura.png', alt: 'Tareas del hogar' },
   { src: '/resvoa_joven_acompanante.png', alt: 'Acompañamiento' },
