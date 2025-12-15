@@ -38,7 +38,7 @@ export default function HomePage() {
                   className="text-sm px-7 py-5 h-auto font-medium rounded-lg"
                   asChild
                 >
-                  <Link href="/app/registro-usuario">Que me hagan una tarea</Link>
+                  <Link href="/app/registro-usuario">Publicar tarea</Link>
                 </Button>
                 <Button
                   size="lg"
@@ -46,7 +46,7 @@ export default function HomePage() {
                   className="text-sm px-7 py-5 h-auto font-medium rounded-lg border-2"
                   asChild
                 >
-                  <Link href="/app/registro-proveedor">Quiero ganar dinero</Link>
+                  <Link href="/app/registro-proveedor">Ganar dinero</Link>
                 </Button>
               </div>
             </div>
