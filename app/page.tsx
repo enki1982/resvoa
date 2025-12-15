@@ -56,13 +56,12 @@ export default function HomePage() {
               </div>
 
               <div className="hidden lg:block">
-                <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 shadow-2xl">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-white/20 text-center">
-                      <div className="text-6xl font-bold mb-4">[ Imagen ]</div>
-                      <p className="text-sm">Placeholder para ilustración minimalista</p>
-                    </div>
-                  </div>
+                <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl">
+                  <img
+                    src="/resvoa_home.png"
+                    alt="Resvoa - Resuelve tus tareas"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             </div>
