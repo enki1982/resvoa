@@ -172,7 +172,7 @@ export function Chatbot() {
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 bg-gray-50 flex flex-col">
+          <div className="flex-1 overflow-y-auto p-4 bg-green-50/30 flex flex-col">
             <div className="space-y-4 mb-4">
               {messages.map((message, index) => (
                 <div

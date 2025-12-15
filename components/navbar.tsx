@@ -3,24 +3,36 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-  const navLinks = [
-    { href: "/", label: "Inicio" },
-    { href: "/como-funciona", label: "Cómo funciona" },
-    { href: "/para-usuarios", label: "Para usuarios" },
-    { href: "/para-proveedores", label: "Para proveedores" },
-    { href: "/seguridad", label: "Seguridad" },
-    { href: "/categorias", label: "Categorías" },
-    { href: "/reputacion", label: "Reputación" },
-    { href: "/contacto", label: "Contacto" },
+  const menuItems = [
+    { label: "Inicio", href: "/" },
+    {
+      label: "Cómo funciona",
+      href: "/como-funciona",
+      dropdown: [
+        { label: "Para usuarios", href: "/para-usuarios" },
+        { label: "Para proveedores", href: "/para-proveedores" },
+      ]
+    },
+    { label: "Categorías", href: "/categorias" },
+    {
+      label: "Nosotros",
+      href: "#",
+      dropdown: [
+        { label: "Seguridad", href: "/seguridad" },
+        { label: "Reputación", href: "/reputacion" },
+        { label: "Contacto", href: "/contacto" },
+      ]
+    },
   ];
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <nav className="bg-white sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2">
@@ -29,22 +41,52 @@ export default function Navbar() {
           </Link>
 
           <div className="hidden lg:flex items-center space-x-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary hover:bg-secondary rounded-md transition-colors"
+            {menuItems.map((item) => (
+              <div
+                key={item.label}
+                className="relative"
+                onMouseEnter={() => item.dropdown && setOpenDropdown(item.label)}
+                onMouseLeave={() => setOpenDropdown(null)}
               >
-                {link.label}
-              </Link>
+                {item.dropdown ? (
+                  <>
+                    <button
+                      className="px-3 py-2 text-sm font-light text-gray-700 hover:text-primary rounded-md transition-colors flex items-center gap-1"
+                    >
+                      {item.label}
+                      <ChevronDown className="w-4 h-4" />
+                    </button>
+                    {openDropdown === item.label && (
+                      <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
+                        {item.dropdown.map((subItem) => (
+                          <Link
+                            key={subItem.href}
+                            href={subItem.href}
+                            className="block px-4 py-2 text-sm font-light text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
+                          >
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className="px-3 py-2 text-sm font-light text-gray-700 hover:text-primary rounded-md transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </div>
             ))}
           </div>
 
           <div className="hidden lg:flex items-center space-x-3">
-            <Button variant="outline" size="sm" asChild>
+            <Button variant="ghost" size="sm" className="font-light" asChild>
               <Link href="/app/login">Acceder</Link>
             </Button>
-            <Button size="sm" asChild>
+            <Button size="sm" className="font-medium" asChild>
               <Link href="/app/registro-usuario">Empezar</Link>
             </Button>
           </div>
@@ -64,23 +106,38 @@ export default function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="lg:hidden border-t border-gray-200 bg-white">
+        <div className="lg:hidden bg-white">
           <div className="px-4 py-4 space-y-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-secondary rounded-md transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.label}
-              </Link>
+            {menuItems.map((item) => (
+              <div key={item.label}>
+                <Link
+                  href={item.href === "#" ? (item.dropdown?.[0].href || "/") : item.href}
+                  className="block px-3 py-2 text-base font-light text-gray-700 hover:text-primary rounded-md transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.label}
+                </Link>
+                {item.dropdown && (
+                  <div className="pl-4 space-y-1">
+                    {item.dropdown.map((subItem) => (
+                      <Link
+                        key={subItem.href}
+                        href={subItem.href}
+                        className="block px-3 py-2 text-sm font-light text-gray-600 hover:text-primary rounded-md transition-colors"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {subItem.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
             <div className="pt-4 space-y-2">
-              <Button variant="outline" className="w-full" asChild>
+              <Button variant="outline" className="w-full font-light" asChild>
                 <Link href="/app/login">Acceder</Link>
               </Button>
-              <Button className="w-full" asChild>
+              <Button className="w-full font-medium" asChild>
                 <Link href="/app/registro-usuario">Empezar</Link>
               </Button>
             </div>

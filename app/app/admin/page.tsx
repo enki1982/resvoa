@@ -155,7 +155,7 @@ export default function AdminPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-green-50/30">
       <div className="bg-gradient-to-r from-primary to-blue-700 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">

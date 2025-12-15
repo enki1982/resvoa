@@ -63,7 +63,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 lg:py-20 bg-gray-50">
+      <section className="py-16 lg:py-20 bg-green-50/30">
         <div className="section-container">
           <div className="max-w-2xl mx-auto text-center space-y-5">
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">
@@ -120,7 +120,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 lg:py-20 bg-gray-50">
+      <section className="py-16 lg:py-20 bg-green-50/30">
         <div className="section-container">
           <div className="text-center mb-12">
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">
@@ -244,7 +244,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 lg:py-20 bg-gray-50">
+      <section className="py-16 lg:py-20 bg-green-50/30">
         <div className="section-container">
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="border border-gray-200 bg-white">
