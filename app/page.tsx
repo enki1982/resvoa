@@ -88,8 +88,8 @@ export default function HomePage() {
         <div className="section-container">
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                <Zap className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 mx-auto rounded-full bg-yellow-100 flex items-center justify-center">
+                <Zap className="w-6 h-6 text-yellow-600" />
               </div>
               <h3 className="text-lg font-medium text-gray-900">Rápido</h3>
               <p className="text-sm text-gray-600 font-light">
@@ -98,8 +98,8 @@ export default function HomePage() {
             </div>
 
             <div className="text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                <ShieldCheck className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 mx-auto rounded-full bg-blue-100 flex items-center justify-center">
+                <ShieldCheck className="w-6 h-6 text-blue-600" />
               </div>
               <h3 className="text-lg font-medium text-gray-900">Seguro</h3>
               <p className="text-sm text-gray-600 font-light">
@@ -108,8 +108,8 @@ export default function HomePage() {
             </div>
 
             <div className="text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                <Heart className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 mx-auto rounded-full bg-pink-100 flex items-center justify-center">
+                <Heart className="w-6 h-6 text-pink-600" />
               </div>
               <h3 className="text-lg font-medium text-gray-900">Confiable</h3>
               <p className="text-sm text-gray-600 font-light">
@@ -130,8 +130,8 @@ export default function HomePage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                <FileText className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 mx-auto rounded-full bg-blue-100 flex items-center justify-center">
+                <FileText className="w-6 h-6 text-blue-600" />
               </div>
               <h3 className="text-base font-medium text-gray-900">Publica lo que necesitas</h3>
               <p className="text-sm text-gray-600 font-light">
@@ -140,8 +140,8 @@ export default function HomePage() {
             </div>
 
             <div className="text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                <Users className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 mx-auto rounded-full bg-orange-100 flex items-center justify-center">
+                <Users className="w-6 h-6 text-orange-600" />
               </div>
               <h3 className="text-base font-medium text-gray-900">Elige quién te ayuda</h3>
               <p className="text-sm text-gray-600 font-light">
@@ -150,8 +150,8 @@ export default function HomePage() {
             </div>
 
             <div className="text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 mx-auto rounded-full bg-green-100 flex items-center justify-center">
+                <CheckCircle className="w-6 h-6 text-green-600" />
               </div>
               <h3 className="text-base font-medium text-gray-900">Se realiza la tarea</h3>
               <p className="text-sm text-gray-600 font-light">
@@ -160,8 +160,8 @@ export default function HomePage() {
             </div>
 
             <div className="text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                <Star className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 mx-auto rounded-full bg-yellow-100 flex items-center justify-center">
+                <Star className="w-6 h-6 text-yellow-600" />
               </div>
               <h3 className="text-base font-medium text-gray-900">Pagas y valoras</h3>
               <p className="text-sm text-gray-600 font-light">
@@ -183,8 +183,8 @@ export default function HomePage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardContent className="pt-6 pb-6 space-y-3 text-center">
-                <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                  <Package className="w-5 h-5 text-primary" />
+                <div className="w-10 h-10 mx-auto rounded-full bg-purple-100 flex items-center justify-center">
+                  <Package className="w-5 h-5 text-purple-600" />
                 </div>
                 <h3 className="text-sm font-medium text-gray-900">Recados y compras</h3>
               </CardContent>
@@ -192,8 +192,8 @@ export default function HomePage() {
 
             <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardContent className="pt-6 pb-6 space-y-3 text-center">
-                <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                  <PawPrint className="w-5 h-5 text-primary" />
+                <div className="w-10 h-10 mx-auto rounded-full bg-pink-100 flex items-center justify-center">
+                  <PawPrint className="w-5 h-5 text-pink-600" />
                 </div>
                 <h3 className="text-sm font-medium text-gray-900">Cuidado de mascotas</h3>
               </CardContent>
@@ -201,8 +201,8 @@ export default function HomePage() {
 
             <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardContent className="pt-6 pb-6 space-y-3 text-center">
-                <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                  <Home className="w-5 h-5 text-primary" />
+                <div className="w-10 h-10 mx-auto rounded-full bg-blue-100 flex items-center justify-center">
+                  <Home className="w-5 h-5 text-blue-600" />
                 </div>
                 <h3 className="text-sm font-medium text-gray-900">Tareas del hogar</h3>
               </CardContent>
@@ -210,8 +210,8 @@ export default function HomePage() {
 
             <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardContent className="pt-6 pb-6 space-y-3 text-center">
-                <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                  <Wrench className="w-5 h-5 text-primary" />
+                <div className="w-10 h-10 mx-auto rounded-full bg-orange-100 flex items-center justify-center">
+                  <Wrench className="w-5 h-5 text-orange-600" />
                 </div>
                 <h3 className="text-sm font-medium text-gray-900">Montaje y arreglos</h3>
               </CardContent>
@@ -219,8 +219,8 @@ export default function HomePage() {
 
             <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardContent className="pt-6 pb-6 space-y-3 text-center">
-                <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                  <UserPlus className="w-5 h-5 text-primary" />
+                <div className="w-10 h-10 mx-auto rounded-full bg-teal-100 flex items-center justify-center">
+                  <UserPlus className="w-5 h-5 text-teal-600" />
                 </div>
                 <h3 className="text-sm font-medium text-gray-900">Acompañamiento</h3>
               </CardContent>
@@ -228,8 +228,8 @@ export default function HomePage() {
 
             <Card className="border border-gray-200 hover:border-gray-300 transition-colors bg-white">
               <CardContent className="pt-6 pb-6 space-y-3 text-center">
-                <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                  <TruckIcon className="w-5 h-5 text-primary" />
+                <div className="w-10 h-10 mx-auto rounded-full bg-red-100 flex items-center justify-center">
+                  <TruckIcon className="w-5 h-5 text-red-600" />
                 </div>
                 <h3 className="text-sm font-medium text-gray-900">Mudanzas pequeñas</h3>
               </CardContent>
