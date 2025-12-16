@@ -102,6 +102,17 @@ export default function RegistroProveedorPage() {
         if (authError) throw authError;
 
         if (authData.user) {
+          const needsEmailConfirmation = authData.user.identities && authData.user.identities.length === 0;
+
+          if (needsEmailConfirmation) {
+            toast({
+              title: "Confirma tu email",
+              description: "Te hemos enviado un email de confirmación. Por favor, revisa tu bandeja de entrada.",
+            });
+            setLoading(false);
+            return;
+          }
+
           const { error: userError } = await supabase
             .from("users")
             .insert({
@@ -136,9 +147,10 @@ export default function RegistroProveedorPage() {
           router.push("/app/proveedor/dashboard");
         }
       } catch (error: any) {
+        console.error("Registration error:", error);
         toast({
           title: "Error al crear cuenta",
-          description: error.message,
+          description: error.message || "Ha ocurrido un error inesperado",
           variant: "destructive",
         });
       } finally {

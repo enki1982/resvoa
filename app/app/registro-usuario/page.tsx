@@ -27,7 +27,6 @@ export default function RegistroUsuarioPage() {
     setLoading(true);
 
     try {
-      // Step 1: Sign up the user
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
@@ -41,11 +40,19 @@ export default function RegistroUsuarioPage() {
       if (authError) throw authError;
 
       if (authData.user) {
-        // Wait a moment for the session to be established
+        const needsEmailConfirmation = authData.user.identities && authData.user.identities.length === 0;
+
+        if (needsEmailConfirmation) {
+          toast({
+            title: "Confirma tu email",
+            description: "Te hemos enviado un email de confirmación. Por favor, revisa tu bandeja de entrada.",
+          });
+          setLoading(false);
+          return;
+        }
+
         await new Promise(resolve => setTimeout(resolve, 500));
 
-        // Step 2: Update the user record with phone number
-        // The user record should already exist from the database trigger
         const { error: updateError } = await supabase
           .from("users")
           .update({
@@ -54,7 +61,6 @@ export default function RegistroUsuarioPage() {
           })
           .eq("id", authData.user.id);
 
-        // If update fails, try to insert (fallback)
         if (updateError) {
           const { error: insertError } = await supabase
             .from("users")
@@ -68,7 +74,6 @@ export default function RegistroUsuarioPage() {
 
           if (insertError) {
             console.error("Insert error:", insertError);
-            // Don't throw here - the user is created in auth, just missing phone
           }
         }
 
@@ -80,9 +85,10 @@ export default function RegistroUsuarioPage() {
         router.push("/app/usuario/dashboard");
       }
     } catch (error: any) {
+      console.error("Registration error:", error);
       toast({
         title: "Error al crear cuenta",
-        description: error.message,
+        description: error.message || "Ha ocurrido un error inesperado",
         variant: "destructive",
       });
     } finally {
