@@ -96,6 +96,7 @@ export default function RegistroProveedorPage() {
             data: {
               full_name: formData.nombre,
             },
+            emailRedirectTo: `${window.location.origin}/auth/confirm`,
           },
         });
 

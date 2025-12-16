@@ -34,6 +34,7 @@ export default function RegistroUsuarioPage() {
           data: {
             full_name: formData.nombre,
           },
+          emailRedirectTo: `${window.location.origin}/auth/confirm`,
         },
       });
 
