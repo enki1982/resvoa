@@ -43,6 +43,26 @@ export default function RegistroUsuarioPage() {
         const needsEmailConfirmation = authData.user.identities && authData.user.identities.length === 0;
 
         if (needsEmailConfirmation) {
+          try {
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            const { error: insertError } = await supabase
+              .from("users")
+              .insert({
+                id: authData.user.id,
+                email: formData.email,
+                full_name: formData.nombre,
+                phone: formData.telefono,
+                user_type: "user",
+              });
+
+            if (insertError) {
+              console.error("Error creating user record:", insertError);
+            }
+          } catch (error) {
+            console.error("Error during user creation:", error);
+          }
+
           toast({
             title: "Confirma tu email",
             description: "Te hemos enviado un email de confirmación. Por favor, revisa tu bandeja de entrada.",

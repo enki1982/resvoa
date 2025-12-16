@@ -2,7 +2,22 @@
 
 ## Configuración Necesaria
 
-Para que la confirmación de email funcione correctamente, debes configurar las URLs de redirección en Supabase Dashboard.
+Para que la confirmación de email funcione correctamente, debes completar estos pasos.
+
+### Paso 0: IMPORTANTE - Ejecutar Script SQL (OBLIGATORIO)
+
+**Este paso es CRÍTICO para que el registro funcione:**
+
+1. Ve a tu proyecto de Supabase: https://supabase.com/dashboard
+2. Selecciona tu proyecto: `ljvkiapwdedjcritnehf`
+3. En el menú lateral, haz clic en **SQL Editor**
+4. Abre el archivo `FIX_REGISTRATION_INSERT_POLICY.sql` de este proyecto
+5. Copia todo el contenido del archivo
+6. Pégalo en el editor SQL de Supabase
+7. Haz clic en **Run** (o presiona Cmd/Ctrl + Enter)
+8. Verifica que aparezca un mensaje de éxito
+
+**Sin este paso, el registro NO funcionará y los usuarios verán errores.**
 
 ### Paso 1: Configurar URL de Redirección en Supabase
 

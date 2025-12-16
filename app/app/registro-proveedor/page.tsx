@@ -105,6 +105,42 @@ export default function RegistroProveedorPage() {
           const needsEmailConfirmation = authData.user.identities && authData.user.identities.length === 0;
 
           if (needsEmailConfirmation) {
+            try {
+              await new Promise(resolve => setTimeout(resolve, 300));
+
+              const { error: userError } = await supabase
+                .from("users")
+                .insert({
+                  id: authData.user.id,
+                  email: formData.email,
+                  full_name: formData.nombre,
+                  phone: formData.telefono,
+                  user_type: "provider",
+                });
+
+              if (userError) {
+                console.error("Error creating user record:", userError);
+              }
+
+              const { error: providerError } = await supabase
+                .from("provider_profiles")
+                .insert({
+                  user_id: authData.user.id,
+                  city: formData.zona,
+                  verification_status: "pending",
+                  dni_verified: false,
+                  phone_verified: false,
+                });
+
+              if (providerError) {
+                console.error("Error creating provider profile:", providerError);
+              }
+
+              await uploadDocuments(authData.user.id);
+            } catch (error) {
+              console.error("Error during provider creation:", error);
+            }
+
             toast({
               title: "Confirma tu email",
               description: "Te hemos enviado un email de confirmación. Por favor, revisa tu bandeja de entrada.",
