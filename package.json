@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "verify": "node scripts/verify-all.js",
+    "verify:env": "node scripts/verify-env.js",
+    "verify:db": "node scripts/verify-database.js",
+    "verify:stripe": "node scripts/verify-stripe.js",
+    "prebuild": "npm run typecheck"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -72,5 +77,8 @@
     "typescript": "5.2.2",
     "vaul": "^0.9.9",
     "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.3"
   }
 }
