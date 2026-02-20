@@ -446,7 +446,7 @@ export default function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-base px-8 py-6 h-auto border-2 border-white text-white hover:bg-white/10 font-semibold rounded-lg"
+                className="text-base px-8 py-6 h-auto border-2 border-white text-white hover:bg-white hover:text-green-600 font-semibold rounded-lg"
                 asChild
               >
                 <Link href="/como-funciona">Ver cómo funciona</Link>

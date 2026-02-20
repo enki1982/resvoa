@@ -41,7 +41,9 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2">
-            <img src="/logo.png" alt="Resvoa" className="h-10 w-10 object-contain" />
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+              <span className="text-white font-bold text-lg">R</span>
+            </div>
             <span className="text-2xl font-bold text-primary">Resvoa</span>
           </Link>
 

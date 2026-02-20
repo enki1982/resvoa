@@ -10,7 +10,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-2 mb-5">
-              <img src="/logo.png" alt="Resvoa" className="h-10 w-10 object-contain" />
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <span className="text-white font-bold text-lg">R</span>
+              </div>
               <span className="text-2xl font-bold text-white">Resvoa</span>
             </div>
             <p className="text-sm mb-4 leading-relaxed max-w-sm">

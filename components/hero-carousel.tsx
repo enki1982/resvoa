@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 const images = [
-  { src: '/logo.png', alt: 'Resvoa - Servicios del hogar' },
   { src: '/revoa_colgando_cuadro.png', alt: 'Montaje y decoración' },
   { src: '/resvoa_tirando_basura.png', alt: 'Tareas del hogar' },
   { src: '/resvoa_joven_acompanante.png', alt: 'Acompañamiento' },
@@ -31,13 +30,13 @@ export function HeroCarousel() {
           key={image.src}
           className={`absolute inset-0 transition-opacity duration-700 ${
             index === currentIndex ? 'opacity-100' : 'opacity-0'
-          } ${index === 0 ? 'bg-white flex items-center justify-center p-8' : ''}`}
+          }`}
         >
           <Image
             src={image.src}
             alt={image.alt}
             fill
-            className={index === 0 ? 'object-contain p-8' : 'object-cover'}
+            className="object-cover"
             priority={index === 0}
             onLoad={() => index === 0 && setIsLoaded(true)}
             onError={(e) => {
