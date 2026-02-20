@@ -13,7 +13,6 @@ const images = [
 
 export function HeroCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,7 +23,7 @@ export function HeroCarousel() {
   }, []);
 
   return (
-    <div className="relative w-full max-w-md aspect-square rounded-2xl overflow-hidden bg-gray-50 border border-gray-200">
+    <div className="relative w-full max-w-md aspect-square rounded-2xl overflow-hidden bg-white border border-gray-200">
       {images.map((image, index) => (
         <div
           key={image.src}
@@ -38,22 +37,6 @@ export function HeroCarousel() {
             fill
             className="object-cover"
             priority={index === 0}
-            onLoad={() => index === 0 && setIsLoaded(true)}
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.style.display = 'none';
-              const parent = target.parentElement;
-              if (parent) {
-                parent.innerHTML = `
-                  <div class="flex items-center justify-center h-full bg-gray-50">
-                    <div class="text-center text-gray-300">
-                      <div class="text-2xl font-semibold mb-2">Imagen aquí</div>
-                      <p class="text-sm">Placeholder</p>
-                    </div>
-                  </div>
-                `;
-              }
-            }}
           />
         </div>
       ))}
