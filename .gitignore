@@ -28,6 +28,10 @@ yarn-error.log*
 .env
 .env*.local
 
+# test files with hardcoded credentials
+test-db.js
+test-db-simple.js
+
 # vercel
 .vercel
 
