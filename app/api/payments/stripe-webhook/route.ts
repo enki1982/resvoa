@@ -3,6 +3,8 @@ import { getServiceRoleClient } from '@/lib/supabase-client';
 import { stripe } from '@/lib/stripe';
 import Stripe from 'stripe';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.text();

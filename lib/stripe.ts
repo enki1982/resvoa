@@ -1,13 +1,32 @@
 import Stripe from 'stripe';
 import { getPlatformFeePercent } from './platform-settings';
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY is not defined in environment variables');
+let _stripe: Stripe | null = null;
+
+export function getStripeClient(): Stripe {
+  if (_stripe) return _stripe;
+
+  if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error('STRIPE_SECRET_KEY is not defined in environment variables');
+  }
+
+  _stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2025-11-17.clover' as Stripe.LatestApiVersion,
+    typescript: true,
+  });
+
+  return _stripe;
 }
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2025-11-17.clover',
-  typescript: true,
+export const stripe = new Proxy({} as Stripe, {
+  get(_target, prop, receiver) {
+    const client = getStripeClient();
+    const value = Reflect.get(client, prop, receiver);
+    if (typeof value === 'function') {
+      return value.bind(client);
+    }
+    return value;
+  }
 });
 
 export async function calculatePlatformFee(amount: number): Promise<number> {
